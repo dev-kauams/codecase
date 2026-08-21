@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeCase - Câmara Administrativa</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/retro-grid.css">
+    <link rel="stylesheet" href="/css/components.css">
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+
+    <!-- Bloco: navbar -->
+    <header>
+        <div>
+            <a href="/">
+                <span>⚔</span>
+                <span>CODECASE // ADMIN</span>
+            </a>
+            <nav>
+                <a href="/" target="_blank">IR PARA HUB PÚBLICO</a>
+                <button id="btn-logout">SAIR</button>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- Dashboard Header -->
+        <div>
+            <div>
+                <h1>
+                    [ CÂMARA DE EXERCÍCIOS ]
+                </h1>
+                <p>
+                    Sessão ativa como administrador. Cadastre, modifique ou remova pergaminhos do Scriptorium.
+                </p>
+            </div>
+            <div>
+                <button id="btn-new-tag-modal">+ NOVA TAG</button>
+                <button id="btn-new-stack-modal">+ NOVA STACK</button>
+                <a href="/admin/exercise/new">
+                    + CRIAR EXERCÍCIO
+                </a>
+            </div>
+        </div>
+
+        <!-- Bloco: stats -->
+        <div>
+            <div>
+                <div>Total de Exercícios</div>
+                <div id="stat-exercises">--</div>
+            </div>
+            <div>
+                <div>Stacks Cadastradas</div>
+                <div id="stat-stacks">--</div>
+            </div>
+            <div>
+                <div>Tags Disponíveis</div>
+                <div id="stat-tags">--</div>
+            </div>
+        </div>
+
+        <!-- Bloco: table-wrap -->
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Título do Exercício</th>
+                        <th>Dificuldade</th>
+                        <th>Stacks</th>
+                        <th>Anexos</th>
+                        <th>Data de Publicação</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="admin-exercise-table-body">
+                    <tr>
+                        <td colspan="7">
+                            Carregando lista de pergaminhos...
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </main>
+
+    <!-- Bloco: modal — confirmar exclusão -->
+    <div id="delete-modal" style="display: none;">
+        <div>
+            <h3>[ CONFIRMAR EXCLUSÃO ]</h3>
+            <p id="delete-modal-text">
+                Tem certeza que deseja excluir este exercício? Esta ação não poderá ser desfeita.
+            </p>
+            <div>
+                <button id="btn-cancel-delete">[ CANCELAR ]</button>
+                <button id="btn-confirm-delete">[ EXCLUIR DEFINITIVAMENTE ]</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bloco: modal — nova tag -->
+    <div id="tag-modal" style="display: none;">
+        <div>
+            <h3>[ NOVA TAG DE CONTEÚDO ]</h3>
+            <div>
+                <label for="new-tag-name">Nome da Tag</label>
+                <input type="text" id="new-tag-name" placeholder="Ex: Recursão, Regex, Math">
+            </div>
+            <div>
+                <button id="btn-cancel-tag">[ CANCELAR ]</button>
+                <button id="btn-save-tag">[ SALVAR TAG ]</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bloco: modal — nova stack -->
+    <div id="stack-modal" style="display: none;">
+        <div>
+            <h3>[ NOVA STACK TECNOLÓGICA ]</h3>
+            <div>
+                <label for="new-stack-name">Nome da Stack</label>
+                <input type="text" id="new-stack-name" placeholder="Ex: Rust, Go, TypeScript">
+            </div>
+            <div>
+                <label for="new-stack-color">Cor Hexadecimal</label>
+                <input type="color" id="new-stack-color" value="#c8963c">
+            </div>
+            <div>
+                <button id="btn-cancel-stack">[ CANCELAR ]</button>
+                <button id="btn-save-stack">[ SALVAR STACK ]</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications — Bloco: toasts -->
+    <div id="toast-container"></div>
+
+    <!-- Client Scripts -->
+    <script src="/js/main.js"></script>
+    <script src="/js/admin-dashboard.js"></script>
+</body>
+</html>

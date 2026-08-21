@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeCase - Portão Administrativo</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/retro-grid.css">
+    <link rel="stylesheet" href="/css/components.css">
+</head>
+<body style="display: flex; align-items: center; justify-content: center; min-height: 100vh;">
+
+    <div style="width: 100%; max-width: 420px; padding: 16px;">
+        <div style="background: var(--color-surface); padding: 32px; position: relative;">
+
+            <div style="text-align: center; margin-bottom: 28px;">
+                <a href="/" style="justify-content: center; margin-bottom: 16px; display: flex;">
+                    <span>⚔</span>
+                    <span>CODECASE</span>
+                </a>
+                <h2 style="font-family: var(--font-display); font-size: 1rem; color: var(--color-accent); text-transform: uppercase; letter-spacing: 2px;">[ PORTÃO ADMINISTRATIVO ]</h2>
+                <p style="font-family: var(--font-body); font-size: 0.85rem; color: var(--color-text-muted); margin-top: 6px; font-style: italic;">Entre com suas credenciais autorizadas</p>
+            </div>
+
+            <div id="login-error-alert" style="display: none; background: var(--color-bg); border: 2px solid var(--color-primary); color: var(--color-primary); padding: 10px 12px; font-size: 0.85rem; margin-bottom: 16px; font-family: var(--font-mono);">
+            </div>
+
+            <form id="login-form">
+                <div>
+                    <label for="username">Usuário Administrador</label>
+                    <input type="text" id="username" name="username" placeholder="Ex: admin" required autofocus>
+                </div>
+
+                <div>
+                    <label for="password">Senha de Acesso</label>
+                    <input type="password" id="password" name="password" placeholder="••••••••" required>
+                </div>
+
+                <div style="margin-top: 24px;">
+                    <button type="submit" id="btn-login-submit" style="width: 100%; justify-content: center; height: 42px;">
+                        [ ADENTRAR O CASTELO ]
+                    </button>
+                </div>
+            </form>
+
+            <div style="margin-top: 24px; text-align: center; font-size: 0.8rem; border-top: 1px dashed var(--color-border-dim); padding-top: 16px;">
+                <a href="/" style="color: var(--color-text-muted); text-decoration: none; font-family: var(--font-mono);">← Voltar à página inicial</a>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="/js/main.js"></script>
+    <script>
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+            const errorAlert = document.getElementById('login-error-alert');
+            const submitBtn = document.getElementById('btn-login-submit');
+
+            errorAlert.style.display = 'none';
+            submitBtn.disabled = true;
+            submitBtn.innerText = '[ VERIFICANDO CREDENCIAIS... ]';
+
+            try {
+                const res = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+
+                const data = await res.json();
+
+                if (!res.ok || !data.success) {
+                    throw new Error(data.error || 'Falha ao autenticar.');
+                }
+
+                showToast('Autenticação bem-sucedida! Redirecionando...');
+                setTimeout(() => {
+                    window.location.href = '/admin/dashboard';
+                }, 600);
+
+            } catch (err) {
+                errorAlert.innerText = '⚠️ ' + err.message;
+                errorAlert.style.display = 'block';
+                submitBtn.disabled = false;
+                submitBtn.innerText = '[ ADENTRAR O CASTELO ]';
+            }
+        });
+    </script>
+</body>
+</html>

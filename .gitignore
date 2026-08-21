@@ -1,0 +1,10 @@
+node_modules/
+.env
+database/aether.db
+src/database/aether.db
+public/uploads/images/*
+public/uploads/attachments/*
+!public/uploads/images/.gitkeep
+!public/uploads/attachments/.gitkeep
+cookies.txt
+.DS_Store

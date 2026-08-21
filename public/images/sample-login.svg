@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="300" viewBox="0 0 600 300" style="background:#0d121a;">
+  <rect width="600" height="300" fill="#0d121a"/>
+  <!-- Grid overlay -->
+  <path d="M0,50 H600 M0,100 H600 M0,150 H600 M0,200 H600 M0,250 H600" stroke="#00ffaa" stroke-opacity="0.08" stroke-width="1"/>
+  <path d="M100,0 V300 M200,0 V300 M300,0 V300 M400,0 V300 M500,0 V300" stroke="#00ffaa" stroke-opacity="0.08" stroke-width="1"/>
+  
+  <!-- Terminal Double Box -->
+  <rect x="120" y="50" width="360" height="200" fill="#121820" stroke="#00ffaa" stroke-width="4" stroke-dasharray="0"/>
+  <rect x="124" y="54" width="352" height="192" fill="#121820" stroke="#00ffaa" stroke-width="1"/>
+
+  <!-- Header line -->
+  <rect x="124" y="54" width="352" height="30" fill="#0a0e14"/>
+  <text x="140" y="74" font-family="monospace" font-size="14" fill="#00ffaa" font-weight="bold">[ AUTHENTICATION TERMINAL v1.0 ]</text>
+  
+  <!-- Inputs -->
+  <text x="150" y="115" font-family="monospace" font-size="12" fill="#8b949e">USER_ID:</text>
+  <rect x="150" y="125" width="300" height="28" fill="#0d121a" stroke="#2a3a4e" stroke-width="2"/>
+  <text x="160" y="143" font-family="monospace" font-size="12" fill="#00e5ff">admin@aetherhome.dev</text>
+
+  <text x="150" y="175" font-family="monospace" font-size="12" fill="#8b949e">PASSCODE:</text>
+  <rect x="150" y="185" width="300" height="28" fill="#0d121a" stroke="#00ffaa" stroke-width="2"/>
+  <text x="160" y="203" font-family="monospace" font-size="12" fill="#00ffaa">••••••••••••</text>
+</svg>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeCase - Scriptorium do Exercício</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/retro-grid.css">
+    <link rel="stylesheet" href="/css/components.css">
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+
+    <header>
+        <div>
+            <a href="/">
+                <span>⚔</span>
+                <span>CODECASE // EDITOR</span>
+            </a>
+            <nav>
+                <a href="/admin/dashboard">← VOLTAR AO DASHBOARD</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div>
+
+            <div style="border-bottom: 3px double var(--color-border-dim); padding-bottom: 16px; margin-bottom: 24px;">
+                <h1 id="form-heading-title" style="font-family: var(--font-display); font-size: 1.4rem; color: var(--color-accent); text-transform: uppercase; letter-spacing: 2px;">
+                    [ NOVO PERGAMINHO DE EXERCÍCIO ]
+                </h1>
+                <p style="color: var(--color-text-muted); font-size: 0.85rem; font-family: var(--font-mono);">
+                    Preencha o enunciado, selecione as tecnologias e anexe arquivos complementares.
+                </p>
+            </div>
+
+            <form id="exercise-editor-form" enctype="multipart/form-data">
+                <input type="hidden" id="exercise-id" name="exercise_id">
+
+                <div>
+                    <div>
+                        <label for="form-title">Título do Exercício *</label>
+                        <input type="text" id="form-title" name="title" placeholder="Ex: Algoritmo de Busca Binária" required>
+                    </div>
+
+                    <div>
+                        <label for="form-summary">Resumo Curto (Exibido no Card) *</label>
+                        <input type="text" id="form-summary" name="summary" placeholder="Pequena descrição sintetizada do desafio para os cards da homepage" required>
+                    </div>
+
+                    <div>
+                        <label for="form-difficulty">Nível de Dificuldade *</label>
+                        <select id="form-difficulty" name="difficulty" required>
+                            <option value="Fácil">FÁCIL</option>
+                            <option value="Médio" selected>MÉDIO</option>
+                            <option value="Difícil">DIFÍCIL</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="form-image">Imagem de Capa (Opcional)</label>
+                        <input type="file" id="form-image" name="image" accept="image/*">
+                        <div id="image-preview-container" style="margin-top: 8px; display: none;">
+                            <img id="image-preview" src="" alt="Preview" style="max-height: 80px; border: 1px solid var(--color-border-dim);">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label>Stacks / Tecnologias Relacionadas</label>
+                        <div id="stacks-checkbox-list">
+                            <!-- Populated dynamically via JS -->
+                        </div>
+                    </div>
+
+                    <div>
+                        <label>Tags / Tópicos de Conhecimento</label>
+                        <div id="tags-checkbox-list">
+                            <!-- Populated dynamically via JS -->
+                        </div>
+                    </div>
+
+                    <div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <label for="form-statement">Enunciado Completo (Markdown / HTML) *</label>
+                            <button type="button" id="btn-insert-code-template" style="font-size: 0.7rem; padding: 2px 8px;">+ INSERIR BLOCO CÓDIGO</button>
+                        </div>
+                        <textarea id="form-statement" name="statement" style="min-height: 240px;" placeholder="Escreva o enunciado completo do exercício em Markdown ou HTML semântico..." required></textarea>
+                    </div>
+
+                    <div>
+                        <label for="form-attachments">Anexar Arquivos do Exercício (Código, PDF, ZIP)</label>
+                        <input type="file" id="form-attachments" name="attachments" multiple accept=".txt,.pdf,.zip,.rar,.json,.sql,.py,.cpp,.c,.java,.js,.html,.css,.md">
+                        <p style="font-size: 0.75rem; color: var(--color-text-muted); margin-top: 4px; font-family: var(--font-mono);">Permitidos: ZIP, PDF, TXT, JSON, SQL, código fonte (Máx: 10MB por arquivo).</p>
+
+                        <div id="existing-attachments-container" style="margin-top: 12px; display: none;">
+                            <label>Anexos Existentes:</label>
+                            <div id="existing-attachments-list"></div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div style="display: flex; justify-content: flex-end; gap: 16px; margin-top: 24px; border-top: 3px double var(--color-border-dim); padding-top: 20px;">
+                    <a href="/admin/dashboard">[ CANCELAR ]</a>
+                    <button type="submit" id="btn-save-exercise" style="background: var(--color-primary); color: var(--color-text); border-color: var(--color-primary); font-weight: bold;">
+                        [ GRAVAR PERGAMINHO ]
+                    </button>
+                </div>
+            </form>
+
+        </div>
+    </main>
+
+    <div id="toast-container"></div>
+
+    <script src="/js/main.js"></script>
+    <script src="/js/admin-form.js"></script>
+</body>
+</html>

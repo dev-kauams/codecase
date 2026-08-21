@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeCase</title>
+    <meta name="description" content="Plataforma medieval de exercícios de programação. Explore, filtre por stack ou nível de dificuldade por @dev-kauams.">
+    <link rel="stylesheet" href="../../../public/css/style.css">
+</head>
+<body>
+
+    <header>
+        <div class="header-items">
+            <nav>
+                <a href="/admin/login" id="nav-admin-link">ACESSO ADMIN</a>
+            </nav>
+            <div></div> <!-- div vazia para o space-between -->
+        </div>
+    </header>
+
+    <main>
+        <section class="section-home">
+            <div>
+                <h1>CODECASE</h1>
+                <p></p>
+            </div>
+        </section>
+
+        <section id="filter-panel">
+            <form id="filter-form" onsubmit="event.preventDefault();">
+                <div>
+                    <div>
+                        <label for="search-input">Pesquisa Textual</label>
+                        <input type="text" id="search-input" placeholder="Pesquisar por título, palavra-chave ou tag...">
+                    </div>
+
+                    <div>
+                        <label for="difficulty-select">Dificuldade</label>
+                        <select id="difficulty-select">
+                            <option value="">-- TODAS --</option>
+                            <option value="Fácil">FÁCIL</option>
+                            <option value="Médio">MÉDIO</option>
+                            <option value="Difícil">DIFÍCIL</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="stack-select">Stack / Tech</label>
+                        <select id="stack-select">
+                            <option value="">-- TODAS --</option>
+                            <!-- Populated dynamically via JS -->
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="tag-select">Tag / Tópico</label>
+                        <select id="tag-select">
+                            <option value="">-- TODAS --</option>
+                            <!-- Populated dynamically via JS -->
+                        </select>
+                    </div>
+
+                    <div>
+                        <button type="button" id="btn-clear-filters" style="height: 38px;">
+                            [ LIMPAR FILTROS ]
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </section>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; font-size: 0.85rem; color: var(--color-text-muted);">
+            <span id="results-count-text">Carregando pergaminhos...</span>
+            <span id="active-filter-badge" style="color: var(--color-gold);">[ FILTROS: TODOS ]</span>
+        </div>
+
+        <section id="exercises-grid">
+            <!-- Exercise cards rendered dynamically via public/js/filters.js -->
+        </section>
+
+    </main>
+
+    <footer>
+        <div>
+            <p>CODECASE &copy; 2026 — Scriptorium de Exercícios de Programação</p>
+            <p>Desenvolvido por <strong>@dev-kauams</strong> | Arquitetura MVC Node.js &amp; SQL</p>
+        </div>
+    </footer>
+
+    <div id="toast-container"></div>
+
+    <script src="/js/main.js"></script>
+    <script src="/js/filters.js"></script>
+</body>
+</html>
