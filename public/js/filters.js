@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         } catch (err) {
             exercisesGrid.innerHTML = `
                 <div class="empty" style="grid-column: 1 / -1;">
-                    <h3>⚠️ ERRO DE COMUNICAÇÃO</h3>
+                    <h3>ERRO DE COMUNICAÇÃO</h3>
                     <p>${err.message}</p>
                 </div>
             `;

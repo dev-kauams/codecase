@@ -44,7 +44,7 @@ body{
         background-image: url("../images/bg_image.svg");
         background-size: 105%;
         background-position: center;
-        background-repeat: repeat-x;
+        background-repeat: repeat;
         z-index: -1;
         animation: background-scroll 30s linear infinite;
         will-change: transform;
@@ -53,6 +53,10 @@ body{
     & header{
         position: absolute;
         width: 100%;
+        height: 10vh;
+        top: 0;
+        left: 0;
+        z-index: 2;
 
         .header-items{
             display: flex;
@@ -112,7 +116,7 @@ body{
             & h1{
                 text-box: trim-both cap alphabetic; /* não sei se isso funciona >.< */
                 
-                font-size: 10rem;
+                font-size: clamp(2rem, 10vw, 10rem);
                 color: var(--color-light);
                 position: absolute;
                 top: 50%;
@@ -167,6 +171,48 @@ body{
                         background-color: var(--color-primary-dark);
                         color: var(--color-light);
                     }
+                }
+            }
+        }
+
+        #filter-panel{
+            height: 50dvh;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+
+            & form{
+                display: grid;
+                place-items: center;
+                grid-template-columns: repeat(3, 1fr);
+                grid-template-rows: repeat(2, 1fr);
+
+                :nth-child(1){
+                    grid-column: span 3 / span 3;
+                }
+                .filter-panel-search{
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    width: 90%;
+                    & input{
+                        width: 100%;
+                        padding: 0.5rem;
+                        border: 2px solid var(--color-border);
+                        border-radius: 2rem;
+                        background-color: transparent;
+
+                    }
+                }
+
+                :nth-child(2){
+                    grid-row-start: 2;
+                }
+                :nth-child(3){
+                    grid-row-start: 2;
+                }
+                :nth-child(4){
+                    grid-row-start: 2;
                 }
             }
         }
