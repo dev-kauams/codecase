@@ -5,14 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CodeCase</title>
     <meta name="description" content="Plataforma medieval de exercícios de programação. Explore, filtre por stack ou nível de dificuldade por @dev-kauams.">
-    <link rel="stylesheet" href="../../../public/css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 
     <header>
         <div class="header-items">
             <nav>
-                <a href="/admin/login" id="nav-admin-link">ACESSO ADMIN</a>
+                <a href="/admin/login" id="nav-admin-link">
+                    <img src="/images/admin_icon.svg" alt="Administração">
+                </a>
             </nav>
             <div></div> <!-- div vazia para o space-between -->
         </div>
@@ -20,10 +22,19 @@
 
     <main>
         <section class="section-home">
-            <div>
-                <h1>CODECASE</h1>
-                <p></p>
-            </div>
+                <h1 data-text="CODECASE">CODECASE</h1>
+
+                <svg width="0" height="0" style="position:absolute">
+                    <filter id="rabiscado">
+                        <feTurbulence type="fractalNoise" baseFrequency="0.015 0.04" numOctaves="2" seed="7" result="noise"/>
+                        <feDisplacementMap in="SourceGraphic" in2="noise" scale="5"/>
+                    </filter>
+                </svg>
+
+                <div class="home-button">
+                    <button>Ver exercícios</button>
+                    <button>Abrir repositório</button>
+                </div>
         </section>
 
         <section id="filter-panel">
@@ -61,35 +72,33 @@
                     </div>
 
                     <div>
-                        <button type="button" id="btn-clear-filters" style="height: 38px;">
-                            [ LIMPAR FILTROS ]
-                        </button>
+                        <button type="button" id="btn-clear-filters">Limpar Filtros</button>
                     </div>
                 </div>
             </form>
         </section>
 
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; font-size: 0.85rem; color: var(--color-text-muted);">
-            <span id="results-count-text">Carregando pergaminhos...</span>
-            <span id="active-filter-badge" style="color: var(--color-gold);">[ FILTROS: TODOS ]</span>
+        <div>
+            <span id="results-count-text">Carregando exercícios...</span>
+            <span id="active-filter-badge">Filtro: Todos</span>
         </div>
 
         <section id="exercises-grid">
-            <!-- Exercise cards rendered dynamically via public/js/filters.js -->
+
         </section>
 
     </main>
 
     <footer>
         <div>
-            <p>CODECASE &copy; 2026 — Scriptorium de Exercícios de Programação</p>
-            <p>Desenvolvido por <strong>@dev-kauams</strong> | Arquitetura MVC Node.js &amp; SQL</p>
+            <p>CODECASE</p>
+            <p>Desenvolvido por <strong>@dev-kauams</strong></p>
         </div>
     </footer>
 
     <div id="toast-container"></div>
 
-    <script src="/js/main.js"></script>
+    <script src="../../../public/js/main.js"></script>
     <script src="/js/filters.js"></script>
 </body>
 </html>

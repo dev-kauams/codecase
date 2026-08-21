@@ -1,32 +1,32 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="600" height="300" viewBox="0 0 600 300" style="background:#0d121a;">
-  <rect width="600" height="300" fill="#0d121a"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="300" viewBox="0 0 600 300" style="background:#ffe5e0;">
+  <rect width="600" height="300" fill="#ffe5e0"/>
   <!-- Grid overlay -->
-  <path d="M0,50 H600 M0,100 H600 M0,150 H600 M0,200 H600 M0,250 H600" stroke="#00e5ff" stroke-opacity="0.08" stroke-width="1"/>
-  <path d="M100,0 V300 M200,0 V300 M300,0 V300 M400,0 V300 M500,0 V300" stroke="#00e5ff" stroke-opacity="0.08" stroke-width="1"/>
+  <path d="M0,50 H600 M0,100 H600 M0,150 H600 M0,200 H600 M0,250 H600" stroke="#ff8f84" stroke-opacity="0.18" stroke-width="1"/>
+  <path d="M100,0 V300 M200,0 V300 M300,0 V300 M400,0 V300 M500,0 V300" stroke="#ff8f84" stroke-opacity="0.18" stroke-width="1"/>
   
   <!-- Terminal Double Box -->
-  <rect x="80" y="40" width="440" height="220" fill="#121820" stroke="#00e5ff" stroke-width="4"/>
-  <rect x="84" y="44" width="432" height="212" fill="#121820" stroke="#00e5ff" stroke-width="1"/>
+  <rect x="80" y="40" width="440" height="220" fill="#fff7f4" stroke="#ff8f84" stroke-width="4"/>
+  <rect x="84" y="44" width="432" height="212" fill="#fff7f4" stroke="#ff8f84" stroke-width="1"/>
 
   <!-- SQL Code Lines -->
-  <text x="100" y="75" font-family="monospace" font-size="14" fill="#00e5ff" font-weight="bold">SELECT</text>
-  <text x="175" y="75" font-family="monospace" font-size="14" fill="#e6edf3">t.name, COUNT(m.id) AS total</text>
+  <text x="100" y="75" font-family="monospace" font-size="14" fill="#f05f6d" font-weight="bold">SELECT</text>
+  <text x="175" y="75" font-family="monospace" font-size="14" fill="#48232d">t.name, COUNT(m.id) AS total</text>
   
-  <text x="100" y="105" font-family="monospace" font-size="14" fill="#00e5ff" font-weight="bold">FROM</text>
-  <text x="150" y="105" font-family="monospace" font-size="14" fill="#ffb700">tecnicos t</text>
+  <text x="100" y="105" font-family="monospace" font-size="14" fill="#f05f6d" font-weight="bold">FROM</text>
+  <text x="150" y="105" font-family="monospace" font-size="14" fill="#a9364d">tecnicos t</text>
   
-  <text x="100" y="135" font-family="monospace" font-size="14" fill="#00e5ff" font-weight="bold">JOIN</text>
-  <text x="150" y="135" font-family="monospace" font-size="14" fill="#ffb700">manutencoes m</text>
-  <text x="280" y="135" font-family="monospace" font-size="14" fill="#00e5ff" font-weight="bold">ON</text>
-  <text x="310" y="135" font-family="monospace" font-size="14" fill="#e6edf3">t.id = m.tecnico_id</text>
+  <text x="100" y="135" font-family="monospace" font-size="14" fill="#f05f6d" font-weight="bold">JOIN</text>
+  <text x="150" y="135" font-family="monospace" font-size="14" fill="#a9364d">manutencoes m</text>
+  <text x="280" y="135" font-family="monospace" font-size="14" fill="#f05f6d" font-weight="bold">ON</text>
+  <text x="310" y="135" font-family="monospace" font-size="14" fill="#48232d">t.id = m.tecnico_id</text>
 
-  <text x="100" y="165" font-family="monospace" font-size="14" fill="#00e5ff" font-weight="bold">GROUP BY</text>
-  <text x="190" y="165" font-family="monospace" font-size="14" fill="#e6edf3">t.id</text>
+  <text x="100" y="165" font-family="monospace" font-size="14" fill="#f05f6d" font-weight="bold">GROUP BY</text>
+  <text x="190" y="165" font-family="monospace" font-size="14" fill="#48232d">t.id</text>
   
-  <text x="100" y="195" font-family="monospace" font-size="14" fill="#00e5ff" font-weight="bold">ORDER BY</text>
-  <text x="190" y="195" font-family="monospace" font-size="14" fill="#00ffaa">total DESC;</text>
+  <text x="100" y="195" font-family="monospace" font-size="14" fill="#f05f6d" font-weight="bold">ORDER BY</text>
+  <text x="190" y="195" font-family="monospace" font-size="14" fill="#b94f60">total DESC;</text>
 
   <!-- Query result status -->
-  <rect x="100" y="215" font-family="monospace" font-size="12" width="400" height="24" fill="#0a0e14" stroke="#2a3a4e"/>
-  <text x="110" y="231" font-family="monospace" font-size="11" fill="#00ffaa">&gt; Query executed in 1.4ms. 4 rows returned.</text>
+  <rect x="100" y="215" font-family="monospace" font-size="12" width="400" height="24" fill="#f3a5ac" stroke="#df7582"/>
+  <text x="110" y="231" font-family="monospace" font-size="11" fill="#48232d">&gt; Query executed in 1.4ms. 4 rows returned.</text>
 </svg>

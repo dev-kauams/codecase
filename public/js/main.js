@@ -3,6 +3,7 @@
    Author: @dev-kauams
    =================================================== */
 
+
 // Global Toast Notification Helper — Bloco: toasts
 function showToast(message, isError = false) {
     const container = document.getElementById('toast-container');
@@ -91,3 +92,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Not logged in or guest
     }
 });
+
+
+
+
+

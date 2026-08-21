@@ -26,7 +26,7 @@ class StackModel {
     static async create({ name, color }) {
         const db = await getDatabase();
         const slug = slugify(name, { lower: true, strict: true });
-        const stackColor = color || '#00ffaa';
+        const stackColor = color || '#d97986';
         const res = db.execute('INSERT INTO stacks (name, slug, color) VALUES (?, ?, ?)', [name, slug, stackColor]);
         return { id: res.lastInsertRowid, name, slug, color: stackColor };
     }

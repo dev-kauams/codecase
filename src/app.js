@@ -17,9 +17,9 @@ const PORT = Number(process.env.PORT) || 3000;
 (async () => {
     try {
         await initDb();
-        console.log('[App] Database initialized successfully.');
+        console.log('[App] Banco de dados inicializado com sucesso.');
     } catch (err) {
-        console.error('[App] Failed to initialize database:', err);
+        console.error('[App] Falha ao iniciar o banco de dados:', err);
         process.exit(1);
     }
 })();

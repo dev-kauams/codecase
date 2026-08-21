@@ -68,7 +68,7 @@ CREATE TABLE stacks (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name VARCHAR(50) NOT NULL UNIQUE,
     slug VARCHAR(50) NOT NULL UNIQUE,
-    color VARCHAR(20) DEFAULT '#00ffaa'
+    color VARCHAR(20) DEFAULT '#f05f6d'
 );
 
 -- 6. Exercise Stacks Pivot Table
@@ -109,15 +109,15 @@ INSERT INTO administrators (username, email, password_hash) VALUES
 
 -- Stacks Seed
 INSERT INTO stacks (name, slug, color) VALUES
-('HTML', 'html', '#e34f26'),
-('CSS', 'css', '#1572b6'),
-('JavaScript', 'javascript', '#f7df1e'),
-('Node.js', 'nodejs', '#339933'),
-('SQL', 'sql', '#00e5ff'),
-('Python', 'python', '#3776ab'),
-('Java', 'java', '#007396'),
-('C', 'c', '#a8b9cc'),
-('C++', 'cpp', '#00599c');
+('HTML', 'html', '#f05f6d'),
+('CSS', 'css', '#ff8f84'),
+('JavaScript', 'javascript', '#f3a5ac'),
+('Node.js', 'nodejs', '#b94f60'),
+('SQL', 'sql', '#df7582'),
+('Python', 'python', '#c85b6b'),
+('Java', 'java', '#a9364d'),
+('C', 'c', '#ee6f7d'),
+('C++', 'cpp', '#784853');
 
 -- Tags Seed
 INSERT INTO tags (name, slug) VALUES
