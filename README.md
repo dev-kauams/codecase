@@ -1,3 +1,6 @@
+*README.md à ser alterado, mas por hora está com estrutura gerada por Inteligência Artificial - certas informações podem estar incorretas.*
+
+
 # CodeCase ⚡
 
 > Plataforma Web Full Stack Profissional para Centralização, Organização e Disponibilização de Exercícios de Programação.
