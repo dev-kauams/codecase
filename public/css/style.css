@@ -71,7 +71,7 @@ body {
             nav {
                 display: flex;
                 align-items: center;
-                
+
                 a {
                     background-color: transparent;
                     height: clamp(2.5rem, 5vh, 3.5rem);
@@ -84,7 +84,7 @@ body {
 
                     &:hover {
                         background-color: var(--color-primary);
-                        
+
                         img {
                             filter: brightness(0) invert(1);
                         }
@@ -103,7 +103,7 @@ body {
     /* =========================================
        MAIN CONTENT
     ========================================= */
-    main {
+    .main-home {
         .section-home {
             height: 100dvh;
             width: 100%;
@@ -198,7 +198,7 @@ body {
                     flex-direction: column;
                     align-items: flex-start;
                     width: 100%;
-                    
+
                     label {
                         font-size: 1.3rem;
                         margin-bottom: 0.5rem;
@@ -275,7 +275,7 @@ body {
             }
         }
 
-        > div:not(.section-home):not(#filter-panel) {
+        >div:not(.section-home):not(#filter-panel) {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -354,10 +354,121 @@ body {
         }
     }
 
+    .main-login {
+        .section-login {
+            width: 100%;
+            height: 95dvh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            .header-section-login {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                margin-top: 10px;
+
+                h2 {
+                    font-size: 3rem;
+                }
+            }
+
+            form {
+                height: auto;
+                padding: 1.2rem 0.8rem;
+                border: 2px dashed var(--color-border);
+                border-radius: 1.5rem;
+                overflow: hidden;
+
+                display: flex;
+                gap: 4rem;
+                flex-direction: column;
+                align-items: center;
+
+                .data-area {
+                    flex: 1;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 2rem;
+                    justify-content: center;
+                    margin-bottom: 2rem;
+
+                    .login-area {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+
+                        label {
+                            font-size: 1.5rem;
+                        }
+
+                        input {
+                            padding: 1rem 5rem;
+                            background-color: transparent;
+                            border: 2px solid var(--color-border);
+                            border-radius: 2rem;
+                            outline: none;
+
+                            &:focus {
+                                border: 2px solid var(--color-primary-dark);
+                            }
+                        }
+
+                    }
+
+                    .password-area {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+
+                        label {
+                            font-size: 1.5rem;
+                        }
+
+                        input {
+                            padding: 1rem 5rem;
+                            background-color: transparent;
+                            border: 2px solid var(--color-border);
+                            border-radius: 2rem;
+                            outline: none;
+
+                            &:focus {
+                                border: 2px solid var(--color-primary-dark);
+                            }
+                        }
+                    }
+                }
+
+                .button-form {
+                    width: 100%;
+                    display: flex;
+                    justify-content: center;
+
+                    button {
+                        padding: 1rem;
+                        width: 100%;
+                        border: none;
+                        border-radius: 2rem;
+                        background-color: var(--color-primary);
+                        color: var(--color-surface);
+                        transition: 0.3s all ease;
+
+                        &:hover {
+                            background-color: var(--color-primary-dark);
+                        }
+
+                    }
+                }
+            }
+        }
+    }
+
     /* =========================================
        FOOTER
     ========================================= */
-    footer {
+    .footer-home {
         background-color: var(--color-surface);
         border-top: 3px dashed var(--color-border-dim);
         padding: 2.5rem 1rem;
@@ -380,6 +491,11 @@ body {
                 font-weight: bold;
             }
         }
+    }
+
+    .footer-login {
+        position: relative;
+        height: 5dvh;
     }
 
     /* =========================================
@@ -412,22 +528,45 @@ body {
    ANIMATIONS & MEDIA QUERIES
 ========================================= */
 @keyframes background-scroll {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
 }
 
 @keyframes paper-cut {
-    0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
-    35% { transform: translate(-50%, -50%) rotate(1.5deg); }
-    70% { transform: translate(-50%, -50%) rotate(-2deg); }
+
+    0%,
+    100% {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    35% {
+        transform: translate(-50%, -50%) rotate(1.5deg);
+    }
+
+    70% {
+        transform: translate(-50%, -50%) rotate(-2deg);
+    }
 }
 
 @keyframes toast-slide-in {
-    from { transform: translateX(100%); opacity: 0; }
-    to { transform: translateX(0); opacity: 1; }
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {
+
     body::before,
     body main .section-home h1 {
         animation: none;

@@ -1,48 +1,47 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CodeCase</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
+
 <body>
+    <main class="main-login">
+        <section class="section-login">
 
-    <div>
-        <div">
-
-            <div>
-                <a href="/">
-                    <span>CODECASE</span>
-                </a>
+            <header class="header-section-login">
                 <h2>Administração</h2>
                 <p>Entre com suas credenciais autorizadas</p>
-            </div>
+            </header>
 
             <div id="login-error-alert"></div>
 
             <form id="login-form">
-                <div>
-                    <label for="username">Usuário Administrador</label>
-                    <input type="text" id="username" name="username" placeholder="Ex: admin" required autofocus>
+                <div class="data-area">
+                    <div class="login-area">
+                        <label for="username">Usuário Administrador</label>
+                        <input type="text" id="username" name="username" placeholder="Ex: admin" required autofocus>
+                    </div>
+
+                    <div class="password-area">
+                        <label for="password">Senha de Acesso</label>
+                        <input type="password" id="password" name="password" placeholder="••••••••" required>
+                    </div>
                 </div>
 
-                <div>
-                    <label for="password">Senha de Acesso</label>
-                    <input type="password" id="password" name="password" placeholder="••••••••" required>
-                </div>
-
-                <div>
+                <div class="button-form">
                     <button type="submit" id="btn-login-submit">Entrar</button>
                 </div>
             </form>
+        </section>
+    </main>
 
-            <div>
-                <a href="/">Voltar à página inicial</a>
-            </div>
-
-        </div>
-    </div>
+    <footer class="footer-login">
+        <a href="/">Voltar à página inicial</a>
+    </footer>
 
     <script src="/js/main.js"></script>
     <script>
@@ -55,7 +54,7 @@
 
             errorAlert.style.display = 'none';
             submitBtn.disabled = true;
-            submitBtn.innerText = '[ VERIFICANDO CREDENCIAIS... ]';
+            submitBtn.innerText = 'Verificando dados...';
 
             try {
                 const res = await fetch('/api/auth/login', {
@@ -84,4 +83,5 @@
         });
     </script>
 </body>
+
 </html>
