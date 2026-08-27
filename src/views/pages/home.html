@@ -22,14 +22,19 @@
 
     <main class="main-home">
         <section class="section-home">
+            <div class="title-home">
                 <h1 data-text="CODECASE">CODECASE</h1>
-
                 <svg width="0" height="0" style="position:absolute">
                     <filter id="rabiscado">
                         <feTurbulence type="fractalNoise" baseFrequency="0.015 0.04" numOctaves="2" seed="7" result="noise"/>
                         <feDisplacementMap in="SourceGraphic" in2="noise" scale="5"/>
                     </filter>
                 </svg>
+                <div class="images-title">
+                    <img src="/images/set-square_title.svg" alt="">
+                    <img src="/images/brain_title.svg" alt="">
+                </div>
+            </div>
 
                 <div class="home-button">
                     <button>Ver exercícios</button>
@@ -97,7 +102,7 @@
 
     <div id="toast-container"></div>
 
-    <script src="../../../public/js/main.js"></script>
+    <script src="/js/main.js"></script>
     <script src="/js/filters.js"></script>
 </body>
 </html>

@@ -1,0 +1,433 @@
+/* =========================================
+   EXERCISE FORM (Admin) — CodeCase
+   Reaproveita as variáveis, fontes e padrões
+   visuais definidos em style.css (:root, dashed
+   borders, sombra deslocada, botões em pílula,
+   Patrick Hand para títulos / Outfit para UI)
+========================================= */
+
+body {
+
+    /* =========================================
+       HEADER EXERCISE FORM
+       (mesmo padrão visual do header-dashboard)
+    ========================================= */
+    .header-exercise-form {
+        position: relative;
+        width: 100%;
+        background-color: var(--color-surface);
+        border-bottom: 3px dashed var(--color-border-dim);
+        padding: 1.1rem 5%;
+
+        .header-exercise-form-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .logo-link-exercise-form {
+            text-decoration: none;
+        }
+
+        .logo-exercise-form {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 2rem;
+            color: var(--color-primary-dark);
+            letter-spacing: 1px;
+        }
+
+        .nav-exercise-form {
+            display: flex;
+            align-items: center;
+
+            .link-back-exercise-form {
+                font-family: 'Outfit', sans-serif;
+                font-size: 0.85rem;
+                font-weight: 600;
+                text-decoration: none;
+                color: var(--color-primary-dark);
+                border: 2px solid var(--color-border);
+                padding: 0.5rem 1.2rem;
+                border-radius: 2rem;
+                transition: all 0.2s ease;
+
+                &:hover {
+                    background-color: var(--color-primary);
+                    color: var(--color-light);
+                    border-color: var(--color-primary);
+                }
+            }
+        }
+    }
+
+    /* =========================================
+       MAIN / FORM CONTAINER
+    ========================================= */
+    .main-exercise-form {
+        position: relative;
+        z-index: 1;
+        padding: 3rem 5% 5rem;
+
+        .exercise-form-container {
+            max-width: 860px;
+            margin: 0 auto;
+        }
+
+        .form-header-exercise-form {
+            text-align: center;
+            margin-bottom: 2rem;
+
+            .form-title-exercise-form {
+                font-family: 'Patrick Hand', cursive;
+                font-size: clamp(2.2rem, 5vw, 3rem);
+                color: var(--color-text);
+            }
+
+            .form-subtitle-exercise-form {
+                font-family: 'Outfit', sans-serif;
+                font-size: 1rem;
+                color: var(--color-text-muted);
+                margin-top: 0.5rem;
+            }
+        }
+
+        /* "Folha" do formulário — mesmo padrão do form de login: 
+           fundo surface + borda tracejada + cantos arredondados */
+        .exercise-form {
+            background-color: var(--color-surface);
+            border: 2px dashed var(--color-border);
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .form-fields-exercise-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.8rem;
+        }
+
+        .form-group-exercise-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.6rem;
+
+            .form-label-exercise-form {
+                font-family: 'Outfit', sans-serif;
+                align-self: start;
+                font-weight: 600;
+                font-size: 0.95rem;
+                color: var(--color-text);
+            }
+
+            .form-input-exercise-form {
+                font-family: 'Outfit', sans-serif;
+                width: 100%;
+                font-size: 0.95rem;
+                padding: 0.8rem 1.5rem;
+                border: 2px solid var(--color-border);
+                border-radius: 2rem;
+                background-color: var(--color-light);
+                color: var(--color-text);
+                outline: none;
+                transition: border-color 0.2s ease;
+
+                &:focus {
+                    border-color: var(--color-primary-dark);
+                }
+
+                &::placeholder {
+                    color: var(--color-text-muted);
+                    opacity: 0.7;
+                }
+            }
+
+            .form-select-exercise-form {
+                font-family: 'Outfit', sans-serif;
+                font-size: 0.95rem;
+                padding: 0.8rem 1rem;
+                border: 2px solid var(--color-border);
+                border-radius: 1rem;
+                background-color: var(--color-light);
+                color: var(--color-text);
+                cursor: pointer;
+                outline: none;
+                transition: border-color 0.2s ease;
+
+                &:focus {
+                    border-color: var(--color-primary-dark);
+                }
+            }
+
+            .form-input-file-exercise-form {
+                font-family: 'Outfit', sans-serif;
+                width: 100%;
+                font-size: 0.85rem;
+                padding: 0.7rem 1rem;
+                border: 2px dashed var(--color-border);
+                border-radius: 1rem;
+                background-color: var(--color-light);
+                color: var(--color-text-muted);
+                cursor: pointer;
+                transition: border-color 0.2s ease;
+
+                &:hover {
+                    border-color: var(--color-primary);
+                }
+
+                &::file-selector-button {
+                    font-family: 'Outfit', sans-serif;
+                    font-weight: 600;
+                    font-size: 0.8rem;
+                    margin-right: 1rem;
+                    padding: 0.5rem 1.1rem;
+                    border: none;
+                    border-radius: 1.5rem;
+                    background-color: var(--color-primary);
+                    color: var(--color-light);
+                    cursor: pointer;
+                    transition: background-color 0.2s ease;
+
+                    &:hover {
+                        background-color: var(--color-primary-dark);
+                    }
+                }
+            }
+
+            .form-hint-exercise-form {
+                font-family: 'Outfit', sans-serif;
+                font-size: 0.8rem;
+                color: var(--color-text-muted);
+                margin-top: 0.3rem;
+            }
+        }
+
+        /* Preview da imagem de capa */
+        .image-preview-container-exercise-form {
+            width: 100%;
+            min-height: 400px;
+            margin-top: 0.4rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background-color: var(--color-bg);
+            border: 2px dashed var(--color-border);
+            border-radius: 1rem;
+
+            .image-preview-exercise-form {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                display: block;
+            }
+        }
+
+        .checkbox-list-exercise-form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            min-height: 3.2rem;
+            padding: 1rem;
+            background-color: var(--color-bg);
+            border: 2px dashed var(--color-border-dim);
+            border-radius: 1rem;
+
+            label {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.4rem;
+                font-family: 'Outfit', sans-serif;
+                font-weight: 600;
+                font-size: 0.8rem;
+                text-transform: uppercase;
+                letter-spacing: 0.3px;
+                color: var(--color-text-muted);
+                background-color: var(--color-surface);
+                border: 1px solid var(--color-border-dim);
+                padding: 0.45rem 1rem;
+                border-radius: 2rem;
+                cursor: pointer;
+                transition: all 0.2s ease;
+
+                &:hover {
+                    border-color: var(--color-primary);
+                    color: var(--color-primary-dark);
+                }
+            }
+
+            input[type="checkbox"] {
+                accent-color: var(--color-primary);
+                cursor: pointer;
+            }
+
+            input[type="checkbox"]:checked+span,
+            input[type="checkbox"]:checked~span {
+                color: var(--color-primary-dark);
+            }
+        }
+
+        .form-group-statement-exercise-form {
+            .form-statement-header-exercise-form {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                flex-wrap: wrap;
+                gap: 0.6rem;
+
+                .form-label-exercise-form{
+                    align-self: center;
+                }
+            }
+
+            .btn-insert-code-exercise-form {
+                font-family: 'Outfit', sans-serif;
+                font-weight: 600;
+                font-size: 0.8rem;
+                background-color: transparent;
+                color: var(--color-primary-dark);
+                border: 2px dashed var(--color-primary);
+                padding: 0.4rem 1.1rem;
+                border-radius: 2rem;
+                cursor: pointer;
+                white-space: nowrap;
+                transition: all 0.2s ease;
+
+                &:hover {
+                    background-color: var(--color-primary);
+                    color: var(--color-light);
+                    border-style: solid;
+                }
+            }
+
+            .form-textarea-exercise-form {
+                font-family: 'Outfit', sans-serif;
+                width: 100%;
+                font-size: 0.9rem;
+                line-height: 1.6;
+                min-height: 260px;
+                padding: 1rem 1.3rem;
+                border: 2px solid var(--color-border);
+                border-radius: 1rem;
+                background-color: var(--color-light);
+                color: var(--color-text);
+                outline: none;
+                resize: vertical;
+                transition: border-color 0.2s ease;
+
+                &:focus {
+                    border-color: var(--color-primary-dark);
+                }
+
+                &::placeholder {
+                    color: var(--color-text-muted);
+                    opacity: 0.7;
+                }
+            }
+        }
+
+        /* Anexos existentes (edição de exercício) */
+        .existing-attachments-exercise-form {
+            display: none;
+            margin-top: 0.8rem;
+            padding: 1rem;
+            background-color: var(--color-bg);
+            border: 2px dashed var(--color-border-dim);
+            border-radius: 1rem;
+
+            .form-label-exercise-form {
+                display: block;
+                margin-bottom: 0.6rem;
+            }
+
+            .existing-attachments-list-exercise-form {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+                font-family: 'Outfit', sans-serif;
+                font-size: 0.85rem;
+                color: var(--color-text);
+            }
+        }
+
+        /* Ações do formulário */
+        .form-actions-exercise-form {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-top: 2.5rem;
+            padding-top: 1.5rem;
+            border-top: 2px dashed var(--color-border-dim);
+
+            a,
+            button {
+                font-family: 'Outfit', sans-serif;
+                font-weight: 700;
+                font-size: 0.95rem;
+                padding: 0.8rem 2rem;
+                border-radius: 2rem;
+                cursor: pointer;
+                text-decoration: none;
+                transition: all 0.25s ease;
+            }
+
+            .btn-cancel-exercise-form {
+                background-color: transparent;
+                color: var(--color-text-muted);
+                border: 2px solid var(--color-border);
+
+                &:hover {
+                    background-color: var(--color-bg);
+                }
+            }
+
+            .btn-save-exercise-form {
+                background-color: var(--color-primary);
+                color: var(--color-light);
+                border: 2px solid var(--color-primary);
+
+                &:hover {
+                    background-color: var(--color-primary-dark);
+                    border-color: var(--color-primary-dark);
+                }
+            }
+        }
+    }
+}
+
+/* =========================================
+   RESPONSIVO
+========================================= */
+@media (max-width: 640px) {
+    body {
+        .header-exercise-form .header-exercise-form-content {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .main-exercise-form {
+            padding: 2rem 5% 4rem;
+
+            .exercise-form {
+                padding: 1.5rem;
+            }
+
+            .form-actions-exercise-form {
+                flex-direction: column-reverse;
+
+                a,
+                button {
+                    text-align: center;
+                    width: 100%;
+                }
+            }
+        }
+    }
+}

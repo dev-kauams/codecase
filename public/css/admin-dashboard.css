@@ -1,0 +1,433 @@
+/* =========================================
+   ADMIN DASHBOARD — CodeCase
+   Reaproveita as variáveis, fontes e padrões
+   visuais definidos em style.css (:root, dashed
+   borders, sombra deslocada, botões em pílula,
+   Patrick Hand para títulos / Outfit para UI)
+========================================= */
+
+body {
+
+    /* =========================================
+       HEADER DASHBOARD
+    ========================================= */
+    .header-dashboard {
+        position: relative;
+        width: 100%;
+        background-color: var(--color-surface);
+        border-bottom: 3px dashed var(--color-border-dim);
+        padding: 1.1rem 5%;
+
+        .header-dashboard-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .logo-link-dashboard {
+            text-decoration: none;
+        }
+
+        .logo-dashboard {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 2rem;
+            color: var(--color-primary-dark);
+            letter-spacing: 1px;
+        }
+
+        .nav-dashboard {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+
+            .link-public-dashboard {
+                font-family: 'Outfit', sans-serif;
+                font-size: 0.85rem;
+                font-weight: 600;
+                text-decoration: none;
+                color: var(--color-primary-dark);
+                border: 2px solid var(--color-border);
+                padding: 0.5rem 1.2rem;
+                border-radius: 2rem;
+                transition: all 0.2s ease;
+
+                &:hover {
+                    background-color: var(--color-primary);
+                    color: var(--color-light);
+                    border-color: var(--color-primary);
+                }
+            }
+
+            .btn-logout-dashboard {
+                font-family: 'Outfit', sans-serif;
+                font-size: 0.85rem;
+                font-weight: 600;
+                background-color: var(--color-primary);
+                color: var(--color-light);
+                border: 2px solid var(--color-primary);
+                padding: 0.5rem 1.2rem;
+                border-radius: 2rem;
+                cursor: pointer;
+                transition: all 0.2s ease;
+
+                &:hover {
+                    background-color: var(--color-primary-dark);
+                    border-color: var(--color-primary-dark);
+                }
+            }
+        }
+    }
+
+    /* =========================================
+       MAIN DASHBOARD
+    ========================================= */
+    .main-dashboard {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 3rem 5% 5rem;
+        position: relative;
+        z-index: 1;
+
+        .create-area-dashboard {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+
+            .create-header-dashboard {
+
+                .title-dashboard {
+                    font-family: 'Patrick Hand', cursive;
+                    font-size: clamp(2.4rem, 5vw, 3.4rem);
+                    color: var(--color-text);
+                }
+            }
+
+            .buttons-dashboard {
+                margin-top: 1.5rem;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 1rem;
+
+                button,
+                a {
+                    font-family: 'Outfit', sans-serif;
+                    font-weight: 600;
+                    font-size: 0.95rem;
+                    padding: 0.7rem 1.5rem;
+                    border-radius: 2rem;
+                    cursor: pointer;
+                    text-decoration: none;
+                    white-space: nowrap;
+                    transition: all 0.25s ease;
+                }
+
+                .btn-secondary-dashboard {
+                    background-color: transparent;
+                    color: var(--color-primary-dark);
+                    border: 2px solid var(--color-primary);
+
+                    &:hover {
+                        background-color: var(--color-primary);
+                        color: var(--color-light);
+                    }
+                }
+
+                .btn-primary-dashboard {
+                    background-color: var(--color-primary);
+                    color: var(--color-light);
+                    border: 2px solid var(--color-primary);
+
+                    &:hover {
+                        background-color: var(--color-primary-dark);
+                        border-color: var(--color-primary-dark);
+                    }
+                }
+            }
+        }
+
+        /* Cards de estatística — mesmo padrão do exercise-card
+           (sombra deslocada + leve rotação no hover) */
+        .stats-area-dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+
+            .stat-card-dashboard {
+                background-color: var(--color-surface);
+                border: 2px solid var(--color-border);
+                border-radius: 1rem;
+                padding: 1.5rem 1.8rem;
+                transition: transform 0.2s ease, box-shadow 0.2s ease;
+                animation: paper-cut 3s steps(1, end) infinite;
+
+                .stat-label-dashboard {
+                    font-family: 'Outfit', sans-serif;
+                    font-size: 0.8rem;
+                    font-weight: 700;
+                    text-transform: uppercase;
+                    letter-spacing: 0.5px;
+                    color: var(--color-text-muted);
+                    margin-bottom: 0.5rem;
+                }
+
+                .stat-value-dashboard {
+                    font-family: 'Patrick Hand', cursive;
+                    font-size: 2.8rem;
+                    color: var(--color-primary-dark);
+                }
+            }
+
+            .data-ex-dashboard {
+                border: 6px dashed var(--color-primary);
+            }
+
+            .data-stacks-dashboard {
+                border: 6px dashed var(--color-accent);
+            }
+
+            .data-tags-dashboard {
+                border: 6px dashed var(--color-primary-dark);
+            }
+        }
+
+        /* Tabela */
+        .table-area-dashboard {
+            background-color: var(--color-surface);
+            border: 2px dashed var(--color-border);
+            border-radius: 1.5rem;
+            padding: 1rem;
+            overflow-x: auto;
+
+            .table-dashboard {
+                width: 100%;
+                min-width: 720px;
+                border-collapse: collapse;
+                font-family: 'Outfit', sans-serif;
+
+                .table-head-dashboard th {
+                    text-align: left;
+                    font-size: 0.8rem;
+                    font-weight: 700;
+                    text-transform: uppercase;
+                    letter-spacing: 0.5px;
+                    color: var(--color-light);
+                    background-color: var(--color-primary);
+                    padding: 0.9rem 1rem;
+
+                    &:first-child {
+                        border-radius: 0.8rem 0 0 0.8rem;
+                    }
+
+                    &:last-child {
+                        border-radius: 0 0.8rem 0.8rem 0;
+                    }
+                }
+
+                .table-body-dashboard {
+                    tr {
+                        border-bottom: 1px solid var(--color-border-dim);
+                        transition: background-color 0.2s ease;
+
+                        &:hover {
+                            background-color: var(--color-bg);
+                        }
+
+                        &:last-child {
+                            border-bottom: none;
+                        }
+                    }
+
+                    td {
+                        padding: 0.9rem 1rem;
+                        font-size: 0.9rem;
+                        color: var(--color-text);
+                    }
+
+                    .table-loading-dashboard {
+                        text-align: center;
+                        padding: 2.5rem 1rem;
+                        font-family: 'Patrick Hand', cursive;
+                        font-size: 1.3rem;
+                        color: var(--color-text-muted);
+                    }
+                }
+            }
+        }
+    }
+
+    /* =========================================
+       MODAIS (delete / tag / stack)
+       Ocultos por padrão; JS alterna a classe .active
+    ========================================= */
+    .modal-delete-dashboard,
+    .modal-tag-dashboard,
+    .modal-stack-dashboard {
+        display: none;
+        position: fixed;
+        inset: 0;
+        z-index: 999;
+        align-items: center;
+        justify-content: center;
+        padding: 1.5rem;
+        background-color: rgba(72, 35, 45, 0.55);
+
+        &.active {
+            display: flex;
+        }
+
+        .modal-box-dashboard {
+            width: 100%;
+            max-width: 420px;
+            background-color: var(--color-surface);
+            border: 2px dashed var(--color-border);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            box-shadow: 7px 7px 0px var(--color-primary-dark);
+            animation: toast-slide-in 0.25s ease;
+
+            .modal-title-dashboard {
+                font-family: 'Patrick Hand', cursive;
+                font-size: 1.8rem;
+                color: var(--color-text);
+                margin-bottom: 1rem;
+            }
+
+            .modal-text-dashboard {
+                font-family: 'Outfit', sans-serif;
+                font-size: 0.95rem;
+                line-height: 1.5;
+                color: var(--color-text-muted);
+                margin-bottom: 1.5rem;
+            }
+
+            .modal-field-dashboard {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+                margin-bottom: 1.5rem;
+
+                label {
+                    font-family: 'Outfit', sans-serif;
+                    font-size: 0.9rem;
+                    font-weight: 600;
+                    color: var(--color-text);
+                }
+
+                input[type="text"] {
+                    padding: 0.8rem 1.2rem;
+                    border: 2px solid var(--color-border);
+                    border-radius: 2rem;
+                    background-color: transparent;
+                    font-family: 'Outfit', sans-serif;
+                    font-size: 0.95rem;
+                    outline: none;
+                    transition: border-color 0.2s ease;
+
+                    &:focus {
+                        border-color: var(--color-primary-dark);
+                    }
+                }
+
+                input[type="color"] {
+                    width: 100%;
+                    height: 48px;
+                    padding: 0.3rem;
+                    border: 2px solid var(--color-border);
+                    border-radius: 0.8rem;
+                    background-color: transparent;
+                    cursor: pointer;
+                }
+            }
+
+            .modal-actions-dashboard {
+                display: flex;
+                justify-content: flex-end;
+                gap: 0.8rem;
+
+                button {
+                    font-family: 'Outfit', sans-serif;
+                    font-weight: 600;
+                    font-size: 0.9rem;
+                    padding: 0.7rem 1.5rem;
+                    border-radius: 2rem;
+                    cursor: pointer;
+                    transition: all 0.25s ease;
+                }
+
+                .btn-cancel-dashboard {
+                    background-color: transparent;
+                    border: 2px solid var(--color-border);
+                    color: var(--color-text-muted);
+
+                    &:hover {
+                        background-color: var(--color-bg);
+                    }
+                }
+
+                .btn-primary-modal-dashboard {
+                    background-color: var(--color-primary);
+                    border: 2px solid var(--color-primary);
+                    color: var(--color-light);
+
+                    &:hover {
+                        background-color: var(--color-primary-dark);
+                        border-color: var(--color-primary-dark);
+                    }
+                }
+
+                .btn-danger-dashboard {
+                    background-color: var(--color-primary-dark);
+                    border: 2px solid var(--color-primary-dark);
+                    color: var(--color-light);
+
+                    &:hover {
+                        background-color: var(--color-text);
+                        border-color: var(--color-text);
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+@keyframes paper-cut {
+
+    0%,
+    100% {
+        transform: rotate(0deg);
+    }
+
+    35% {
+        transform: rotate(3deg);
+    }
+
+    70% {
+        transform: rotate(-5deg);
+    }
+}
+
+/* =========================================
+   RESPONSIVO
+========================================= */
+@media (max-width: 640px) {
+    body {
+        .header-dashboard .header-dashboard-content {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .main-dashboard .create-area-dashboard {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+    }
+}

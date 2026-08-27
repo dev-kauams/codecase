@@ -3,56 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CodeCase - Detalhes do Pergaminho</title>
+    <title>CodeCase</title>
     <meta name="description" content="Visualização detalhada do desafio de programação no CodeCase por @dev-kauams.">
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/exercise-detail.css">
 </head>
 <body>
 
-    <header>
-        <div>
-            <a href="/">
-                <span>CODECASE</span>
+    <header class="header-exercise-detail">
+        <div class="header-exercise-detail-content">
+            <a href="/" class="logo-link-exercise-detail">
+                <span class="logo-exercise-detail">CODECASE</span>
             </a>
-            <nav>
-                <a href="/">VOLTAR à HOME</a>
+            <nav class="nav-exercise-detail">
+                <a href="/" class="link-back-exercise-detail">VOLTAR à HOME</a>
             </nav>
         </div>
     </header>
 
-    <main>
-        <div>
-            <div>
-                <div>
-                    <div>
-                        <span id="ex-id-badge" style="font-size: 1.1rem;">EXERCÍCIO #---</span>
-                        <h1 id="ex-title">Carregando exercício...</h1>
+    <main class="main-exercise-detail">
+        <div class="exercise-detail-container">
+            <div class="exercise-detail-card">
+                <div class="exercise-detail-header">
+                    <div class="exercise-detail-title-group">
+                        <span id="ex-id-badge" class="ex-id-badge">EXERCÍCIO #---</span>
+                        <h1 id="ex-title" class="ex-title">Carregando exercício...</h1>
                     </div>
-                    <div id="ex-difficulty-badge">
+                    <div id="ex-difficulty-badge" class="ex-difficulty-badge">
                     </div>
                 </div>
 
-                <div>
-                    <div>Datado de: <strong id="ex-date">--/--/----</strong></div>
-                    <div>|</div>
-                    <div id="ex-stacks-container"></div>
+                <div class="exercise-detail-meta">
+                    <div class="ex-date-wrapper">Datado de: <strong id="ex-date">--/--/----</strong></div>
+                    <div class="meta-separator-exercise-detail">|</div>
+                    <div id="ex-stacks-container" class="ex-stacks-container"></div>
                 </div>
 
-                <div id="ex-tags-container"></div>
+                <div id="ex-tags-container" class="ex-tags-container"></div>
 
-                <div id="ex-image-wrapper">
-                    <img id="ex-image" src="" alt="Imagem do Exercício">
+                <div id="ex-image-wrapper" class="ex-image-wrapper">
+                    <img id="ex-image" class="ex-image" src="" alt="Imagem do Exercício">
                 </div>
 
-                <div id="ex-summary">Resumo do exercício...</div>
+                <div id="ex-summary" class="ex-summary">Resumo do exercício...</div>
 
-                <div id="ex-statement">
+                <div id="ex-statement" class="ex-statement">
                     <!-- Markdown/HTML content injected here -->
                 </div>
 
-                <div id="attachments-section" style="display: none;">
-                    <h3>[ ANEXOS &amp; RECURSOS ]</h3>
-                    <div id="attachments-list">
+                <div id="attachments-section" class="attachments-section-exercise-detail">
+                    <h3 class="attachments-title-exercise-detail">Anexos &amp; Recursos</h3>
+                    <div id="attachments-list" class="attachments-list-exercise-detail">
                         <!-- List of downloadable attachments -->
                     </div>
                 </div>
@@ -61,9 +62,9 @@
         </div>
     </main>
 
-    <footer>
-        <div>
-            <p>CODECASE &copy; 2026 — @dev-kauams</p>
+    <footer class="footer-exercise-detail">
+        <div class="footer-exercise-detail-content">
+            <p class="footer-text-exercise-detail">CODECASE &copy; 2026 — @dev-kauams</p>
         </div>
     </footer>
 

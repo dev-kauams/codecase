@@ -5,101 +5,101 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CodeCase</title>
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/exercise-form.css">
 
 </head>
 <body>
 
-    <header>
-        <div>
-            <a href="/">
-                <span>⚔</span>
-                <span>CODECASE</span>
+    <header class="header-exercise-form">
+        <div class="header-exercise-form-content">
+            <a href="/" class="logo-link-exercise-form">
+                <h1 class="logo-exercise-form">CodeCase</h1>
             </a>
-            <nav>
-                <a href="/admin/dashboard">← VOLTAR AO DASHBOARD</a>
+            <nav class="nav-exercise-form">
+                <a href="/admin/dashboard" class="link-back-exercise-form">← VOLTAR AO DASHBOARD</a>
             </nav>
         </div>
     </header>
 
-    <main>
-        <div>
+    <main class="main-exercise-form">
+        <div class="exercise-form-container">
 
-            <div>
-                <h1 id="form-heading-title">
-                    [ NOVO EXERCÍCIO ]
+            <div class="form-header-exercise-form">
+                <h1 id="form-heading-title" class="form-title-exercise-form">
+                    Novo Exercício
                 </h1>
-                <p>Preencha o enunciado, selecione as tecnologias e anexe arquivos complementares.</p>
+                <p class="form-subtitle-exercise-form">Preencha o enunciado, selecione as tecnologias e anexe arquivos complementares.</p>
             </div>
 
-            <form id="exercise-editor-form" enctype="multipart/form-data">
+            <form id="exercise-editor-form" class="exercise-form" enctype="multipart/form-data">
                 <input type="hidden" id="exercise-id" name="exercise_id">
 
-                <div>
-                    <div>
-                        <label for="form-title">Título do Exercício *</label>
-                        <input type="text" id="form-title" name="title" placeholder="Ex: Algoritmo de Busca Binária" required>
+                <div class="form-fields-exercise-form">
+                    <div class="form-group-exercise-form">
+                        <label for="form-title" class="form-label-exercise-form">Título do Exercício *</label>
+                        <input type="text" id="form-title" name="title" class="form-input-exercise-form" placeholder="Ex: Algoritmo de Busca Binária" required>
                     </div>
 
-                    <div>
-                        <label for="form-summary">Resumo Curto *</label>
-                        <input type="text" id="form-summary" name="summary" placeholder="Pequena descrição sintetizada do desafio para os cards da homepage" required>
+                    <div class="form-group-exercise-form">
+                        <label for="form-summary" class="form-label-exercise-form">Resumo Curto *</label>
+                        <input type="text" id="form-summary" name="summary" class="form-input-exercise-form" placeholder="Pequena descrição sintetizada do desafio para os cards da homepage" required>
                     </div>
 
-                    <div>
-                        <label for="form-difficulty">Nível de Dificuldade *</label>
-                        <select id="form-difficulty" name="difficulty" required>
+                    <div class="form-group-exercise-form">
+                        <label for="form-difficulty" class="form-label-exercise-form">Nível de Dificuldade *</label>
+                        <select id="form-difficulty" name="difficulty" class="form-select-exercise-form" required>
                             <option value="Fácil">FÁCIL</option>
                             <option value="Médio" selected>MÉDIO</option>
                             <option value="Difícil">DIFÍCIL</option>
                         </select>
                     </div>
 
-                    <div>
-                        <label for="form-image">Imagem de Capa (Opcional)</label>
-                        <input type="file" id="form-image" name="image" accept="image/*">
-                        <div id="image-preview-container">
-                            <img id="image-preview" src="" alt="Preview">
+                    <div class="form-group-exercise-form">
+                        <label for="form-image" class="form-label-exercise-form">Imagem de Capa (Opcional)</label>
+                        <input type="file" id="form-image" name="image" class="form-input-file-exercise-form" accept="image/*">
+                        <div id="image-preview-container" class="image-preview-container-exercise-form">
+                            <img id="image-preview" class="image-preview-exercise-form" src="" alt="Preview">
                         </div>
                     </div>
 
-                    <div>
-                        <label>Stacks / Tecnologias Relacionadas</label>
-                        <div id="stacks-checkbox-list">
+                    <div class="form-group-exercise-form">
+                        <label class="form-label-exercise-form">Stacks / Tecnologias Relacionadas</label>
+                        <div id="stacks-checkbox-list" class="checkbox-list-exercise-form">
                             <!-- Populated dynamically via JS -->
                         </div>
                     </div>
 
-                    <div>
-                        <label>Tags / Tópicos de Conhecimento</label>
-                        <div id="tags-checkbox-list">
+                    <div class="form-group-exercise-form">
+                        <label class="form-label-exercise-form">Tags / Tópicos de Conhecimento</label>
+                        <div id="tags-checkbox-list" class="checkbox-list-exercise-form">
                             <!-- Populated dynamically via JS -->
                         </div>
                     </div>
 
-                    <div>
-                        <div>
-                            <label for="form-statement">Enunciado Completo (Markdown / HTML) *</label>
-                            <button type="button" id="btn-insert-code-template">+ INSERIR BLOCO CÓDIGO</button>
+                    <div class="form-group-exercise-form form-group-statement-exercise-form">
+                        <div class="form-statement-header-exercise-form">
+                            <label for="form-statement" class="form-label-exercise-form">Enunciado Completo (Markdown / HTML) *</label>
+                            <button type="button" id="btn-insert-code-template" class="btn-insert-code-exercise-form">+ INSERIR BLOCO CÓDIGO</button>
                         </div>
-                        <textarea id="form-statement" name="statement" placeholder="Escreva o enunciado completo do exercício em Markdown ou HTML semântico..." required></textarea>
+                        <textarea id="form-statement" name="statement" class="form-textarea-exercise-form" placeholder="Escreva o enunciado completo do exercício em Markdown ou HTML semântico..." required></textarea>
                     </div>
 
-                    <div>
-                        <label for="form-attachments">Anexar Arquivos do Exercício (Código, PDF, ZIP)</label>
-                        <input type="file" id="form-attachments" name="attachments" multiple accept=".txt,.pdf,.zip,.rar,.json,.sql,.py,.cpp,.c,.java,.js,.html,.css,.md">
-                        <param>Permitidos: ZIP, PDF, TXT, JSON, SQL, código fonte (Máx: 10MB por arquivo).</p>
+                    <div class="form-group-exercise-form">
+                        <label for="form-attachments" class="form-label-exercise-form">Anexar Arquivos do Exercício (Código, PDF, ZIP)</label>
+                        <input type="file" id="form-attachments" name="attachments" class="form-input-file-exercise-form" multiple accept=".txt,.pdf,.zip,.rar,.json,.sql,.py,.cpp,.c,.java,.js,.html,.css,.md">
+                        <p class="form-hint-exercise-form">Permitidos: ZIP, PDF, TXT, JSON, SQL, código fonte (Máx: 10MB por arquivo).</p>
 
-                        <div id="existing-attachments-container" style="margin-top: 12px; display: none;">
-                            <label>Anexos Existentes:</label>
-                            <div id="existing-attachments-list"></div>
+                        <div id="existing-attachments-container" class="existing-attachments-exercise-form">
+                            <label class="form-label-exercise-form">Anexos Existentes:</label>
+                            <div id="existing-attachments-list" class="existing-attachments-list-exercise-form"></div>
                         </div>
                     </div>
 
                 </div>
 
-                <div>
-                    <a href="/admin/dashboard">[ CANCELAR ]</a>
-                    <button type="submit" id="btn-save-exercise">
+                <div class="form-actions-exercise-form">
+                    <a href="/admin/dashboard" class="btn-cancel-exercise-form">[ CANCELAR ]</a>
+                    <button type="submit" id="btn-save-exercise" class="btn-save-exercise-form">
                         [ SALVAR EXERCÍCIO ]
                     </button>
                 </div>

@@ -60,11 +60,11 @@ document.addEventListener('DOMContentLoaded', async () => {
             attList.innerHTML = ex.attachments.map(att => `
                 <div class="attachments__item">
                     <div>
-                        <span class="attachments__name">📄 ${att.original_name}</span>
+                        <span class="attachments__name">${att.original_name}</span>
                         <span style="font-size: 0.75rem; color: var(--color-text-muted); margin-left: 12px;">(${formatFileSize(att.file_size)})</span>
                     </div>
                     <a href="${att.file_path}" download="${att.original_name}" class="btn btn--accent" style="font-size: 0.75rem; padding: 4px 10px;">
-                        ⬇️ DOWNLOAD
+                        Download
                     </a>
                 </div>
             `).join('');
@@ -73,11 +73,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
 
     } catch (err) {
-        document.getElementById('ex-title').innerText = '⚠️ ERRO AO CARREGAR PERGAMINHO';
+        document.getElementById('ex-title').innerText = 'Erro ao carregar exercício.';
         document.getElementById('ex-statement').innerHTML = `
             <div class="empty">
                 <p style="color: var(--color-primary);">${err.message}</p>
-                <a href="/" class="btn" style="margin-top: 16px; display: inline-block;">← VOLTAR AO SCRIPTORIUM</a>
+                <a href="/" class="btn" style="margin-top: 16px; display: inline-block;">Voltar à Home</a>
             </div>
         `;
     }

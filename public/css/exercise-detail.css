@@ -1,0 +1,440 @@
+/* =========================================
+   EXERCISE DETAIL (Público) — CodeCase
+   Reaproveita as variáveis, fontes e padrões
+   visuais definidos em style.css (:root, dashed
+   borders, sombra deslocada, badges de tag,
+   Patrick Hand para títulos / Outfit para UI)
+========================================= */
+
+body {
+
+    /* =========================================
+       HEADER
+    ========================================= */
+    .header-exercise-detail {
+        position: relative;
+        width: 100%;
+        background-color: var(--color-surface);
+        border-bottom: 3px dashed var(--color-border-dim);
+        padding: 1.1rem 5%;
+
+        .header-exercise-detail-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .logo-link-exercise-detail {
+            text-decoration: none;
+        }
+
+        .logo-exercise-detail {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.8rem;
+            letter-spacing: 2px;
+            color: var(--color-primary-dark);
+        }
+
+        .nav-exercise-detail {
+            display: flex;
+            align-items: center;
+
+            .link-back-exercise-detail {
+                font-family: 'Outfit', sans-serif;
+                font-size: 0.85rem;
+                font-weight: 600;
+                text-decoration: none;
+                color: var(--color-primary-dark);
+                border: 2px solid var(--color-border);
+                padding: 0.5rem 1.2rem;
+                border-radius: 2rem;
+                transition: all 0.2s ease;
+
+                &:hover {
+                    background-color: var(--color-primary);
+                    color: var(--color-light);
+                    border-color: var(--color-primary);
+                }
+            }
+        }
+    }
+
+    /* =========================================
+       MAIN
+    ========================================= */
+    .main-exercise-detail {
+        position: relative;
+        z-index: 1;
+        padding: 3rem 5% 5rem;
+
+        .exercise-detail-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* "Pergaminho" principal — mesmo padrão de folha
+           tracejada usado no form de exercício e no login */
+        .exercise-detail-card {
+            background-color: var(--color-surface);
+            border: 2px dashed var(--color-border);
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            box-shadow: 6px 6px 0px var(--color-border-dim);
+        }
+
+        .exercise-detail-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px dashed var(--color-border-dim);
+
+            .exercise-detail-title-group {
+                display: flex;
+                flex-direction: column;
+                gap: 0.4rem;
+            }
+
+            .ex-id-badge {
+                font-family: 'Outfit', sans-serif;
+                font-weight: 700;
+                font-size: 0.8rem;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                color: var(--color-text-muted);
+            }
+
+            .ex-title {
+                font-family: 'Patrick Hand', cursive;
+                font-size: clamp(2rem, 5vw, 3rem);
+                color: var(--color-text);
+                line-height: 1.15;
+            }
+
+            .ex-difficulty-badge {
+                flex-shrink: 0;
+                font-family: 'Outfit', sans-serif;
+                font-weight: 700;
+                font-size: 0.8rem;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                padding: 0.5rem 1.2rem;
+                border-radius: 2rem;
+                background-color: var(--color-primary);
+                color: var(--color-light);
+                white-space: nowrap;
+            }
+        }
+
+        .exercise-detail-meta {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.9rem;
+            color: var(--color-text-muted);
+            margin-bottom: 1.5rem;
+
+            .ex-date-wrapper strong {
+                color: var(--color-text);
+                font-weight: 700;
+            }
+
+            .meta-separator-exercise-detail {
+                color: var(--color-border-dim);
+                font-weight: 700;
+            }
+
+            .ex-stacks-container {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+
+                span {
+                    font-family: 'Outfit', sans-serif;
+                    font-weight: 700;
+                    font-size: 0.75rem;
+                    text-transform: uppercase;
+                    letter-spacing: 0.3px;
+                    padding: 0.3rem 0.9rem;
+                    border-radius: 1rem;
+                    color: var(--color-light);
+                }
+            }
+        }
+
+        .ex-tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+
+            span,
+            a {
+                font-family: 'Outfit', sans-serif;
+                font-size: 0.75rem;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.3px;
+                color: var(--color-text-muted);
+                background-color: var(--color-bg);
+                border: 1px solid var(--color-border-dim);
+                padding: 0.3rem 0.9rem;
+                border-radius: 0.5rem;
+                text-decoration: none;
+            }
+        }
+
+        .ex-image-wrapper {
+            width: 100%;
+            margin-bottom: 2rem;
+            border: 2px solid var(--color-border);
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 5px 5px 0px var(--color-border-dim);
+
+            .ex-image {
+                width: 100%;
+                height: auto;
+                max-height: 420px;
+                object-fit: cover;
+                display: block;
+            }
+        }
+
+        .ex-summary {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: var(--color-text-muted);
+            background-color: var(--color-bg);
+            border-left: 4px solid var(--color-primary);
+            border-radius: 0.5rem;
+            padding: 1.2rem 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Conteúdo do enunciado — Markdown/HTML injetado via JS */
+        .ex-statement {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            line-height: 1.75;
+            color: var(--color-text);
+            margin-bottom: 2.5rem;
+
+            h1,
+            h2,
+            h3,
+            h4 {
+                font-family: 'Patrick Hand', cursive;
+                color: var(--color-text);
+                margin: 1.8rem 0 0.8rem;
+                line-height: 1.2;
+            }
+
+            h1 {
+                font-size: 2.2rem;
+            }
+
+            h2 {
+                font-size: 1.8rem;
+            }
+
+            h3 {
+                font-size: 1.5rem;
+            }
+
+            h4 {
+                font-size: 1.25rem;
+            }
+
+            p {
+                margin-bottom: 1rem;
+            }
+
+            ul,
+            ol {
+                margin: 0 0 1rem 1.5rem;
+            }
+
+            li {
+                margin-bottom: 0.4rem;
+            }
+
+            a {
+                color: var(--color-primary-dark);
+                text-decoration: underline;
+            }
+
+            strong {
+                color: var(--color-text);
+                font-weight: 700;
+            }
+
+            hr {
+                border: none;
+                border-top: 2px dashed var(--color-border-dim);
+                margin: 2rem 0;
+            }
+
+            blockquote {
+                border-left: 4px solid var(--color-primary);
+                background-color: var(--color-bg);
+                padding: 0.8rem 1.2rem;
+                border-radius: 0.5rem;
+                margin: 1.2rem 0;
+                color: var(--color-text-muted);
+            }
+
+            code {
+                font-family: 'Courier New', monospace;
+                background-color: var(--color-bg);
+                border: 1px solid var(--color-border-dim);
+                padding: 0.15rem 0.5rem;
+                border-radius: 0.4rem;
+                font-size: 0.9em;
+                color: var(--color-primary-dark);
+            }
+
+            pre {
+                background-color: var(--color-text);
+                color: var(--color-surface);
+                padding: 1.2rem 1.5rem;
+                border-radius: 1rem;
+                overflow-x: auto;
+                margin: 1.2rem 0;
+                box-shadow: 5px 5px 0px var(--color-border-dim);
+
+                code {
+                    font-family: 'Courier New', monospace;
+                    background-color: transparent;
+                    border: none;
+                    padding: 0;
+                    color: inherit;
+                    font-size: 0.9rem;
+                }
+            }
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin: 1.2rem 0;
+
+                th,
+                td {
+                    border: 1px solid var(--color-border-dim);
+                    padding: 0.6rem 1rem;
+                    text-align: left;
+                }
+
+                th {
+                    background-color: var(--color-bg);
+                    font-weight: 700;
+                }
+            }
+
+            img {
+                max-width: 100%;
+                border-radius: 0.8rem;
+                margin: 1rem 0;
+            }
+        }
+
+        /* Anexos — oculto por padrão, JS exibe quando existirem itens */
+        .attachments-section-exercise-detail {
+            display: none;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 2px dashed var(--color-border-dim);
+
+            .attachments-title-exercise-detail {
+                font-family: 'Patrick Hand', cursive;
+                font-size: 1.6rem;
+                color: var(--color-text);
+                margin-bottom: 1rem;
+            }
+
+            .attachments-list-exercise-detail {
+                display: flex;
+                flex-direction: column;
+                gap: 0.6rem;
+
+                a {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.6rem;
+                    font-family: 'Outfit', sans-serif;
+                    font-size: 0.9rem;
+                    font-weight: 600;
+                    color: var(--color-primary-dark);
+                    background-color: var(--color-bg);
+                    border: 1px solid var(--color-border-dim);
+                    padding: 0.7rem 1.2rem;
+                    border-radius: 0.8rem;
+                    text-decoration: none;
+                    transition: all 0.2s ease;
+
+                    &:hover {
+                        border-color: var(--color-primary);
+                        background-color: var(--color-surface);
+                    }
+                }
+            }
+        }
+    }
+
+    /* =========================================
+       FOOTER
+    ========================================= */
+    .footer-exercise-detail {
+        background-color: var(--color-surface);
+        border-top: 3px dashed var(--color-border-dim);
+        padding: 2.5rem 1rem;
+        text-align: center;
+
+        .footer-exercise-detail-content {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .footer-text-exercise-detail {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.95rem;
+            color: var(--color-text-muted);
+            letter-spacing: 0.5px;
+        }
+    }
+}
+
+/* =========================================
+   RESPONSIVO
+========================================= */
+@media (max-width: 640px) {
+    body {
+        .header-exercise-detail .header-exercise-detail-content {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .main-exercise-detail {
+            padding: 2rem 5% 4rem;
+
+            .exercise-detail-card {
+                padding: 1.5rem;
+            }
+
+            .exercise-detail-header {
+                flex-direction: column;
+            }
+        }
+    }
+}

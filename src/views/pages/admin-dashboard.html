@@ -5,64 +5,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CodeCase - Câmara Administrativa</title>
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/admin-dashboard.css">
 </head>
 <body>
 
     <!-- Bloco: navbar -->
-    <header>
-        <div>
-            <a href="/">
-                <span>⚔</span>
-                <span>CODECASE // ADMIN</span>
+    <header class="header-dashboard">
+        <div class="header-dashboard-content">
+            <a href="/" class="logo-link-dashboard">
+                <h1 class="logo-dashboard">CodeCase</h1>
             </a>
-            <nav>
-                <a href="/" target="_blank">IR PARA HUB PÚBLICO</a>
-                <button id="btn-logout">SAIR</button>
+            <nav class="nav-dashboard">
+                <a href="/" target="_blank" class="link-public-dashboard">IR PARA HUB PÚBLICO</a>
+                <button id="btn-logout" class="btn-logout-dashboard">SAIR</button>
             </nav>
         </div>
     </header>
 
-    <main>
+    <main class="main-dashboard">
 
         <!-- Dashboard Header -->
-        <div>
-            <div>
-                <h1>
-                    [ CÂMARA DE EXERCÍCIOS ]
+        <div class="create-area-dashboard">
+            <header class="create-header-dashboard">
+                <h1 class="title-dashboard">
+                    Dashboard
                 </h1>
-                <p>
-                    Sessão ativa como administrador. Cadastre, modifique ou remova pergaminhos do Scriptorium.
-                </p>
-            </div>
-            <div>
-                <button id="btn-new-tag-modal">+ NOVA TAG</button>
-                <button id="btn-new-stack-modal">+ NOVA STACK</button>
-                <a href="/admin/exercise/new">
-                    + CRIAR EXERCÍCIO
+            </header>
+            <div class="buttons-dashboard">
+                <button id="btn-new-tag-modal" class="btn-secondary-dashboard">+ Nova Tag</button>
+                <button id="btn-new-stack-modal" class="btn-secondary-dashboard">+ Nova Stack</button>
+                <a href="/admin/exercise/new" class="btn-primary-dashboard">
+                    + Criar Exercício
                 </a>
             </div>
         </div>
 
         <!-- Bloco: stats -->
-        <div>
-            <div>
-                <div>Total de Exercícios</div>
-                <div id="stat-exercises">--</div>
+        <div class="stats-area-dashboard">
+            <div class="data-ex-dashboard stat-card-dashboard">
+                <div class="stat-label-dashboard">Total de Exercícios</div>
+                <div id="stat-exercises" class="stat-value-dashboard">--</div>
             </div>
-            <div>
-                <div>Stacks Cadastradas</div>
-                <div id="stat-stacks">--</div>
+            <div class="data-stacks-dashboard stat-card-dashboard">
+                <div class="stat-label-dashboard">Stacks Cadastradas</div>
+                <div id="stat-stacks" class="stat-value-dashboard">--</div>
             </div>
-            <div>
-                <div>Tags Disponíveis</div>
-                <div id="stat-tags">--</div>
+            <div class="data-tags-dashboard stat-card-dashboard">
+                <div class="stat-label-dashboard">Tags Disponíveis</div>
+                <div id="stat-tags" class="stat-value-dashboard">--</div>
             </div>
         </div>
 
         <!-- Bloco: table-wrap -->
-        <div>
-            <table>
-                <thead>
+        <div class="table-area-dashboard">
+            <table class="table-dashboard">
+                <thead class="table-head-dashboard">
                     <tr>
                         <th>ID</th>
                         <th>Título do Exercício</th>
@@ -73,9 +70,9 @@
                         <th>Ações</th>
                     </tr>
                 </thead>
-                <tbody id="admin-exercise-table-body">
+                <tbody id="admin-exercise-table-body" class="table-body-dashboard">
                     <tr>
-                        <td colspan="7">
+                        <td colspan="7" class="table-loading-dashboard">
                             Carregando lista de pergaminhos...
                         </td>
                     </tr>
@@ -86,49 +83,49 @@
     </main>
 
     <!-- Bloco: modal — confirmar exclusão -->
-    <div id="delete-modal" style="display: none;">
-        <div>
-            <h3>[ CONFIRMAR EXCLUSÃO ]</h3>
-            <p id="delete-modal-text">
+    <div class="modal-delete-dashboard" id="delete-modal">
+        <div class="modal-box-dashboard">
+            <h3 class="modal-title-dashboard">Confirmar Exclusão</h3>
+            <p id="delete-modal-text" class="modal-text-dashboard">
                 Tem certeza que deseja excluir este exercício? Esta ação não poderá ser desfeita.
             </p>
-            <div>
-                <button id="btn-cancel-delete">[ CANCELAR ]</button>
-                <button id="btn-confirm-delete">[ EXCLUIR DEFINITIVAMENTE ]</button>
+            <div class="modal-actions-dashboard">
+                <button id="btn-cancel-delete" class="btn-cancel-dashboard">Cancelar</button>
+                <button id="btn-confirm-delete" class="btn-danger-dashboard">Excluir Permanentemente</button>
             </div>
         </div>
     </div>
 
     <!-- Bloco: modal — nova tag -->
-    <div id="tag-modal" style="display: none;">
-        <div>
-            <h3>[ NOVA TAG DE CONTEÚDO ]</h3>
-            <div>
+    <div class="modal-tag-dashboard" id="tag-modal">
+        <div class="modal-box-dashboard">
+            <h3 class="modal-title-dashboard">Nova Tag de Conteúdo</h3>
+            <div class="modal-field-dashboard">
                 <label for="new-tag-name">Nome da Tag</label>
                 <input type="text" id="new-tag-name" placeholder="Ex: Recursão, Regex, Math">
             </div>
-            <div>
-                <button id="btn-cancel-tag">[ CANCELAR ]</button>
-                <button id="btn-save-tag">[ SALVAR TAG ]</button>
+            <div class="modal-actions-dashboard">
+                <button id="btn-cancel-tag" class="btn-cancel-dashboard">Cancelar</button>
+                <button id="btn-save-tag" class="btn-primary-modal-dashboard">Salvar Tag</button>
             </div>
         </div>
     </div>
 
     <!-- Bloco: modal — nova stack -->
-    <div id="stack-modal" style="display: none;">
-        <div>
-            <h3>[ NOVA STACK TECNOLÓGICA ]</h3>
-            <div>
+    <div class="modal-stack-dashboard" id="stack-modal">
+        <div class="modal-box-dashboard">
+            <h3 class="modal-title-dashboard">Nova Stack</h3>
+            <div class="modal-field-dashboard">
                 <label for="new-stack-name">Nome da Stack</label>
                 <input type="text" id="new-stack-name" placeholder="Ex: Rust, Go, TypeScript">
             </div>
-            <div>
+            <div class="modal-field-dashboard modal-field-color-dashboard">
                 <label for="new-stack-color">Cor Hexadecimal</label>
                 <input type="color" id="new-stack-color" value="#d97986">
             </div>
-            <div>
-                <button id="btn-cancel-stack">[ CANCELAR ]</button>
-                <button id="btn-save-stack">[ SALVAR STACK ]</button>
+            <div class="modal-actions-dashboard">
+                <button id="btn-cancel-stack" class="btn-cancel-dashboard">[ CANCELAR ]</button>
+                <button id="btn-save-stack" class="btn-primary-modal-dashboard">[ SALVAR STACK ]</button>
             </div>
         </div>
     </div>
