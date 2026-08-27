@@ -6,7 +6,7 @@ class AuthController {
             const { username, password } = req.body;
             const admin = await AuthService.authenticateAdmin(username, password);
 
-            res.cookie('aether_admin_user', JSON.stringify(admin), {
+            res.cookie('codecase_admin_user', JSON.stringify(admin), {
                 httpOnly: true,
                 maxAge: 24 * 60 * 60 * 1000, // 24 hours
                 sameSite: 'strict'
@@ -26,7 +26,7 @@ class AuthController {
     }
 
     static async logout(req, res) {
-        res.clearCookie('aether_admin_user');
+        res.clearCookie('codecase_admin_user');
         return res.json({
             success: true,
             message: 'Sessão encerrada com sucesso.'

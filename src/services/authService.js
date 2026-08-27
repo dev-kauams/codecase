@@ -1,7 +1,7 @@
 const bcrypt = require('bcryptjs');
 const AdminModel = require('../models/AdminModel');
 
-const JWT_SECRET = process.env.JWT_SECRET || 'aether_home_secret_key_2026';
+const JWT_SECRET = process.env.JWT_SECRET || 'codecase_secret_key_2026';
 
 class AuthService {
     static async hashPassword(password) {

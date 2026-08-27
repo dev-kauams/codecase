@@ -7,7 +7,6 @@ router.get('/', ViewController.renderHome);
 router.get('/exercise/:id', ViewController.renderExercise);
 router.get('/admin/login', ViewController.renderLogin);
 
-// Protected Admin Views
 router.get('/admin/dashboard', authMiddleware, ViewController.renderAdminDashboard);
 router.get('/admin/exercise/new', authMiddleware, ViewController.renderAdminExerciseForm);
 router.get('/admin/exercise/edit/:id', authMiddleware, ViewController.renderAdminExerciseForm);

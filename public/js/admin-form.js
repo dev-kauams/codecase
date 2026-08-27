@@ -38,8 +38,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     const existingAttList = document.getElementById('existing-attachments-list');
 
     if (isEditMode) {
-        formHeadingTitle.innerText = `[ EDITAR PERGAMINHO #${String(exerciseId).padStart(3, '0')} ]`;
-        btnSave.innerText = '[ ATUALIZAR PERGAMINHO ]';
+        formHeadingTitle.innerText = `Editar Exercício #${String(exerciseId).padStart(3, '0')} ]`;
+        btnSave.innerText = 'Atualizar Exercício';
     }
 
     // 1. Load Taxonomy Checkboxes
@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
 
         btnSave.disabled = true;
-        btnSave.innerText = isEditMode ? '[ ATUALIZANDO... ]' : '[ GRAVANDO... ]';
+        btnSave.innerText = isEditMode ? 'Atualizando...' : 'Gravando...';
 
         try {
             const formData = new FormData();
@@ -132,7 +132,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 throw new Error(data.error || 'Erro ao salvar exercício.');
             }
 
-            showToast(isEditMode ? 'Pergaminho atualizado com sucesso!' : 'Novo pergaminho criado com sucesso!');
+            showToast(isEditMode ? 'Exercício atualizado com sucesso!' : 'Novo exercício criado com sucesso!');
             setTimeout(() => {
                 window.location.href = '/admin/dashboard';
             }, 600);
@@ -140,7 +140,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         } catch (err) {
             showToast(err.message, true);
             btnSave.disabled = false;
-            btnSave.innerText = isEditMode ? '[ ATUALIZAR PERGAMINHO ]' : '[ GRAVAR PERGAMINHO ]';
+            btnSave.innerText = isEditMode ? 'Atualizar Exercício' : 'Gravar Exercício';
         }
     });
 
@@ -168,7 +168,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 tagsChecklist.innerHTML = tagsData.data.map(t => `
                     <label class="checkbox-grid__item">
                         <input type="checkbox" name="tags" value="${t.id}" id="tag-cb-${t.id}">
-                        <span>#${t.name}</span>
+                        <span>${t.name}</span>
                     </label>
                 `).join('');
             }

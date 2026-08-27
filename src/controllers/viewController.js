@@ -13,7 +13,7 @@ class ViewController {
     }
 
     static renderLogin(req, res) {
-        if (req.cookies && req.cookies.aether_admin_user) {
+        if (req.cookies && req.cookies.codecase_admin_user) {
             return res.redirect('/admin/dashboard');
         }
         res.sendFile(path.join(viewsDir, 'login.html'));

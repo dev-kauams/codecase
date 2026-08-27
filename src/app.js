@@ -42,12 +42,12 @@ app.use((req, res) => {
         <html lang="pt-BR">
         <head>
             <meta charset="UTF-8">
-            <title>CodeCase - 404</title>
+            <title>CodeCase</title>
         </head>
         <body>
-            <h1>[ 404 ] Página não encontrada</h1>
-            <p>O caminho solicitado não existe neste Scriptorium.</p>
-            <a href="/">← Voltar ao início</a>
+            <h1>404 - Página não encontrada</h1>
+            <p>O caminho solicitado não existe no CodeCase.</p>
+            <a href="/">Voltar ao início</a>
         </body>
         </html>
     `);
@@ -57,7 +57,7 @@ app.use(errorHandler);
 
 if (require.main === module) {
     app.listen(PORT, () => {
-        console.log(`[App] CodeCase running on http://localhost:${PORT}`);
+        console.log(`[App] CodeCase rodando em http://localhost:${PORT}`);
     });
 }
 

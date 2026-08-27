@@ -1,7 +1,7 @@
 node_modules/
 .env
-database/aether.db
-src/database/aether.db
+database/codecase.db
+src/database/codecase.db
 public/uploads/images/*
 public/uploads/attachments/*
 !public/uploads/images/.gitkeep

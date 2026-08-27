@@ -17,15 +17,12 @@ const errorHandler = (err, req, res, next) => {
         <head>
             <meta charset="UTF-8">
             <title>CodeCase - Erro ${status}</title>
-            <link rel="stylesheet" href="/css/main.css">
-            <link rel="stylesheet" href="/css/retro-grid.css">
+            <link rel="stylesheet" href="/css/style.css">
         </head>
-        <body class="retro-grid">
-            <div style="max-width: 600px; margin: 80px auto; padding: 24px; border: 3px double var(--accent-red); background: var(--bg-surface); color: var(--text-main); font-family: monospace;">
-                <h1 style="color: var(--accent-red); font-size: 1.5rem;">[ ERRO SISTÊMICO ${status} ]</h1>
+        <body>
+                <h1 style="font-size: 1.5rem;">[ Erro no sistema: ${status}</h1>
                 <p style="margin: 16px 0;">${message}</p>
-                <a href="/" style="display: inline-block; border: 3px double var(--border-color); padding: 8px 16px; color: var(--accent-green); text-decoration: none; font-weight: bold;">← RETORNAR AO HUB</a>
-            </div>
+                <a href="/">Voltar</a>
         </body>
         </html>
     `);

@@ -171,7 +171,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 tableBody.innerHTML = `
                     <tr>
                         <td colspan="7">
-                            Nenhum exercício cadastrado no scriptorium. Clique em <strong>+ CRIAR EXERCÍCIO</strong> para adicionar o primeiro.
+                            Nenhum exercício cadastrado. Clique em <strong>+ CRIAR EXERCÍCIO</strong> para adicionar o primeiro.
                         </td>
                     </tr>
                 `;

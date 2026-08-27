@@ -6,14 +6,12 @@ const uploadsDir = path.join(__dirname, '../../public/uploads');
 const imagesDir = path.join(uploadsDir, 'images');
 const attachmentsDir = path.join(uploadsDir, 'attachments');
 
-// Ensure upload directories exist
 [uploadsDir, imagesDir, attachmentsDir].forEach(dir => {
     if (!fs.existsSync(dir)) {
         fs.mkdirSync(dir, { recursive: true });
     }
 });
 
-// Configure Multer storage
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         if (file.fieldname === 'image') {
@@ -30,10 +28,8 @@ const storage = multer.diskStorage({
     }
 });
 
-// Forbidden dangerous extensions
 const FORBIDDEN_EXTENSIONS = ['.exe', '.bat', '.cmd', '.sh', '.php', '.phtml', '.pl', '.cgi', '.js', '.vbs', '.jar', '.scr', '.msi'];
 
-// File filter validation
 const fileFilter = (req, file, cb) => {
     const ext = path.extname(file.originalname).toLowerCase();
 

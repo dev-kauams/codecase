@@ -3,7 +3,7 @@ const fs = require('fs');
 const initSqlJs = require('sql.js');
 
 const dbDirectory = path.join(__dirname, '../database');
-const dbFilePath = path.join(dbDirectory, 'aether.db');
+const dbFilePath = path.join(dbDirectory, 'codecase.db');
 
 if (!fs.existsSync(dbDirectory)) {
     fs.mkdirSync(dbDirectory, { recursive: true });

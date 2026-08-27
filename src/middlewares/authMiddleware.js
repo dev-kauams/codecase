@@ -1,6 +1,5 @@
 const authMiddleware = (req, res, next) => {
-    // Check session cookie or custom auth cookie
-    const adminUser = req.cookies.aether_admin_user;
+    const adminUser = req.cookies.codecase_admin_user;
 
     if (!adminUser) {
         if (req.originalUrl.startsWith('/api/')) {
@@ -16,7 +15,7 @@ const authMiddleware = (req, res, next) => {
         req.user = JSON.parse(adminUser);
         next();
     } catch (e) {
-        res.clearCookie('aether_admin_user');
+        res.clearCookie('codecase_admin_user');
         if (req.originalUrl.startsWith('/api/')) {
             return res.status(401).json({ success: false, error: 'Sessão inválida.' });
         }

@@ -12,7 +12,6 @@ router.get('/exercises/:id', ExerciseController.getById);
 router.get('/tags', TagController.getAll);
 router.get('/stacks', StackController.getAll);
 
-// Protected Admin endpoints
 router.get('/admin/stats', authMiddleware, ExerciseController.getStats);
 
 router.post('/exercises', authMiddleware, upload.fields([
