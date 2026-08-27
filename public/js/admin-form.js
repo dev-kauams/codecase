@@ -230,7 +230,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     function renderExistingAttachments(attachments) {
         existingAttList.innerHTML = attachments.map(att => `
             <div class="attachments__item" id="att-row-${att.id}" style="margin-top: 6px;">
-                <span class="attachments__name">📄 ${att.original_name} (${formatFileSize(att.file_size)})</span>
+                <span class="attachments__name"> ${att.original_name} (${formatFileSize(att.file_size)})</span>
                 <button type="button" class="btn btn--danger btn-remove-att" data-id="${att.id}" style="font-size: 0.7rem; padding: 2px 6px;">
                     [ REMOVER ]
                 </button>

@@ -75,23 +75,6 @@ function parseMarkdown(mdText) {
 }
 
 // Check admin navbar link state on load
-document.addEventListener('DOMContentLoaded', async () => {
-    const adminLink = document.getElementById('nav-admin-link');
-    if (!adminLink) return;
-
-    try {
-        const res = await fetch('/api/auth/me');
-        if (res.ok) {
-            const data = await res.json();
-            if (data.success) {
-                adminLink.innerText = '[ CÂMARA ADMIN ]';
-                adminLink.href = '/admin/dashboard';
-            }
-        }
-    } catch (e) {
-        // Not logged in or guest
-    }
-});
 
 
 

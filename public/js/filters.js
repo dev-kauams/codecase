@@ -147,7 +147,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
 
         exercisesGrid.innerHTML = exercises.map(ex => {
-            const diffClass = ex.difficulty === 'Fácil' ? 'badge--easy' : (ex.difficulty === 'Médio' ? 'badge--medium' : 'badge--hard');
+            const diffClass = ex.difficulty === 'Fácil' ? 'badge--easy'  : (ex.difficulty === 'Médio' ? 'badge--medium' : 'badge--hard');
             const paddedId = String(ex.id).padStart(3, '0');
             const coverImageHtml = ex.image_url ? `<img src="${ex.image_url}" alt="${ex.title}" class="card__thumbnail">` : '';
 
@@ -156,7 +156,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             return `
                 <article class="card">
-                    <div>
+                    <div class="card__content">
                         <div class="card__header">
                             <span class="card__id">EXERCÍCIO #${paddedId}</span>
                             <span>${formatDate(ex.created_at)}</span>
@@ -168,17 +168,17 @@ document.addEventListener('DOMContentLoaded', async () => {
                         <p class="card__summary">${ex.summary}</p>
                     </div>
 
-                    <div>
+                    <div class="card__footer">
                         <div class="tags" style="margin-top: 12px;">
                             <span class="badge ${diffClass}">${ex.difficulty.toUpperCase()}</span>
                             ${stacksHtml}
                             ${tagsHtml}
                         </div>
 
-                        <a href="/exercise/${ex.id}" class="btn" style="width: 100%; justify-content: center; margin-top: 8px;">
-                            [ VER PERGAMINHO ]
-                        </a>
                     </div>
+                        <a href="/exercise/${ex.id}" class="btn" style="width: 100%; justify-content: center; margin-top: 8px;">
+                            Ver Exercício
+                        </a>
                 </article>
             `;
         }).join('');
@@ -186,7 +186,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Update filter status text
     function updateSummaryBadge(count) {
-        resultsCountText.textContent = `Exibindo ${count} pergaminho(s) cadastrado(s)`;
+        resultsCountText.textContent = `Exibindo ${count} exercícios(s) cadastrado(s)`;
 
         const activeFilters = [];
         if (searchInput.value.trim()) activeFilters.push(`Busca: "${searchInput.value.trim()}"`);
@@ -195,10 +195,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (tagSelect.value) activeFilters.push(`Tag: ${tagSelect.options[tagSelect.selectedIndex].text.split(' ')[0]}`);
 
         if (activeFilters.length > 0) {
-            activeFilterBadge.textContent = `[ FILTROS ATIVOS: ${activeFilters.join(' | ')} ]`;
-            activeFilterBadge.style.color = 'var(--color-accent)';
+            activeFilterBadge.textContent = `Filtros Ativos: ${activeFilters.join(' | ')}`;
+            activeFilterBadge.style.color = 'var(--color-light)';
         } else {
-            activeFilterBadge.textContent = '[ FILTROS: TODOS ]';
+            activeFilterBadge.textContent = 'Filtros: Todos';
             activeFilterBadge.style.color = 'var(--color-text-muted)';
         }
     }

@@ -30,6 +30,7 @@ body {
     width: 100%;
     color: var(--color-text);
     overflow-x: hidden;
+    
 
     &::-webkit-scrollbar {
         display: none;
@@ -42,7 +43,8 @@ body {
         width: 200%;
         height: 100%;
         background-image: url("../images/bg_image.svg");
-        background-size: 105%;
+        opacity: 0.4;
+        background-size: 10%;
         background-position: center;
         background-repeat: repeat;
         z-index: -1;
@@ -653,5 +655,44 @@ body {
     body::before,
     body main .section-home h1 {
         animation: none;
+    }
+}
+
+.card{
+    padding: 1rem;
+    border: 3px dashed var(--color-border);
+    border-radius: 2rem;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-surface);
+    justify-content: space-between;
+    align-items: center;
+
+    .card__footer{
+
+        .tags{
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.2rem;
+
+            .badge{
+                border-radius: 1.5rem;
+                padding: 0.2rem 0.5rem;
+                color: var(--color-light);
+                background-color: var(--color-primary);  
+            }
+            
+        }
+    }
+
+    a{
+        width: 90%;
+        text-align: center;
+        text-decoration: dashed;
+        background-color: var(--color-primary);
+        color: var(--color-light);
+        padding: 0.5rem 1.5rem;
+        border-radius: 2rem;
     }
 }
