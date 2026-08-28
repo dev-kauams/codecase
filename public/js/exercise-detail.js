@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         stacksContainer.innerHTML = (ex.stacks || []).map(s => `<span class="badge badge--stack">${s.name}</span>`).join(' ');
 
         const tagsContainer = document.getElementById('ex-tags-container');
-        tagsContainer.innerHTML = (ex.tags || []).map(t => `<span class="badge badge--tag">#${t.name}</span>`).join(' ');
+        tagsContainer.innerHTML = (ex.tags || []).map(t => `<span class="badge badge--tag">${t.name}</span>`).join(' ');
 
         // Summary
         document.getElementById('ex-summary').innerText = ex.summary;

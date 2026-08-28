@@ -192,15 +192,15 @@ document.addEventListener('DOMContentLoaded', async () => {
                         </td>
                         <td><span>${ex.difficulty.toUpperCase()}</span></td>
                         <td>${stacksBadges}</td>
-                        <td>📁 ${attachmentsCount} arquivo(s)</td>
+                        <td>${attachmentsCount} arquivo(s)</td>
                         <td>${formatDate(ex.created_at)}</td>
                         <td>
                             <div>
                                 <a href="/admin/exercise/edit/${ex.id}">
-                                    [ EDITAR ]
+                                    Editar
                                 </a>
                                 <button data-action="delete-exercise" data-id="${ex.id}" data-title="${ex.title}">
-                                    [ EXCLUIR ]
+                                    Excluir
                                 </button>
                             </div>
                         </td>

@@ -14,12 +14,16 @@ body {
     ========================================= */
     .header-exercise-form {
         position: relative;
+        display: flex;
+        align-items: center;
+        
         width: 100%;
         background-color: var(--color-surface);
         border-bottom: 3px dashed var(--color-border-dim);
         padding: 1.1rem 5%;
 
         .header-exercise-form-content {
+            width: 100%;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -108,6 +112,7 @@ body {
         }
 
         .form-fields-exercise-form {
+            width: 90%;
             display: flex;
             flex-direction: column;
             gap: 1.8rem;
@@ -151,8 +156,9 @@ body {
 
             .form-select-exercise-form {
                 font-family: 'Outfit', sans-serif;
+                width: 100%;
                 font-size: 0.95rem;
-                padding: 0.8rem 1rem;
+                padding: 0.8rem 1.2rem;
                 border: 2px solid var(--color-border);
                 border-radius: 1rem;
                 background-color: var(--color-light);
@@ -364,7 +370,6 @@ body {
             gap: 1rem;
             margin-top: 2.5rem;
             padding-top: 1.5rem;
-            border-top: 2px dashed var(--color-border-dim);
 
             a,
             button {

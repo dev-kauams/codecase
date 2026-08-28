@@ -13,12 +13,16 @@ body {
     ========================================= */
     .header-exercise-detail {
         position: relative;
+        display: flex;
+        align-items: center;
         width: 100%;
         background-color: var(--color-surface);
         border-bottom: 3px dashed var(--color-border-dim);
         padding: 1.1rem 5%;
 
         .header-exercise-detail-content {
+            width: 100%;
+            font-family: 'Patrick Hand', cursive;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -83,7 +87,6 @@ body {
             border: 2px dashed var(--color-border);
             border-radius: 1.5rem;
             padding: 2.5rem;
-            box-shadow: 6px 6px 0px var(--color-border-dim);
         }
 
         .exercise-detail-header {
@@ -136,6 +139,7 @@ body {
         .exercise-detail-meta {
             display: flex;
             align-items: center;
+            justify-content: space-between;
             flex-wrap: wrap;
             gap: 0.8rem;
             font-family: 'Outfit', sans-serif;
@@ -148,15 +152,12 @@ body {
                 font-weight: 700;
             }
 
-            .meta-separator-exercise-detail {
-                color: var(--color-border-dim);
-                font-weight: 700;
-            }
-
             .ex-stacks-container {
                 display: flex;
                 flex-wrap: wrap;
                 gap: 0.5rem;
+
+                
 
                 span {
                     font-family: 'Outfit', sans-serif;
@@ -167,6 +168,10 @@ body {
                     padding: 0.3rem 0.9rem;
                     border-radius: 1rem;
                     color: var(--color-light);
+
+                    &.badge--stack{
+                        color: var(--color-primary)
+                    }
                 }
             }
         }
@@ -199,7 +204,6 @@ body {
             border: 2px solid var(--color-border);
             border-radius: 1rem;
             overflow: hidden;
-            box-shadow: 5px 5px 0px var(--color-border-dim);
 
             .ex-image {
                 width: 100%;
@@ -216,7 +220,6 @@ body {
             line-height: 1.6;
             color: var(--color-text-muted);
             background-color: var(--color-bg);
-            border-left: 4px solid var(--color-primary);
             border-radius: 0.5rem;
             padding: 1.2rem 1.5rem;
             margin-bottom: 2rem;
