@@ -156,11 +156,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (!exercises || exercises.length === 0) {
             exercisesGrid.innerHTML = `
                 <div class="state-empty" style="grid-column: 1 / -1;">
-                    <h3>[ NENHUM PERGAMINHO ENCONTRADO ]</h3>
-                    <p style="margin-top: 8px;">Nenhum desafio atende aos critérios de pesquisa selecionados.</p>
-                    <button class="btn btn--gold" style="margin-top: 16px;" onclick="document.getElementById('home__clear-filters').click();">
-                        [ REFINAR OU LIMPAR FILTROS ]
-                    </button>
+                    <h3>Nenhum exercício encontrado</h3>
+                    <p style="margin-top: 8px;">Nenhum exercício atende aos critérios de pesquisa selecionados.</p>
                 </div>
             `;
             return;
