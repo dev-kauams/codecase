@@ -221,7 +221,7 @@ body {
                         transition: all 0.25s ease;
                         border-radius: 2rem;
                         
-                        &.button-repository {
+                        &.button--repository {
                             background-color: transparent;
                             color: var(--color-primary-dark);
                         }
