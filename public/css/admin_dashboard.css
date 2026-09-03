@@ -11,7 +11,7 @@ body {
     /* =========================================
        HEADER DASHBOARD
     ========================================= */
-    .header-dashboard {
+    .dashboard__header {
         position: relative;
         display: flex;
         align-items: center;
@@ -20,7 +20,7 @@ body {
         border-bottom: 3px dashed var(--color-border-dim);
         padding: 1.1rem 5%;
 
-        .header-dashboard-content {
+        .dashboard__header-content {
             width: 100%;
             display: flex;
             justify-content: space-between;
@@ -31,23 +31,23 @@ body {
             flex-wrap: wrap;
         }
 
-        .logo-link-dashboard {
+        .dashboard__logo-link {
             text-decoration: none;
         }
 
-        .logo-dashboard {
+        .dashboard__logo {
             font-family: 'Patrick Hand', cursive;
             font-size: 2rem;
             color: var(--color-primary-dark);
             letter-spacing: 1px;
         }
 
-        .nav-dashboard {
+        .dashboard__nav {
             display: flex;
             align-items: center;
             gap: 1rem;
 
-            .link-public-dashboard {
+            .dashboard__public-link {
                 font-family: 'Outfit', sans-serif;
                 font-size: 0.85rem;
                 font-weight: 600;
@@ -65,7 +65,7 @@ body {
                 }
             }
 
-            .btn-logout-dashboard {
+            .dashboard__logout-button {
                 font-family: 'Outfit', sans-serif;
                 font-size: 0.85rem;
                 font-weight: 600;
@@ -88,14 +88,14 @@ body {
     /* =========================================
        MAIN DASHBOARD
     ========================================= */
-    .main-dashboard {
+    .dashboard {
         max-width: 1200px;
         margin: 0 auto;
         padding: 3rem 5% 5rem;
         position: relative;
         z-index: 1;
 
-        .create-area-dashboard {
+        .dashboard__create-area {
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
@@ -103,16 +103,16 @@ body {
             gap: 1.5rem;
             margin-bottom: 2.5rem;
 
-            .create-header-dashboard {
+            .dashboard__create-header {
 
-                .title-dashboard {
+                .dashboard__title {
                     font-family: 'Patrick Hand', cursive;
                     font-size: clamp(2.4rem, 5vw, 3.4rem);
                     color: var(--color-text);
                 }
             }
 
-            .buttons-dashboard {
+            .dashboard__buttons {
                 margin-top: 1.5rem;
                 display: flex;
                 flex-wrap: wrap;
@@ -131,7 +131,7 @@ body {
                     transition: all 0.25s ease;
                 }
 
-                .btn-secondary-dashboard {
+                .dashboard__secondary-button {
                     background-color: transparent;
                     color: var(--color-primary-dark);
                     border: 2px dashed var(--color-primary);
@@ -142,7 +142,7 @@ body {
                     }
                 }
 
-                .btn-primary-dashboard {
+                .dashboard__primary-button {
                     background-color: var(--color-primary);
                     color: var(--color-light);
                     border: 2px dashed var(--color-primary);
@@ -157,13 +157,13 @@ body {
 
         /* Cards de estatística — mesmo padrão do exercise-card
            (sombra deslocada + leve rotação no hover) */
-        .stats-area-dashboard {
+        .dashboard__stats {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 1.5rem;
             margin-bottom: 3rem;
 
-            .stat-card-dashboard {
+            .dashboard__stat {
                 background-color: var(--color-surface);
                 border: 2px solid var(--color-border);
                 border-radius: 1rem;
@@ -171,7 +171,7 @@ body {
                 transition: transform 0.2s ease, box-shadow 0.2s ease;
                 animation: paper-cut 3s steps(1, end) infinite;
 
-                .stat-label-dashboard {
+                .dashboard__stat-label {
                     font-family: 'Outfit', sans-serif;
                     font-size: 0.8rem;
                     font-weight: 700;
@@ -181,41 +181,41 @@ body {
                     margin-bottom: 0.5rem;
                 }
 
-                .stat-value-dashboard {
+                .dashboard__stat-value {
                     font-family: 'Patrick Hand', cursive;
                     font-size: 2.8rem;
                     color: var(--color-primary-dark);
                 }
             }
 
-            .data-ex-dashboard {
+            .dashboard__stat--exercises {
                 border: 6px dashed var(--color-primary);
             }
 
-            .data-stacks-dashboard {
+            .dashboard__stat--stacks {
                 border: 6px dashed var(--color-accent);
             }
 
-            .data-tags-dashboard {
+            .dashboard__stat--tags {
                 border: 6px dashed var(--color-primary-dark);
             }
         }
 
         /* Tabela */
-        .table-area-dashboard {
+        .dashboard__table-area {
             background-color: var(--color-surface);
             border: 5px dashed var(--color-border);
             border-radius: 1rem;
             padding: 1rem;
             overflow-x: auto;
 
-            .table-dashboard {
+            .dashboard__table {
                 width: 100%;
                 min-width: 720px;
                 border-collapse: collapse;
                 font-family: 'Outfit', sans-serif;
 
-                .table-head-dashboard th {
+                .dashboard__table-head th {
                     text-align: left;
                     font-size: 0.8rem;
                     font-weight: 700;
@@ -228,7 +228,7 @@ body {
                     padding: 0.9rem 1rem;
                 }
 
-                .table-body-dashboard {
+                .dashboard__table-body {
                     tr {
                         border-bottom: 1px solid var(--color-border-dim);
                         transition: background-color 0.2s ease;
@@ -268,7 +268,7 @@ body {
                         }
                     }
 
-                    .table-loading-dashboard {
+                    .dashboard__table-loading {
                         text-align: center;
                         padding: 2.5rem 1rem;
                         font-family: 'Patrick Hand', cursive;
@@ -282,11 +282,9 @@ body {
 
     /* =========================================
        MODAIS (delete / tag / stack)
-       Ocultos por padrão; JS alterna a classe .active
+       Ocultos por padrão; JS alterna a classe de estado ativa
     ========================================= */
-    .modal-delete-dashboard,
-    .modal-tag-dashboard,
-    .modal-stack-dashboard {
+    .dashboard__modal {
         display: none;
         position: fixed;
         inset: 0;
@@ -296,11 +294,11 @@ body {
         padding: 1.5rem;
         background-color: rgba(72, 35, 45, 0.55);
 
-        &.active {
+        &.dashboard__modal--active {
             display: flex;
         }
 
-        .modal-box-dashboard {
+        .dashboard__modal-box {
             width: 100%;
             max-width: 420px;
             background-color: var(--color-surface);
@@ -309,14 +307,14 @@ body {
             padding: 2rem;
             animation: toast-slide-in 0.25s ease;
 
-            .modal-title-dashboard {
+            .dashboard__modal-title {
                 font-family: 'Patrick Hand', cursive;
                 font-size: 1.8rem;
                 color: var(--color-text);
                 margin-bottom: 1rem;
             }
 
-            .modal-text-dashboard {
+            .dashboard__modal-text {
                 font-family: 'Outfit', sans-serif;
                 font-size: 0.95rem;
                 line-height: 1.5;
@@ -324,7 +322,7 @@ body {
                 margin-bottom: 1.5rem;
             }
 
-            .modal-field-dashboard {
+            .dashboard__modal-field {
                 display: flex;
                 flex-direction: column;
                 gap: 0.5rem;
@@ -363,7 +361,7 @@ body {
                 }
             }
 
-            .modal-actions-dashboard {
+            .dashboard__modal-actions {
                 display: flex;
                 justify-content: flex-end;
                 gap: 0.8rem;
@@ -378,7 +376,7 @@ body {
                     transition: all 0.25s ease;
                 }
 
-                .btn-cancel-dashboard {
+                .dashboard__cancel-button {
                     background-color: transparent;
                     border: 2px dashed var(--color-border);
                     color: var(--color-text-muted);
@@ -388,7 +386,7 @@ body {
                     }
                 }
 
-                .btn-primary-modal-dashboard {
+                .dashboard__primary-modal-button {
                     background-color: var(--color-primary);
                     border: 2px solid var(--color-primary);
                     color: var(--color-light);
@@ -399,7 +397,7 @@ body {
                     }
                 }
 
-                .btn-danger-dashboard {
+                .dashboard__danger-button {
                     background-color: var(--color-primary-dark);
                     border: 2px solid var(--color-primary-dark);
                     color: var(--color-light);
@@ -436,12 +434,12 @@ body {
 ========================================= */
 @media (max-width: 640px) {
     body {
-        .header-dashboard .header-dashboard-content {
+        .dashboard__header .dashboard__header-content {
             flex-direction: column;
             align-items: flex-start;
         }
 
-        .main-dashboard .create-area-dashboard {
+        .dashboard .dashboard__create-area {
             flex-direction: column;
             align-items: flex-start;
         }

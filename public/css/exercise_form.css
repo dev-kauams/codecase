@@ -10,9 +10,9 @@ body {
 
     /* =========================================
        HEADER EXERCISE FORM
-       (mesmo padrão visual do header-dashboard)
+       (mesmo padrão visual do cabeçalho do dashboard)
     ========================================= */
-    .header-exercise-form {
+    .exercise-form-page__site-header {
         position: relative;
         display: flex;
         align-items: center;
@@ -22,7 +22,7 @@ body {
         border-bottom: 3px dashed var(--color-border-dim);
         padding: 1.1rem 5%;
 
-        .header-exercise-form-content {
+        .exercise-form-page__header-content {
             width: 100%;
             display: flex;
             justify-content: space-between;
@@ -33,22 +33,22 @@ body {
             flex-wrap: wrap;
         }
 
-        .logo-link-exercise-form {
+        .exercise-form-page__logo-link {
             text-decoration: none;
         }
 
-        .logo-exercise-form {
+        .exercise-form-page__logo {
             font-family: 'Patrick Hand', cursive;
             font-size: 2rem;
             color: var(--color-primary-dark);
             letter-spacing: 1px;
         }
 
-        .nav-exercise-form {
+        .exercise-form-page__nav {
             display: flex;
             align-items: center;
 
-            .link-back-exercise-form {
+            .exercise-form-page__back-link {
                 font-family: 'Outfit', sans-serif;
                 font-size: 0.85rem;
                 font-weight: 600;
@@ -71,27 +71,27 @@ body {
     /* =========================================
        MAIN / FORM CONTAINER
     ========================================= */
-    .main-exercise-form {
+    .exercise-form-page {
         position: relative;
         z-index: 1;
         padding: 3rem 5% 5rem;
 
-        .exercise-form-container {
+        .exercise-form-page__container {
             max-width: 860px;
             margin: 0 auto;
         }
 
-        .form-header-exercise-form {
+        .exercise-form-page__header {
             text-align: center;
             margin-bottom: 2rem;
 
-            .form-title-exercise-form {
+            .exercise-form-page__title {
                 font-family: 'Patrick Hand', cursive;
                 font-size: clamp(2.2rem, 5vw, 3rem);
                 color: var(--color-text);
             }
 
-            .form-subtitle-exercise-form {
+            .exercise-form-page__subtitle {
                 font-family: 'Outfit', sans-serif;
                 font-size: 1rem;
                 color: var(--color-text-muted);
@@ -111,20 +111,20 @@ body {
             align-items: center;
         }
 
-        .form-fields-exercise-form {
+        .exercise-form__fields {
             width: 90%;
             display: flex;
             flex-direction: column;
             gap: 1.8rem;
         }
 
-        .form-group-exercise-form {
+        .exercise-form__group {
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 0.6rem;
 
-            .form-label-exercise-form {
+            .exercise-form__label {
                 font-family: 'Outfit', sans-serif;
                 align-self: start;
                 font-weight: 600;
@@ -132,7 +132,7 @@ body {
                 color: var(--color-text);
             }
 
-            .form-input-exercise-form {
+            .exercise-form__input {
                 font-family: 'Outfit', sans-serif;
                 width: 100%;
                 font-size: 0.95rem;
@@ -154,7 +154,7 @@ body {
                 }
             }
 
-            .form-select-exercise-form {
+            .exercise-form__select {
                 font-family: 'Outfit', sans-serif;
                 width: 100%;
                 font-size: 0.95rem;
@@ -172,7 +172,7 @@ body {
                 }
             }
 
-            .form-input-file-exercise-form {
+            .exercise-form__file-input {
                 font-family: 'Outfit', sans-serif;
                 width: 100%;
                 font-size: 0.85rem;
@@ -207,7 +207,7 @@ body {
                 }
             }
 
-            .form-hint-exercise-form {
+            .exercise-form__hint {
                 font-family: 'Outfit', sans-serif;
                 font-size: 0.8rem;
                 color: var(--color-text-muted);
@@ -216,7 +216,7 @@ body {
         }
 
         /* Preview da imagem de capa */
-        .image-preview-container-exercise-form {
+        .exercise-form__image-preview-container {
             width: 100%;
             min-height: 400px;
             margin-top: 0.4rem;
@@ -228,7 +228,7 @@ body {
             border: 2px dashed var(--color-border);
             border-radius: 1rem;
 
-            .image-preview-exercise-form {
+            .exercise-form__image-preview {
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
@@ -236,7 +236,7 @@ body {
             }
         }
 
-        .checkbox-list-exercise-form {
+        .exercise-form__checkbox-list {
             display: flex;
             flex-wrap: wrap;
             gap: 0.6rem;
@@ -280,20 +280,20 @@ body {
             }
         }
 
-        .form-group-statement-exercise-form {
-            .form-statement-header-exercise-form {
+        .exercise-form__group--statement {
+            .exercise-form__statement-header {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
                 flex-wrap: wrap;
                 gap: 0.6rem;
 
-                .form-label-exercise-form{
+                .exercise-form__label{
                     align-self: center;
                 }
             }
 
-            .btn-insert-code-exercise-form {
+            .exercise-form__insert-code {
                 font-family: 'Outfit', sans-serif;
                 font-weight: 600;
                 font-size: 0.8rem;
@@ -313,7 +313,7 @@ body {
                 }
             }
 
-            .form-textarea-exercise-form {
+            .exercise-form__textarea {
                 font-family: 'Outfit', sans-serif;
                 width: 100%;
                 font-size: 0.9rem;
@@ -340,7 +340,7 @@ body {
         }
 
         /* Anexos existentes (edição de exercício) */
-        .existing-attachments-exercise-form {
+        .exercise-form__existing-attachments {
             display: none;
             margin-top: 0.8rem;
             padding: 1rem;
@@ -348,12 +348,12 @@ body {
             border: 2px dashed var(--color-border-dim);
             border-radius: 1rem;
 
-            .form-label-exercise-form {
+            .exercise-form__label {
                 display: block;
                 margin-bottom: 0.6rem;
             }
 
-            .existing-attachments-list-exercise-form {
+            .exercise-form__existing-attachments-list {
                 display: flex;
                 flex-direction: column;
                 gap: 0.5rem;
@@ -364,7 +364,7 @@ body {
         }
 
         /* Ações do formulário */
-        .form-actions-exercise-form {
+        .exercise-form__actions {
             display: flex;
             justify-content: space-between;
             gap: 1rem;
@@ -383,7 +383,7 @@ body {
                 transition: all 0.25s ease;
             }
 
-            .btn-cancel-exercise-form {
+            .exercise-form__cancel-button {
                 background-color: transparent;
                 color: var(--color-text-muted);
                 border: 2px solid var(--color-border);
@@ -393,7 +393,7 @@ body {
                 }
             }
 
-            .btn-save-exercise-form {
+            .exercise-form__save-button {
                 background-color: var(--color-primary);
                 color: var(--color-light);
                 border: 2px solid var(--color-primary);
@@ -412,19 +412,19 @@ body {
 ========================================= */
 @media (max-width: 640px) {
     body {
-        .header-exercise-form .header-exercise-form-content {
+        .exercise-form-page__site-header .exercise-form-page__header-content {
             flex-direction: column;
             align-items: flex-start;
         }
 
-        .main-exercise-form {
+        .exercise-form-page {
             padding: 2rem 5% 4rem;
 
             .exercise-form {
                 padding: 1.5rem;
             }
 
-            .form-actions-exercise-form {
+            .exercise-form__actions {
                 flex-direction: column-reverse;
 
                 a,

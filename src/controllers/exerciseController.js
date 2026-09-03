@@ -1,13 +1,13 @@
 const path = require('path');
 const fs = require('fs');
-const ExerciseModel = require('../models/ExerciseModel');
-const AttachmentModel = require('../models/AttachmentModel');
+const exerciseModel = require('../models/exerciseModel');
+const attachmentModel = require('../models/attachmentModel');
 
-class ExerciseController {
+class exerciseController {
     static async getAll(req, res, next) {
         try {
             const { search, difficulty, stack, tag, limit, offset } = req.query;
-            const exercises = await ExerciseModel.findAll({
+            const exercises = await exerciseModel.findAll({
                 search,
                 difficulty,
                 stack,
@@ -32,9 +32,9 @@ class ExerciseController {
             let exercise;
 
             if (/^\d+$/.test(id)) {
-                exercise = await ExerciseModel.findById(parseInt(id));
+                exercise = await exerciseModel.findById(parseInt(id));
             } else {
-                exercise = await ExerciseModel.findBySlug(id);
+                exercise = await exerciseModel.findBySlug(id);
             }
 
             if (!exercise) {
@@ -73,7 +73,7 @@ class ExerciseController {
             const parsedTags = Array.isArray(tags) ? tags.map(Number) : (tags ? [Number(tags)] : []);
             const parsedStacks = Array.isArray(stacks) ? stacks.map(Number) : (stacks ? [Number(stacks)] : []);
 
-            const exercise = await ExerciseModel.create({
+            const exercise = await exerciseModel.create({
                 title,
                 summary,
                 statement,
@@ -86,7 +86,7 @@ class ExerciseController {
             // Handle file attachments upload
             if (req.files && req.files['attachments']) {
                 for (const attFile of req.files['attachments']) {
-                    await AttachmentModel.create({
+                    await attachmentModel.create({
                         exercise_id: exercise.id,
                         original_name: attFile.originalname,
                         stored_filename: attFile.filename,
@@ -97,7 +97,7 @@ class ExerciseController {
                 }
             }
 
-            const updatedExercise = await ExerciseModel.findById(exercise.id);
+            const updatedExercise = await exerciseModel.findById(exercise.id);
 
             return res.status(201).json({
                 success: true,
@@ -114,7 +114,7 @@ class ExerciseController {
             const { id } = req.params;
             const { title, summary, statement, difficulty, tags, stacks } = req.body;
 
-            const existing = await ExerciseModel.findById(parseInt(id));
+            const existing = await exerciseModel.findById(parseInt(id));
             if (!existing) {
                 return res.status(404).json({ success: false, error: 'Exercício não encontrado.' });
             }
@@ -128,7 +128,7 @@ class ExerciseController {
             const parsedTags = tags !== undefined ? (Array.isArray(tags) ? tags.map(Number) : (tags ? [Number(tags)] : [])) : undefined;
             const parsedStacks = stacks !== undefined ? (Array.isArray(stacks) ? stacks.map(Number) : (stacks ? [Number(stacks)] : [])) : undefined;
 
-            const updated = await ExerciseModel.update(parseInt(id), {
+            const updated = await exerciseModel.update(parseInt(id), {
                 title,
                 summary,
                 statement,
@@ -141,7 +141,7 @@ class ExerciseController {
             // Process any newly added attachment files
             if (req.files && req.files['attachments']) {
                 for (const attFile of req.files['attachments']) {
-                    await AttachmentModel.create({
+                    await attachmentModel.create({
                         exercise_id: id,
                         original_name: attFile.originalname,
                         stored_filename: attFile.filename,
@@ -152,7 +152,7 @@ class ExerciseController {
                 }
             }
 
-            const finalExercise = await ExerciseModel.findById(parseInt(id));
+            const finalExercise = await exerciseModel.findById(parseInt(id));
 
             return res.json({
                 success: true,
@@ -167,7 +167,7 @@ class ExerciseController {
     static async delete(req, res, next) {
         try {
             const { id } = req.params;
-            const exercise = await ExerciseModel.findById(parseInt(id));
+            const exercise = await exerciseModel.findById(parseInt(id));
             if (!exercise) {
                 return res.status(404).json({ success: false, error: 'Exercício não encontrado.' });
             }
@@ -182,7 +182,7 @@ class ExerciseController {
                 }
             }
 
-            await ExerciseModel.delete(parseInt(id));
+            await exerciseModel.delete(parseInt(id));
 
             return res.json({
                 success: true,
@@ -196,7 +196,7 @@ class ExerciseController {
     static async deleteAttachment(req, res, next) {
         try {
             const { attachmentId } = req.params;
-            const attachment = await AttachmentModel.findById(parseInt(attachmentId));
+            const attachment = await attachmentModel.findById(parseInt(attachmentId));
             if (!attachment) {
                 return res.status(404).json({ success: false, error: 'Anexo não encontrado.' });
             }
@@ -206,7 +206,7 @@ class ExerciseController {
                 fs.unlinkSync(fullPath);
             }
 
-            await AttachmentModel.delete(parseInt(attachmentId));
+            await attachmentModel.delete(parseInt(attachmentId));
 
             return res.json({
                 success: true,
@@ -219,7 +219,7 @@ class ExerciseController {
 
     static async getStats(req, res, next) {
         try {
-            const stats = await ExerciseModel.getStats();
+            const stats = await exerciseModel.getStats();
             return res.json({
                 success: true,
                 data: stats
@@ -230,4 +230,4 @@ class ExerciseController {
     }
 }
 
-module.exports = ExerciseController;
+module.exports = exerciseController;

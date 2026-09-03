@@ -11,7 +11,7 @@ body {
     /* =========================================
        HEADER
     ========================================= */
-    .header-exercise-detail {
+    .exercise-detail__header {
         position: relative;
         display: flex;
         align-items: center;
@@ -20,7 +20,7 @@ body {
         border-bottom: 3px dashed var(--color-border-dim);
         padding: 1.1rem 5%;
 
-        .header-exercise-detail-content {
+        .exercise-detail__header-content {
             width: 100%;
             font-family: 'Patrick Hand', cursive;
             display: flex;
@@ -32,22 +32,22 @@ body {
             flex-wrap: wrap;
         }
 
-        .logo-link-exercise-detail {
+        .exercise-detail__logo-link {
             text-decoration: none;
         }
 
-        .logo-exercise-detail {
+        .exercise-detail__logo {
             font-family: 'Patrick Hand', cursive;
             font-size: 1.8rem;
             letter-spacing: 2px;
             color: var(--color-primary-dark);
         }
 
-        .nav-exercise-detail {
+        .exercise-detail__nav {
             display: flex;
             align-items: center;
 
-            .link-back-exercise-detail {
+            .exercise-detail__back-link {
                 font-family: 'Outfit', sans-serif;
                 font-size: 0.85rem;
                 font-weight: 600;
@@ -70,26 +70,26 @@ body {
     /* =========================================
        MAIN
     ========================================= */
-    .main-exercise-detail {
+    .exercise-detail-page {
         position: relative;
         z-index: 1;
         padding: 3rem 5% 5rem;
 
-        .exercise-detail-container {
+        .exercise-detail__container {
             max-width: 900px;
             margin: 0 auto;
         }
 
         /* "Pergaminho" principal — mesmo padrão de folha
            tracejada usado no form de exercício e no login */
-        .exercise-detail-card {
+        .exercise-detail__card {
             background-color: var(--color-surface);
             border: 2px dashed var(--color-border);
             border-radius: 1.5rem;
             padding: 2.5rem;
         }
 
-        .exercise-detail-header {
+        .exercise-detail__content-header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
@@ -99,13 +99,13 @@ body {
             padding-bottom: 1.5rem;
             border-bottom: 2px dashed var(--color-border-dim);
 
-            .exercise-detail-title-group {
+            .exercise-detail__title-group {
                 display: flex;
                 flex-direction: column;
                 gap: 0.4rem;
             }
 
-            .ex-id-badge {
+            .exercise-detail__id-badge {
                 font-family: 'Outfit', sans-serif;
                 font-weight: 700;
                 font-size: 0.8rem;
@@ -114,14 +114,14 @@ body {
                 color: var(--color-text-muted);
             }
 
-            .ex-title {
+            .exercise-detail__title {
                 font-family: 'Patrick Hand', cursive;
                 font-size: clamp(2rem, 5vw, 3rem);
                 color: var(--color-text);
                 line-height: 1.15;
             }
 
-            .ex-difficulty-badge {
+            .exercise-detail__difficulty-badge {
                 flex-shrink: 0;
                 font-family: 'Outfit', sans-serif;
                 font-weight: 700;
@@ -136,7 +136,7 @@ body {
             }
         }
 
-        .exercise-detail-meta {
+        .exercise-detail__meta {
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -147,12 +147,12 @@ body {
             color: var(--color-text-muted);
             margin-bottom: 1.5rem;
 
-            .ex-date-wrapper strong {
+            .exercise-detail__date-wrapper strong {
                 color: var(--color-text);
                 font-weight: 700;
             }
 
-            .ex-stacks-container {
+            .exercise-detail__stacks {
                 display: flex;
                 flex-wrap: wrap;
                 gap: 0.5rem;
@@ -176,7 +176,7 @@ body {
             }
         }
 
-        .ex-tags-container {
+        .exercise-detail__tags {
             display: flex;
             flex-wrap: wrap;
             gap: 0.5rem;
@@ -198,14 +198,14 @@ body {
             }
         }
 
-        .ex-image-wrapper {
+        .exercise-detail__image-wrapper {
             width: 100%;
             margin-bottom: 2rem;
             border: 2px solid var(--color-border);
             border-radius: 1rem;
             overflow: hidden;
 
-            .ex-image {
+            .exercise-detail__image {
                 width: 100%;
                 height: auto;
                 max-height: 420px;
@@ -214,7 +214,7 @@ body {
             }
         }
 
-        .ex-summary {
+        .exercise-detail__summary {
             font-family: 'Outfit', sans-serif;
             font-size: 1.05rem;
             line-height: 1.6;
@@ -226,7 +226,7 @@ body {
         }
 
         /* Conteúdo do enunciado — Markdown/HTML injetado via JS */
-        .ex-statement {
+        .exercise-detail__statement {
             font-family: 'Outfit', sans-serif;
             font-size: 1rem;
             line-height: 1.75;
@@ -352,20 +352,20 @@ body {
         }
 
         /* Anexos — oculto por padrão, JS exibe quando existirem itens */
-        .attachments-section-exercise-detail {
+        .exercise-detail__attachments {
             display: none;
             margin-top: 2rem;
             padding-top: 2rem;
             border-top: 2px dashed var(--color-border-dim);
 
-            .attachments-title-exercise-detail {
+            .exercise-detail__attachments-title {
                 font-family: 'Patrick Hand', cursive;
                 font-size: 1.6rem;
                 color: var(--color-text);
                 margin-bottom: 1rem;
             }
 
-            .attachments-list-exercise-detail {
+            .exercise-detail__attachments-list {
                 display: flex;
                 flex-direction: column;
                 gap: 0.6rem;
@@ -397,19 +397,19 @@ body {
     /* =========================================
        FOOTER
     ========================================= */
-    .footer-exercise-detail {
+    .exercise-detail__footer {
         background-color: var(--color-surface);
         border-top: 3px dashed var(--color-border-dim);
         padding: 2.5rem 1rem;
         text-align: center;
 
-        .footer-exercise-detail-content {
+        .exercise-detail__footer-content {
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
         }
 
-        .footer-text-exercise-detail {
+        .exercise-detail__footer-text {
             font-family: 'Outfit', sans-serif;
             font-size: 0.95rem;
             color: var(--color-text-muted);
@@ -423,19 +423,19 @@ body {
 ========================================= */
 @media (max-width: 640px) {
     body {
-        .header-exercise-detail .header-exercise-detail-content {
+        .exercise-detail__header .exercise-detail__header-content {
             flex-direction: column;
             align-items: flex-start;
         }
 
-        .main-exercise-detail {
+        .exercise-detail-page {
             padding: 2rem 5% 4rem;
 
-            .exercise-detail-card {
+            .exercise-detail__card {
                 padding: 1.5rem;
             }
 
-            .exercise-detail-header {
+            .exercise-detail__content-header {
                 flex-direction: column;
             }
         }

@@ -20,22 +20,22 @@ document.addEventListener('DOMContentLoaded', async () => {
     const isEditMode = pathParts.includes('edit');
     const exerciseId = isEditMode ? pathParts[pathParts.length - 1] : null;
 
-    const formHeadingTitle = document.getElementById('form-heading-title');
-    const form = document.getElementById('exercise-editor-form');
-    const formTitle = document.getElementById('form-title');
-    const formSummary = document.getElementById('form-summary');
-    const formDifficulty = document.getElementById('form-difficulty');
-    const formStatement = document.getElementById('form-statement');
-    const formImageInput = document.getElementById('form-image');
-    const imagePreviewContainer = document.getElementById('image-preview-container');
-    const imagePreview = document.getElementById('image-preview');
-    const stacksChecklist = document.getElementById('stacks-checkbox-list');
-    const tagsChecklist = document.getElementById('tags-checkbox-list');
-    const btnSave = document.getElementById('btn-save-exercise');
-    const btnInsertCodeTemplate = document.getElementById('btn-insert-code-template');
+    const formHeadingTitle = document.getElementById('exercise-form__heading');
+    const form = document.getElementById('exercise-form__editor');
+    const formTitle = document.getElementById('exercise-form__title');
+    const formSummary = document.getElementById('exercise-form__summary');
+    const formDifficulty = document.getElementById('exercise-form__difficulty');
+    const formStatement = document.getElementById('exercise-form__statement');
+    const formImageInput = document.getElementById('exercise-form__image');
+    const imagePreviewContainer = document.getElementById('exercise-form__image-preview-container');
+    const imagePreview = document.getElementById('exercise-form__image-preview');
+    const stacksChecklist = document.getElementById('exercise-form__stacks-checkbox-list');
+    const tagsChecklist = document.getElementById('exercise-form__tags-checkbox-list');
+    const btnSave = document.getElementById('exercise-form__save');
+    const btnInsertCodeTemplate = document.getElementById('exercise-form__insert-code-template');
 
-    const existingAttContainer = document.getElementById('existing-attachments-container');
-    const existingAttList = document.getElementById('existing-attachments-list');
+    const existingAttContainer = document.getElementById('exercise-form__existing-attachments-container');
+    const existingAttList = document.getElementById('exercise-form__existing-attachments-list');
 
     if (isEditMode) {
         formHeadingTitle.innerText = `Editar Exercício #${String(exerciseId).padStart(3, '0')} ]`;
@@ -111,7 +111,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
 
             // Attachments files if selected
-            const attachmentsInput = document.getElementById('form-attachments');
+            const attachmentsInput = document.getElementById('exercise-form__attachments');
             if (attachmentsInput.files.length > 0) {
                 for (let i = 0; i < attachmentsInput.files.length; i++) {
                     formData.append('attachments', attachmentsInput.files[i]);
@@ -158,7 +158,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (stacksData.success) {
                 stacksChecklist.innerHTML = stacksData.data.map(s => `
                     <label class="checkbox-grid__item">
-                        <input type="checkbox" name="stacks" value="${s.id}" id="stack-cb-${s.id}">
+                        <input type="checkbox" name="stacks" value="${s.id}" id="exercise-form__stack-checkbox-${s.id}">
                         <span>${s.name}</span>
                     </label>
                 `).join('');
@@ -167,7 +167,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (tagsData.success) {
                 tagsChecklist.innerHTML = tagsData.data.map(t => `
                     <label class="checkbox-grid__item">
-                        <input type="checkbox" name="tags" value="${t.id}" id="tag-cb-${t.id}">
+                        <input type="checkbox" name="tags" value="${t.id}" id="exercise-form__tag-checkbox-${t.id}">
                         <span>${t.name}</span>
                     </label>
                 `).join('');
@@ -197,7 +197,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             // Check stacks
             if (ex.stacks && ex.stacks.length > 0) {
                 ex.stacks.forEach(s => {
-                    const cb = document.getElementById(`stack-cb-${s.id}`);
+                    const cb = document.getElementById(`exercise-form__stack-checkbox-${s.id}`);
                     if (cb) cb.checked = true;
                 });
             }
@@ -205,7 +205,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             // Check tags
             if (ex.tags && ex.tags.length > 0) {
                 ex.tags.forEach(t => {
-                    const cb = document.getElementById(`tag-cb-${t.id}`);
+                    const cb = document.getElementById(`exercise-form__tag-checkbox-${t.id}`);
                     if (cb) cb.checked = true;
                 });
             }
@@ -229,9 +229,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Render existing attachments — BEM classes
     function renderExistingAttachments(attachments) {
         existingAttList.innerHTML = attachments.map(att => `
-            <div class="attachments__item" id="att-row-${att.id}" style="margin-top: 6px;">
+            <div class="attachments__item" id="exercise-form__attachment-row-${att.id}" style="margin-top: 6px;">
                 <span class="attachments__name"> ${att.original_name} (${formatFileSize(att.file_size)})</span>
-                <button type="button" class="btn btn--danger btn-remove-att" data-id="${att.id}" style="font-size: 0.7rem; padding: 2px 6px;">
+                <button type="button" class="btn btn--danger attachments__remove-button" data-id="${att.id}" style="font-size: 0.7rem; padding: 2px 6px;">
                     [ REMOVER ]
                 </button>
             </div>
@@ -239,7 +239,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         existingAttContainer.style.display = 'block';
 
-        document.querySelectorAll('.btn-remove-att').forEach(btn => {
+        document.querySelectorAll('.attachments__remove-button').forEach(btn => {
             btn.addEventListener('click', async (e) => {
                 const attId = e.target.getAttribute('data-id');
                 if (!confirm('Deseja remover este anexo?')) return;
@@ -249,7 +249,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     const data = await res.json();
                     if (res.ok && data.success) {
                         showToast('Anexo removido com sucesso.');
-                        document.getElementById(`att-row-${attId}`).remove();
+                        document.getElementById(`exercise-form__attachment-row-${attId}`).remove();
                     } else {
                         showToast(data.error || 'Erro ao remover anexo.', true);
                     }

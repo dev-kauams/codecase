@@ -1,33 +1,33 @@
 const express = require('express');
 const router = express.Router();
-const ExerciseController = require('../controllers/exerciseController');
-const TagController = require('../controllers/tagController');
-const StackController = require('../controllers/stackController');
+const exerciseController = require('../controllers/exerciseController');
+const tagController = require('../controllers/tagController');
+const stackController = require('../controllers/stackController');
 const authMiddleware = require('../middlewares/authMiddleware');
 const upload = require('../middlewares/uploadMiddleware');
 
 // Public endpoints
-router.get('/exercises', ExerciseController.getAll);
-router.get('/exercises/:id', ExerciseController.getById);
-router.get('/tags', TagController.getAll);
-router.get('/stacks', StackController.getAll);
+router.get('/exercises', exerciseController.getAll);
+router.get('/exercises/:id', exerciseController.getById);
+router.get('/tags', tagController.getAll);
+router.get('/stacks', stackController.getAll);
 
-router.get('/admin/stats', authMiddleware, ExerciseController.getStats);
+router.get('/admin/stats', authMiddleware, exerciseController.getStats);
 
 router.post('/exercises', authMiddleware, upload.fields([
     { name: 'image', maxCount: 1 },
     { name: 'attachments', maxCount: 5 }
-]), ExerciseController.create);
+]), exerciseController.create);
 
 router.put('/exercises/:id', authMiddleware, upload.fields([
     { name: 'image', maxCount: 1 },
     { name: 'attachments', maxCount: 5 }
-]), ExerciseController.update);
+]), exerciseController.update);
 
-router.delete('/exercises/:id', authMiddleware, ExerciseController.delete);
-router.delete('/exercises/attachments/:attachmentId', authMiddleware, ExerciseController.deleteAttachment);
+router.delete('/exercises/:id', authMiddleware, exerciseController.delete);
+router.delete('/exercises/attachments/:attachmentId', authMiddleware, exerciseController.deleteAttachment);
 
-router.post('/tags', authMiddleware, TagController.create);
-router.post('/stacks', authMiddleware, StackController.create);
+router.post('/tags', authMiddleware, tagController.create);
+router.post('/stacks', authMiddleware, stackController.create);
 
 module.exports = router;

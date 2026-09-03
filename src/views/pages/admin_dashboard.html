@@ -5,58 +5,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CodeCase</title>
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/admin-dashboard.css">
+    <link rel="stylesheet" href="/css/admin_dashboard.css">
 </head>
 <body>
 
     <!-- Bloco: navbar -->
-    <header class="header-dashboard">
-        <div class="header-dashboard-content">
-            <a href="/" class="logo-link-dashboard">
-                <h1 class="logo-dashboard">CodeCase</h1>
+    <header class="dashboard__header">
+        <div class="dashboard__header-content">
+            <a href="/" class="dashboard__logo-link">
+                <h1 class="dashboard__logo">CodeCase</h1>
             </a>
-            <nav class="nav-dashboard">
-                <a href="/" target="_blank" class="link-public-dashboard">Ir para Home</a>
-                <button id="btn-logout" class="btn-logout-dashboard">Sair</button>
+            <nav class="dashboard__nav">
+                <a href="/" target="_blank" class="dashboard__public-link">Ir para Home</a>
+                <button id="dashboard__logout" class="dashboard__logout-button">Sair</button>
             </nav>
         </div>
     </header>
 
-    <main class="main-dashboard">
+    <main class="dashboard">
 
         <!-- Dashboard Header -->
-        <div class="create-area-dashboard">
-            <header class="create-header-dashboard">
+        <div class="dashboard__create-area">
+            <header class="dashboard__create-header">
             </header>
-            <div class="buttons-dashboard">
-                <button id="btn-new-tag-modal" class="btn-secondary-dashboard">+ Nova Tag</button>
-                <button id="btn-new-stack-modal" class="btn-secondary-dashboard">+ Nova Stack</button>
-                <a href="/admin/exercise/new" class="btn-primary-dashboard">
+            <div class="dashboard__buttons">
+                <button id="dashboard__new-tag-modal" class="dashboard__secondary-button">+ Nova Tag</button>
+                <button id="dashboard__new-stack-modal" class="dashboard__secondary-button">+ Nova Stack</button>
+                <a href="/admin/exercise/new" class="dashboard__primary-button">
                     + Criar Exercício
                 </a>
             </div>
         </div>
 
         <!-- Bloco: stats -->
-        <div class="stats-area-dashboard">
-            <div class="data-ex-dashboard stat-card-dashboard">
-                <div class="stat-label-dashboard">Total de Exercícios</div>
-                <div id="stat-exercises" class="stat-value-dashboard">--</div>
+        <div class="dashboard__stats">
+            <div class="dashboard__stat dashboard__stat--exercises">
+                <div class="dashboard__stat-label">Total de Exercícios</div>
+                <div id="dashboard__stat-exercises" class="dashboard__stat-value">--</div>
             </div>
-            <div class="data-stacks-dashboard stat-card-dashboard">
-                <div class="stat-label-dashboard">Stacks Cadastradas</div>
-                <div id="stat-stacks" class="stat-value-dashboard">--</div>
+            <div class="dashboard__stat dashboard__stat--stacks">
+                <div class="dashboard__stat-label">Stacks Cadastradas</div>
+                <div id="dashboard__stat-stacks" class="dashboard__stat-value">--</div>
             </div>
-            <div class="data-tags-dashboard stat-card-dashboard">
-                <div class="stat-label-dashboard">Tags Disponíveis</div>
-                <div id="stat-tags" class="stat-value-dashboard">--</div>
+            <div class="dashboard__stat dashboard__stat--tags">
+                <div class="dashboard__stat-label">Tags Disponíveis</div>
+                <div id="dashboard__stat-tags" class="dashboard__stat-value">--</div>
             </div>
         </div>
 
         <!-- Bloco: table-wrap -->
-        <div class="table-area-dashboard">
-            <table class="table-dashboard">
-                <thead class="table-head-dashboard">
+        <div class="dashboard__table-area">
+            <table class="dashboard__table">
+                <thead class="dashboard__table-head">
                     <tr>
                         <th>ID</th>
                         <th>Título do Exercício</th>
@@ -67,9 +67,9 @@
                         <th>Ações</th>
                     </tr>
                 </thead>
-                <tbody id="admin-exercise-table-body" class="table-body-dashboard">
+                <tbody id="dashboard__exercise-table-body" class="dashboard__table-body">
                     <tr>
-                        <td colspan="7" class="table-loading-dashboard">
+                        <td colspan="7" class="dashboard__table-loading">
                             Carregando lista de exercícios...
                         </td>
                     </tr>
@@ -80,59 +80,58 @@
     </main>
 
     <!-- Bloco: modal — confirmar exclusão -->
-    <div class="modal-delete-dashboard" id="delete-modal">
-        <div class="modal-box-dashboard">
-            <h3 class="modal-title-dashboard">Confirmar Exclusão</h3>
-            <p id="delete-modal-text" class="modal-text-dashboard">
+    <div class="dashboard__modal dashboard__modal--delete" id="dashboard__delete-modal">
+        <div class="dashboard__modal-box">
+            <h3 class="dashboard__modal-title">Confirmar Exclusão</h3>
+            <p id="dashboard__delete-modal-text" class="dashboard__modal-text">
                 Tem certeza que deseja excluir este exercício? Esta ação não poderá ser desfeita.
             </p>
-            <div class="modal-actions-dashboard">
-                <button id="btn-cancel-delete" class="btn-cancel-dashboard">Cancelar</button>
-                <button id="btn-confirm-delete" class="btn-danger-dashboard">Excluir Permanentemente</button>
+            <div class="dashboard__modal-actions">
+                <button id="dashboard__cancel-delete" class="dashboard__cancel-button">Cancelar</button>
+                <button id="dashboard__confirm-delete" class="dashboard__danger-button">Excluir Permanentemente</button>
             </div>
         </div>
     </div>
 
     <!-- Bloco: modal — nova tag -->
-    <div class="modal-tag-dashboard" id="tag-modal">
-        <div class="modal-box-dashboard">
-            <h3 class="modal-title-dashboard">Nova Tag de Conteúdo</h3>
-            <div class="modal-field-dashboard">
-                <label for="new-tag-name">Nome da Tag</label>
-                <input type="text" id="new-tag-name" placeholder="Ex: Recursão, Regex, Math">
+    <div class="dashboard__modal dashboard__modal--tag" id="dashboard__tag-modal">
+        <div class="dashboard__modal-box">
+            <h3 class="dashboard__modal-title">Nova Tag de Conteúdo</h3>
+            <div class="dashboard__modal-field">
+                <label for="dashboard__new-tag-name">Nome da Tag</label>
+                <input type="text" id="dashboard__new-tag-name" placeholder="Ex: Recursão, Regex, Math">
             </div>
-            <div class="modal-actions-dashboard">
-                <button id="btn-cancel-tag" class="btn-cancel-dashboard">Cancelar</button>
-                <button id="btn-save-tag" class="btn-primary-modal-dashboard">Salvar Tag</button>
+            <div class="dashboard__modal-actions">
+                <button id="dashboard__cancel-tag" class="dashboard__cancel-button">Cancelar</button>
+                <button id="dashboard__save-tag" class="dashboard__primary-modal-button">Salvar Tag</button>
             </div>
         </div>
     </div>
 
     <!-- Bloco: modal — nova stack -->
-    <div class="modal-stack-dashboard" id="stack-modal">
-        <div class="modal-box-dashboard">
-            <h3 class="modal-title-dashboard">Nova Stack</h3>
-            <div class="modal-field-dashboard">
-                <label for="new-stack-name">Nome da Stack</label>
-                <input type="text" id="new-stack-name" placeholder="Ex: Rust, Go, TypeScript">
+    <div class="dashboard__modal dashboard__modal--stack" id="dashboard__stack-modal">
+        <div class="dashboard__modal-box">
+            <h3 class="dashboard__modal-title">Nova Stack</h3>
+            <div class="dashboard__modal-field">
+                <label for="dashboard__new-stack-name">Nome da Stack</label>
+                <input type="text" id="dashboard__new-stack-name" placeholder="Ex: Rust, Go, TypeScript">
             </div>
-            <div class="modal-field-dashboard modal-field-color-dashboard">
-                <label for="new-stack-color">Cor Hexadecimal</label>
-                <input type="color" id="new-stack-color" value="#d97986">
+            <div class="dashboard__modal-field dashboard__modal-field--color">
+                <label for="dashboard__new-stack-color">Cor Hexadecimal</label>
+                <input type="color" id="dashboard__new-stack-color" value="#d97986">
             </div>
-            <div class="modal-actions-dashboard">
-                <button id="btn-cancel-stack" class="btn-cancel-dashboard">Cancelar</button>
-                <button id="btn-save-stack" class="btn-primary-modal-dashboard">Salvar Stack</button>
+            <div class="dashboard__modal-actions">
+                <button id="dashboard__cancel-stack" class="dashboard__cancel-button">Cancelar</button>
+                <button id="dashboard__save-stack" class="dashboard__primary-modal-button">Salvar Stack</button>
             </div>
         </div>
     </div>
 
     <!-- Toast Notifications — Bloco: toasts -->
-    <div id="toast-container"></div>
+    <div id="toast__container"></div>
 
     <!-- Client Scripts -->
     <script src="/js/main.js"></script>
-    <script scr="/js/filters.js"
-    <script src="/js/admin-dashboard.js"></script>
+    <script src="/js/adminDashboard.js"></script>
 </body>
 </html>

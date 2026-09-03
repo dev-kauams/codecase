@@ -9,48 +9,48 @@
 </head>
 
 <body>
-    <main class="main-login">
-        <section class="section-login">
+    <main class="login">
+    <section class="login__section">
 
-            <header class="header-section-login">
+            <header class="login__header">
                 <h2>Administração</h2>
                 <p>Entre com suas credenciais autorizadas</p>
             </header>
 
-            <div id="login-error-alert"></div>
+            <div id="login__error-alert"></div>
 
-            <form id="login-form">
-                <div class="data-area">
-                    <div class="login-area">
-                        <label for="username">Usuário Administrador</label>
-                        <input type="text" id="username" name="username" placeholder="Ex: admin" required autofocus>
+            <form id="login__form">
+                <div class="login__data">
+                    <div class="login__username-field">
+                        <label for="login__username">Usuário Administrador</label>
+                        <input type="text" id="login__username" name="username" placeholder="Ex: admin" required autofocus>
                     </div>
 
-                    <div class="password-area">
-                        <label for="password">Senha de Acesso</label>
-                        <input type="password" id="password" name="password" placeholder="••••••••" required>
+                    <div class="login__password-field">
+                        <label for="login__password">Senha de Acesso</label>
+                        <input type="password" id="login__password" name="password" placeholder="••••••••" required>
                     </div>
                 </div>
 
-                <div class="button-form">
-                    <button type="submit" id="btn-login-submit">Entrar</button>
+                <div class="login__actions">
+                    <button type="submit" id="login__submit">Entrar</button>
                 </div>
             </form>
         </section>
     </main>
 
-    <footer class="footer-login">
+    <footer class="login__footer">
         <a href="/">Voltar à página inicial</a>
     </footer>
 
     <script src="/js/main.js"></script>
     <script>
-        document.getElementById('login-form').addEventListener('submit', async (e) => {
+        document.getElementById('login__form').addEventListener('submit', async (e) => {
             e.preventDefault();
-            const username = document.getElementById('username').value.trim();
-            const password = document.getElementById('password').value;
-            const errorAlert = document.getElementById('login-error-alert');
-            const submitBtn = document.getElementById('btn-login-submit');
+            const username = document.getElementById('login__username').value.trim();
+            const password = document.getElementById('login__password').value;
+            const errorAlert = document.getElementById('login__error-alert');
+            const submitBtn = document.getElementById('login__submit');
 
             errorAlert.style.display = 'none';
             submitBtn.disabled = true;

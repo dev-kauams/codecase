@@ -4,14 +4,14 @@
    =================================================== */
 
 document.addEventListener('DOMContentLoaded', async () => {
-    const searchInput = document.getElementById('search-input');
-    const difficultySelect = document.getElementById('difficulty-select');
-    const stackSelect = document.getElementById('stack-select');
-    const tagSelect = document.getElementById('tag-select');
-    const btnClearFilters = document.getElementById('btn-clear-filters');
-    const exercisesGrid = document.getElementById('exercises-grid');
-    const resultsCountText = document.getElementById('results-count-text');
-    const activeFilterBadge = document.getElementById('active-filter-badge');
+    const searchInput = document.getElementById('home__search-input');
+    const difficultySelect = document.getElementById('home__difficulty-select');
+    const stackSelect = document.getElementById('home__stack-select');
+    const tagSelect = document.getElementById('home__tag-select');
+    const btnClearFilters = document.getElementById('home__clear-filters');
+    const exercisesGrid = document.getElementById('home__exercises-grid');
+    const resultsCountText = document.getElementById('home__results-count');
+    const activeFilterBadge = document.getElementById('home__active-filter');
 
     if (!exercisesGrid) return;
 
@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             updateSummaryBadge(data.data.length);
         } catch (err) {
             exercisesGrid.innerHTML = `
-                <div class="empty" style="grid-column: 1 / -1;">
+                <div class="state-empty" style="grid-column: 1 / -1;">
                     <h3>ERRO DE COMUNICAÇÃO</h3>
                     <p>${err.message}</p>
                 </div>
@@ -135,10 +135,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     function renderExercises(exercises) {
         if (!exercises || exercises.length === 0) {
             exercisesGrid.innerHTML = `
-                <div class="empty" style="grid-column: 1 / -1;">
+                <div class="state-empty" style="grid-column: 1 / -1;">
                     <h3>[ NENHUM PERGAMINHO ENCONTRADO ]</h3>
                     <p style="margin-top: 8px;">Nenhum desafio atende aos critérios de pesquisa selecionados.</p>
-                    <button class="btn btn--gold" style="margin-top: 16px;" onclick="document.getElementById('btn-clear-filters').click();">
+                    <button class="btn btn--gold" style="margin-top: 16px;" onclick="document.getElementById('home__clear-filters').click();">
                         [ REFINAR OU LIMPAR FILTROS ]
                     </button>
                 </div>
@@ -169,7 +169,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     </div>
 
                     <div class="card__footer">
-                        <div class="tags" style="margin-top: 12px;">
+                        <div class="card__badges" style="margin-top: 12px;">
                             <span class="badge ${diffClass}">${ex.difficulty.toUpperCase()}</span>
                             ${stacksHtml}
                             ${tagsHtml}

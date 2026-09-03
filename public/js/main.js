@@ -6,11 +6,11 @@
 
 // Global Toast Notification Helper — Bloco: toasts
 function showToast(message, isError = false) {
-    const container = document.getElementById('toast-container');
+    const container = document.getElementById('toast__container');
     if (!container) return;
 
     const toast = document.createElement('div');
-    toast.className = `toasts__item ${isError ? 'toasts__item--error' : ''}`;
+    toast.className = `toast__item ${isError ? 'toast__item--error' : ''}`;
     toast.innerText = (isError ? '⚠️ ' : '🪶 ') + message;
 
     container.appendChild(toast);
@@ -51,7 +51,7 @@ function parseMarkdown(mdText) {
     html = html.replace(/```([a-zA-Z0-9_+#-]*)\n([\s\S]*?)```/g, (match, lang, code) => {
         const cleanLang = lang || 'code';
         const escapedCode = code.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-        return `<div class="code-block-header">[ CÓDIGO: ${cleanLang.toUpperCase()} ]</div><pre><code class="language-${cleanLang}">${escapedCode}</code></pre>`;
+        return `<div class="markdown__code-header">[ CÓDIGO: ${cleanLang.toUpperCase()} ]</div><pre><code class="markdown__code--language-${cleanLang}">${escapedCode}</code></pre>`;
     });
 
     // Inline code `...`
@@ -75,8 +75,6 @@ function parseMarkdown(mdText) {
 }
 
 // Check admin navbar link state on load
-
-
 
 
 
