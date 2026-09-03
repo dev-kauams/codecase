@@ -35,13 +35,14 @@ body {
 
         .exercise-form-page__logo-link {
             text-decoration: none;
+            width: 15%;
+            display: flex;
+            align-items: center;
         }
 
         .exercise-form-page__logo {
-            font-family: 'Patrick Hand', cursive;
-            font-size: 2rem;
-            color: var(--color-primary-dark);
-            letter-spacing: 1px;
+            width: 100%;
+            height: auto;
         }
 
         .exercise-form-page__nav {

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -6,6 +6,7 @@
     <title>CodeCase</title>
     <meta name="description" content="Plataforma medieval de exercícios de programação. Explore, filtre por stack ou nível de dificuldade por @dev-kauams.">
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="shortcut icon" href="images/logo.ico" type="image/x-icon">
 </head>
 <body>
 
@@ -37,12 +38,8 @@
             </div>
 
                 <div class="home__actions">
-                    <a href="#exercises-grid">
-                        <button class="button-exercises">Ver exercícios</button>
-                    </a>
-                    <a href="https://github.com/dev-kauams/codecase" target="_blank">
-                        <button class="button-repository">Abrir repositório</button>
-                    </a>
+                    <button>Ver exercícios</button>
+                    <button onclick="window.open('https://github.com/dev-kauams/codecase', '_blank');">Abrir repositório</button>
                 </div>
         </section>
 
@@ -54,27 +51,27 @@
                     </div>
 
                     <div>
-                        <label for="home__difficulty-select">Dificuldade</label>
-                        <select id="home__difficulty-select">
-                            <option value="">Todas</option>
-                            <option value="Fácil">Fácil</option>
-                            <option value="Médio">Médio</option>
-                            <option value="Difícil">Difícil</option>
+                        <label for="difficulty-select">Dificuldade</label>
+                        <select id="difficulty-select">
+                            <option value="">-- TODAS --</option>
+                            <option value="Fácil">FÁCIL</option>
+                            <option value="Médio">MÉDIO</option>
+                            <option value="Difícil">DIFÍCIL</option>
                         </select>
                     </div>
 
                     <div>
-                        <label for="home__stack-select">Stack / Tech</label>
-                        <select id="home__stack-select">
-                            <option value="">Todas</option>
+                        <label for="stack-select">Stack / Tech</label>
+                        <select id="stack-select">
+                            <option value="">-- TODAS --</option>
                             <!-- Populated dynamically via JS -->
                         </select>
                     </div>
 
                     <div>
-                        <label for="home__tag-select">Tag / Tópico</label>
-                        <select id="home__tag-select">
-                            <option value="">Todas</option>
+                        <label for="tag-select">Tag / Tópico</label>
+                        <select id="tag-select">
+                            <option value="">-- TODAS --</option>
                             <!-- Populated dynamically via JS -->
                         </select>
                     </div>
@@ -94,12 +91,13 @@
         <section id="home__exercises-grid">
 
         </section>
+        <nav id="home__pagination" class="pagination" aria-label="Paginação dos exercícios"></nav>
 
     </main>
 
     <footer class="home__footer">
         <div>
-            <p>CODECASE</p>
+            <img src="images/codecase.svg" alt="CodeCase Logo">
             <p>Desenvolvido por <strong><a href="https://github.com/dev-kauams" target="_blank">@dev-kauams</a></strong></p>
         </div>
     </footer>
