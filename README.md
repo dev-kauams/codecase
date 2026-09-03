@@ -61,7 +61,7 @@ npm run init-db   # cria as tabelas e roda o seed
 npm run dev        # ou npm start, em produção
 ```
 
-Abre em `http://localhost:3000`.
+Abre em `http://localhost:6700`.
 
 ## Login de dev
 

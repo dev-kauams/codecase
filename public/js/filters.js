@@ -10,8 +10,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     const tagSelect = document.getElementById('home__tag-select');
     const btnClearFilters = document.getElementById('home__clear-filters');
     const exercisesGrid = document.getElementById('home__exercises-grid');
+    const pagination = document.getElementById('home__pagination');
     const resultsCountText = document.getElementById('home__results-count');
     const activeFilterBadge = document.getElementById('home__active-filter');
+    const pageSize = 6;
+    let currentPage = 1;
+    let filteredExercises = [];
 
     if (!exercisesGrid) return;
 
@@ -43,6 +47,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         stackSelect.value = '';
         tagSelect.value = '';
         updateUrlAndFetch();
+    });
+
+    window.addEventListener('popstate', () => {
+        readUrlParams();
+        fetchExercises();
     });
 
     // Populate dropdowns from backend
@@ -85,6 +94,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (params.has('difficulty')) difficultySelect.value = params.get('difficulty');
         if (params.has('stack')) stackSelect.value = params.get('stack');
         if (params.has('tag')) tagSelect.value = params.get('tag');
+        const page = Number.parseInt(params.get('page'), 10);
+        currentPage = Number.isInteger(page) && page > 0 ? page : 1;
     }
 
     // Update URL and fetch matching exercises
@@ -98,6 +109,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const newRelativePathQuery = window.location.pathname + (params.toString() ? '?' + params.toString() : '');
         history.pushState(null, '', newRelativePathQuery);
 
+        currentPage = 1;
         fetchExercises();
     }
 
@@ -118,8 +130,12 @@ document.addEventListener('DOMContentLoaded', async () => {
                 throw new Error(data.error || 'Erro ao carregar exercícios.');
             }
 
-            renderExercises(data.data);
-            updateSummaryBadge(data.data.length);
+            filteredExercises = data.data;
+            const totalPages = Math.ceil(filteredExercises.length / pageSize);
+            currentPage = Math.min(currentPage, Math.max(totalPages, 1));
+            renderExercises();
+            renderPagination(totalPages);
+            updateSummaryBadge(filteredExercises.length);
         } catch (err) {
             exercisesGrid.innerHTML = `
                 <div class="state-empty" style="grid-column: 1 / -1;">
@@ -127,12 +143,16 @@ document.addEventListener('DOMContentLoaded', async () => {
                     <p>${err.message}</p>
                 </div>
             `;
+            pagination.innerHTML = '';
             resultsCountText.textContent = 'Erro ao carregar dados.';
         }
     }
 
     // Render list of exercise cards
-    function renderExercises(exercises) {
+    function renderExercises() {
+        const startIndex = (currentPage - 1) * pageSize;
+        const exercises = filteredExercises.slice(startIndex, startIndex + pageSize);
+
         if (!exercises || exercises.length === 0) {
             exercisesGrid.innerHTML = `
                 <div class="state-empty" style="grid-column: 1 / -1;">
@@ -182,6 +202,48 @@ document.addEventListener('DOMContentLoaded', async () => {
                 </article>
             `;
         }).join('');
+    }
+
+    function renderPagination(totalPages) {
+        if (!pagination || totalPages <= 1) {
+            if (pagination) pagination.innerHTML = '';
+            return;
+        }
+
+        const pageButtons = Array.from({ length: totalPages }, (_, index) => {
+            const page = index + 1;
+            const current = page === currentPage;
+            return `
+                <button type="button" class="pagination__button${current ? ' is-active' : ''}"
+                    data-page="${page}" aria-label="Ir para a página ${page}"${current ? ' aria-current="page"' : ''}>
+                    ${page}
+                </button>
+            `;
+        }).join('');
+
+        pagination.innerHTML = `
+            <button type="button" class="pagination__button pagination__button--arrow"
+                data-page="${currentPage - 1}" aria-label="Página anterior"${currentPage === 1 ? ' disabled' : ''}>
+                <img src="images/arrow-left.svg" alt="Página anterior">
+            </button>
+            ${pageButtons}
+            <button type="button" class="pagination__button pagination__button--arrow"
+                data-page="${currentPage + 1}" aria-label="Próxima página"${currentPage === totalPages ? ' disabled' : ''}>
+                <img src="images/arrow-right.svg" alt="Próxima página">
+            </button>
+        `;
+
+        pagination.querySelectorAll('button:not([disabled])').forEach(button => {
+            button.addEventListener('click', () => {
+                currentPage = Number(button.dataset.page);
+                const params = new URLSearchParams(window.location.search);
+                params.set('page', currentPage);
+                history.pushState(null, '', `${window.location.pathname}?${params.toString()}`);
+                renderExercises();
+                renderPagination(totalPages);
+                document.getElementById('home__exercises-grid').scrollIntoView({ behavior: 'smooth' });
+            });
+        });
     }
 
     // Update filter status text
