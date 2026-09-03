@@ -7,7 +7,7 @@
 ========================================= */
 
 body {
-
+    min-height: 100dvh;
     /* =========================================
        HEADER DASHBOARD
     ========================================= */
@@ -33,7 +33,8 @@ body {
 
         .dashboard__logo-link {
             text-decoration: none;
-            width: 15%;
+            width: clamp(7rem, 15vw, 11rem);
+            max-width: 100%;
             display: flex;
             align-items: center;
         }
@@ -90,9 +91,10 @@ body {
        MAIN DASHBOARD
     ========================================= */
     .dashboard {
+        width: 100%;
         max-width: 1200px;
         margin: 0 auto;
-        padding: 3rem 5% 5rem;
+        padding: clamp(1.5rem, 5vw, 3rem) 5% clamp(3rem, 8vw, 5rem);
         position: relative;
         z-index: 1;
 
@@ -160,7 +162,7 @@ body {
            (sombra deslocada + leve rotação no hover) */
         .dashboard__stats {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
             gap: 1.5rem;
             margin-bottom: 3rem;
 
@@ -204,6 +206,7 @@ body {
 
         /* Tabela */
         .dashboard__table-area {
+            width: 100%;
             background-color: var(--color-surface);
             border: 5px dashed var(--color-border);
             border-radius: 1rem;
@@ -212,7 +215,7 @@ body {
 
             .dashboard__table {
                 width: 100%;
-                min-width: 720px;
+                min-width: 42rem;
                 border-collapse: collapse;
                 font-family: 'Outfit', sans-serif;
 

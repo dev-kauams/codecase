@@ -7,7 +7,7 @@
 ========================================= */
 
 body {
-
+    min-height: 100dvh;
     /* =========================================
        HEADER EXERCISE FORM
        (mesmo padrão visual do cabeçalho do dashboard)
@@ -35,7 +35,8 @@ body {
 
         .exercise-form-page__logo-link {
             text-decoration: none;
-            width: 15%;
+            width: clamp(7rem, 15vw, 11rem);
+            max-width: 100%;
             display: flex;
             align-items: center;
         }
@@ -73,9 +74,10 @@ body {
        MAIN / FORM CONTAINER
     ========================================= */
     .exercise-form-page {
+        width: 100%;
         position: relative;
         z-index: 1;
-        padding: 3rem 5% 5rem;
+        padding: clamp(1.5rem, 5vw, 3rem) 5% clamp(3rem, 8vw, 5rem);
 
         .exercise-form-page__container {
             max-width: 860px;
@@ -103,17 +105,18 @@ body {
         /* "Folha" do formulário — mesmo padrão do form de login: 
            fundo surface + borda tracejada + cantos arredondados */
         .exercise-form {
+            width: 100%;
             background-color: var(--color-surface);
             border: 2px dashed var(--color-border);
             border-radius: 1.5rem;
-            padding: 2.5rem;
+            padding: clamp(1.25rem, 5vw, 2.5rem);
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
         .exercise-form__fields {
-            width: 90%;
+            width: min(100%, 46rem);
             display: flex;
             flex-direction: column;
             gap: 1.8rem;
@@ -219,7 +222,7 @@ body {
         /* Preview da imagem de capa */
         .exercise-form__image-preview-container {
             width: 100%;
-            min-height: 400px;
+            min-height: clamp(12rem, 45vw, 25rem);
             margin-top: 0.4rem;
             display: flex;
             align-items: center;
@@ -231,7 +234,8 @@ body {
 
             .exercise-form__image-preview {
                 width: 100%;
-                height: 100%;
+                height: auto;
+                max-height: 25rem;
                 object-fit: cover;
                 display: block;
             }

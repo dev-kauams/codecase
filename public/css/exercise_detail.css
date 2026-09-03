@@ -7,7 +7,7 @@
 ========================================= */
 
 body {
-
+    min-height: 100dvh;
     /* =========================================
        HEADER
     ========================================= */
@@ -34,7 +34,8 @@ body {
 
         .exercise-detail__logo-link {
             text-decoration: none;
-            width: 15%;
+            width: clamp(7rem, 15vw, 11rem);
+            max-width: 100%;
             display: flex;
             align-items: center;
         }
@@ -72,9 +73,10 @@ body {
        MAIN
     ========================================= */
     .exercise-detail-page {
+        width: 100%;
         position: relative;
         z-index: 1;
-        padding: 3rem 5% 5rem;
+        padding: clamp(1.5rem, 5vw, 3rem) 5% clamp(3rem, 8vw, 5rem);
 
         .exercise-detail__container {
             max-width: 900px;
@@ -84,6 +86,7 @@ body {
         /* "Pergaminho" principal — mesmo padrão de folha
            tracejada usado no form de exercício e no login */
         .exercise-detail__card {
+            width: 100%;
             background-color: var(--color-surface);
             border: 2px dashed var(--color-border);
             border-radius: 1.5rem;

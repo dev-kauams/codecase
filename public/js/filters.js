@@ -29,6 +29,19 @@ document.addEventListener('DOMContentLoaded', async () => {
     await fetchExercises();
 
     // 4. Attach event listeners
+    pagination.addEventListener('click', event => {
+        const button = event.target.closest('button[data-page]');
+        if (!button || button.disabled) return;
+
+        currentPage = Number(button.dataset.page);
+        const params = new URLSearchParams(window.location.search);
+        params.set('page', currentPage);
+        history.pushState(null, '', `${window.location.pathname}?${params.toString()}`);
+        renderExercises();
+        renderPagination(Math.ceil(filteredExercises.length / pageSize));
+        exercisesGrid.scrollIntoView({ behavior: 'smooth' });
+    });
+
     let searchDebounceTimer;
     searchInput.addEventListener('input', () => {
         clearTimeout(searchDebounceTimer);
@@ -207,11 +220,19 @@ document.addEventListener('DOMContentLoaded', async () => {
             return;
         }
 
-        const pageButtons = Array.from({ length: totalPages }, (_, index) => {
-            const page = index + 1;
+        const visiblePages = new Set([1, totalPages, currentPage]);
+        if (currentPage > 1) visiblePages.add(currentPage - 1);
+        if (currentPage < totalPages) visiblePages.add(currentPage + 1);
+
+        const pageButtons = Array.from(visiblePages).sort((first, second) => first - second).map((page, index, pages) => {
             const current = page === currentPage;
+            const previousPage = pages[index - 1];
+            const separator = previousPage && page - previousPage > 1
+                ? '<span class="pagination__ellipsis" aria-hidden="true">...</span>'
+                : '';
             return `
-                <button type="button" class="pagination__button${current ? ' is-active' : ''}"
+                ${separator}
+                <button type="button" class="pagination__button pagination__page${current ? ' is-active' : ''}"
                     data-page="${page}" aria-label="Ir para a página ${page}"${current ? ' aria-current="page"' : ''}>
                     ${page}
                 </button>
@@ -221,26 +242,15 @@ document.addEventListener('DOMContentLoaded', async () => {
         pagination.innerHTML = `
             <button type="button" class="pagination__button pagination__button--arrow"
                 data-page="${currentPage - 1}" aria-label="Página anterior"${currentPage === 1 ? ' disabled' : ''}>
-                <img src="images/arrow-left.svg" alt="Página anterior">
+                <img src="images/arrow-left.svg" alt="">
             </button>
+            <span class="pagination__status" aria-live="polite">Página ${currentPage} de ${totalPages}</span>
             ${pageButtons}
             <button type="button" class="pagination__button pagination__button--arrow"
                 data-page="${currentPage + 1}" aria-label="Próxima página"${currentPage === totalPages ? ' disabled' : ''}>
-                <img src="images/arrow-right.svg" alt="Próxima página">
+                <img src="images/arrow-right.svg" alt="">
             </button>
         `;
-
-        pagination.querySelectorAll('button:not([disabled])').forEach(button => {
-            button.addEventListener('click', () => {
-                currentPage = Number(button.dataset.page);
-                const params = new URLSearchParams(window.location.search);
-                params.set('page', currentPage);
-                history.pushState(null, '', `${window.location.pathname}?${params.toString()}`);
-                renderExercises();
-                renderPagination(totalPages);
-                document.getElementById('home__exercises-grid').scrollIntoView({ behavior: 'smooth' });
-            });
-        });
     }
 
     // Update filter status text
