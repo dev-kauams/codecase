@@ -34,7 +34,7 @@ CREATE TABLE exercises (
     summary TEXT NOT NULL,
     statement TEXT NOT NULL,
     difficulty VARCHAR(20) NOT NULL CHECK (difficulty IN ('Fácil', 'Médio', 'Difícil')),
-    image_url VARCHAR(255) DEFAULT NULL,
+    image_url VARCHAR(255) NULL DEFAULT 'public/images/background.svg',
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );

@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     async function fetchExercises() {
         exercisesGrid.innerHTML = `
             <div style="grid-column: 1 / -1; text-align: center; padding: 48px; color: var(--color-text-muted);">
-                <span style="color: var(--color-gold); font-family: var(--font-mono);">[ CONSULTANDO OS ARQUIVOS DO SCRIPTORIUM... ]</span>
+                <span style="color: var(--color-gold); font-family: var(--font-mono);">Consultando...</span>
             </div>
         `;
 
@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         } catch (err) {
             exercisesGrid.innerHTML = `
                 <div class="empty" style="grid-column: 1 / -1;">
-                    <h3>ERRO DE COMUNICAÇÃO</h3>
+                    <h3>Erro de comunicação.</h3>
                     <p>${err.message}</p>
                 </div>
             `;
@@ -136,10 +136,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (!exercises || exercises.length === 0) {
             exercisesGrid.innerHTML = `
                 <div class="empty" style="grid-column: 1 / -1;">
-                    <h3>[ NENHUM PERGAMINHO ENCONTRADO ]</h3>
-                    <p style="margin-top: 8px;">Nenhum desafio atende aos critérios de pesquisa selecionados.</p>
+                    <h3>Nenhum exercício encontrado.</h3>
+                    <p style="margin-top: 8px;">Nenhum exercício atende aos critérios de pesquisa selecionados.</p>
                     <button class="btn btn--gold" style="margin-top: 16px;" onclick="document.getElementById('btn-clear-filters').click();">
-                        [ REFINAR OU LIMPAR FILTROS ]
+                        Limpar filtros
                     </button>
                 </div>
             `;

@@ -64,10 +64,10 @@ class ExerciseController {
                 });
             }
 
-            let imageUrl = null;
+            let imageUrl = '/images/background.svg'; // Imagem padrão
             if (req.files && req.files['image'] && req.files['image'].length > 0) {
-                const file = req.files['image'][0];
-                imageUrl = `/public/uploads/images/${file.filename}`;
+                 // const file = req.files['image'][0];
+                imageUrl = `/uploads/images/${file.filename}`;
             }
 
             const parsedTags = Array.isArray(tags) ? tags.map(Number) : (tags ? [Number(tags)] : []);
@@ -90,7 +90,7 @@ class ExerciseController {
                         exercise_id: exercise.id,
                         original_name: attFile.originalname,
                         stored_filename: attFile.filename,
-                        file_path: `/public/uploads/attachments/${attFile.filename}`,
+                        file_path: `/uploads/attachments/${attFile.filename}`,
                         mime_type: attFile.mimetype,
                         file_size: attFile.size
                     });
@@ -122,7 +122,7 @@ class ExerciseController {
             let imageUrl = existing.image_url;
             if (req.files && req.files['image'] && req.files['image'].length > 0) {
                 const file = req.files['image'][0];
-                imageUrl = `/public/uploads/images/${file.filename}`;
+                imageUrl = `/uploads/images/${file.filename}`;
             }
 
             const parsedTags = tags !== undefined ? (Array.isArray(tags) ? tags.map(Number) : (tags ? [Number(tags)] : [])) : undefined;
@@ -133,7 +133,7 @@ class ExerciseController {
                 summary,
                 statement,
                 difficulty,
-                image_url: imageUrl,
+                 // image_url: imageUrl,
                 tagIds: parsedTags,
                 stackIds: parsedStacks
             });
@@ -145,7 +145,7 @@ class ExerciseController {
                         exercise_id: id,
                         original_name: attFile.originalname,
                         stored_filename: attFile.filename,
-                        file_path: `/public/uploads/attachments/${attFile.filename}`,
+                        file_path: `/uploads/attachments/${attFile.filename}`,
                         mime_type: attFile.mimetype,
                         file_size: attFile.size
                     });

@@ -37,8 +37,12 @@
             </div>
 
                 <div class="home-button">
-                    <button>Ver exercícios</button>
-                    <button onclick="window.open('https://github.com/dev-kauams/codecase', '_blank');">Abrir repositório</button>
+                    <a href="#exercises-grid">
+                        <button class="button-exercises">Ver exercícios</button>
+                    </a>
+                    <a href="https://github.com/dev-kauams/codecase" target="_blank">
+                        <button class="button-repository">Abrir repositório</button>
+                    </a>
                 </div>
         </section>
 
@@ -52,17 +56,17 @@
                     <div>
                         <label for="difficulty-select">Dificuldade</label>
                         <select id="difficulty-select">
-                            <option value="">-- TODAS --</option>
-                            <option value="Fácil">FÁCIL</option>
-                            <option value="Médio">MÉDIO</option>
-                            <option value="Difícil">DIFÍCIL</option>
+                            <option value="">Todas</option>
+                            <option value="Fácil">Fácil</option>
+                            <option value="Médio">Médio</option>
+                            <option value="Difícil">Difícil</option>
                         </select>
                     </div>
 
                     <div>
                         <label for="stack-select">Stack / Tech</label>
                         <select id="stack-select">
-                            <option value="">-- TODAS --</option>
+                            <option value="">Todas</option>
                             <!-- Populated dynamically via JS -->
                         </select>
                     </div>
@@ -70,7 +74,7 @@
                     <div>
                         <label for="tag-select">Tag / Tópico</label>
                         <select id="tag-select">
-                            <option value="">-- TODAS --</option>
+                            <option value="">Todas</option>
                             <!-- Populated dynamically via JS -->
                         </select>
                     </div>
@@ -96,7 +100,7 @@
     <footer class="footer-home">
         <div>
             <p>CODECASE</p>
-            <p>Desenvolvido por <strong>@dev-kauams</strong></p>
+            <p>Desenvolvido por <strong><a href="https://github.com/dev-kauams" target="_blank">@dev-kauams</a></strong></p>
         </div>
     </footer>
 
