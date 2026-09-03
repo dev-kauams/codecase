@@ -22,6 +22,7 @@
 
 html {
     font-family: 'Patrick Hand', cursive;
+    scroll-behavior: smooth;
 }
 
 body {
@@ -207,27 +208,29 @@ body {
                 gap: 1.5rem;
                 z-index: 1;
 
-                button {
-                    background-color: var(--color-primary);
-                    color: var(--color-light);
-                    border: 2px solid var(--color-primary);
-                    padding: 0.6rem 1.5rem;
-                    font-size: 1.1rem;
-                    font-family: 'Outfit', sans-serif;
-                    font-weight: 600;
-                    cursor: pointer;
-                    transition: all 0.25s ease;
-                    border-radius: 2rem;
-
-                    &:nth-last-child(1) {
-                        background-color: transparent;
-                        color: var(--color-primary-dark);
-                    }
-
-                    &:hover {
-                        background-color: var(--color-primary-dark);
-                        border-color: var(--color-primary-dark);
+                a{
+                    button {
+                        background-color: var(--color-primary);
                         color: var(--color-light);
+                        border: 2px solid var(--color-primary);
+                        padding: 0.6rem 1.5rem;
+                        font-size: 1.1rem;
+                        font-family: 'Outfit', sans-serif;
+                        font-weight: 600;
+                        cursor: pointer;
+                        transition: all 0.25s ease;
+                        border-radius: 2rem;
+                        
+                        &.button-repository {
+                            background-color: transparent;
+                            color: var(--color-primary-dark);
+                        }
+    
+                        &:hover {
+                            background-color: var(--color-primary-dark);
+                            border-color: var(--color-primary-dark);
+                            color: var(--color-light);
+                        }
                     }
                 }
             }
@@ -677,6 +680,13 @@ body {
         .card__header{
             display: flex;
             justify-content: space-between;
+            
+        }
+        .card__thumbnail{
+            width:100%;
+            height: 200px;
+            border-radius: 0.5rem;
+            object-fit: cover;
         }
     }
 

@@ -11,7 +11,7 @@ function showToast(message, isError = false) {
 
     const toast = document.createElement('div');
     toast.className = `toast__item ${isError ? 'toast__item--error' : ''}`;
-    toast.innerText = (isError ? '⚠️ ' : '🪶 ') + message;
+    toast.innerText = (isError ? '[ERRO]' : '') + message;
 
     container.appendChild(toast);
 
