@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeCase</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/admin_dashboard.css">
+</head>
+<body>
+
+    <!-- Bloco: navbar -->
+    <header class="dashboard__header">
+        <div class="dashboard__header-content">
+            <a href="/" class="dashboard__logo-link">
+                <h1 class="dashboard__logo">CodeCase</h1>
+            </a>
+            <nav class="dashboard__nav">
+                <a href="/" target="_blank" class="dashboard__public-link">Ir para Home</a>
+                <button id="dashboard__logout" class="dashboard__logout-button">Sair</button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="dashboard">
+
+        <!-- Dashboard Header -->
+        <div class="dashboard__create-area">
+            <header class="dashboard__create-header">
+            </header>
+            <div class="dashboard__buttons">
+                <button id="dashboard__new-tag-modal" class="dashboard__secondary-button">+ Nova Tag</button>
+                <button id="dashboard__new-stack-modal" class="dashboard__secondary-button">+ Nova Stack</button>
+                <a href="/admin/exercise/new" class="dashboard__primary-button">
+                    + Criar Exercício
+                </a>
+            </div>
+        </div>
+
+        <!-- Bloco: stats -->
+        <div class="dashboard__stats">
+            <div class="dashboard__stat dashboard__stat--exercises">
+                <div class="dashboard__stat-label">Total de Exercícios</div>
+                <div id="dashboard__stat-exercises" class="dashboard__stat-value">--</div>
+            </div>
+            <div class="dashboard__stat dashboard__stat--stacks">
+                <div class="dashboard__stat-label">Stacks Cadastradas</div>
+                <div id="dashboard__stat-stacks" class="dashboard__stat-value">--</div>
+            </div>
+            <div class="dashboard__stat dashboard__stat--tags">
+                <div class="dashboard__stat-label">Tags Disponíveis</div>
+                <div id="dashboard__stat-tags" class="dashboard__stat-value">--</div>
+            </div>
+        </div>
+
+        <!-- Bloco: table-wrap -->
+        <div class="dashboard__table-area">
+            <table class="dashboard__table">
+                <thead class="dashboard__table-head">
+                    <tr>
+                        <th>ID</th>
+                        <th>Título do Exercício</th>
+                        <th>Dificuldade</th>
+                        <th>Stacks</th>
+                        <th>Anexos</th>
+                        <th>Data de Publicação</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="dashboard__exercise-table-body" class="dashboard__table-body">
+                    <tr>
+                        <td colspan="7" class="dashboard__table-loading">
+                            Carregando lista de exercícios...
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </main>
+
+    <!-- Bloco: modal — confirmar exclusão -->
+    <div class="dashboard__modal dashboard__modal--delete" id="dashboard__delete-modal">
+        <div class="dashboard__modal-box">
+            <h3 class="dashboard__modal-title">Confirmar Exclusão</h3>
+            <p id="dashboard__delete-modal-text" class="dashboard__modal-text">
+                Tem certeza que deseja excluir este exercício? Esta ação não poderá ser desfeita.
+            </p>
+            <div class="dashboard__modal-actions">
+                <button id="dashboard__cancel-delete" class="dashboard__cancel-button">Cancelar</button>
+                <button id="dashboard__confirm-delete" class="dashboard__danger-button">Excluir Permanentemente</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bloco: modal — nova tag -->
+    <div class="dashboard__modal dashboard__modal--tag" id="dashboard__tag-modal">
+        <div class="dashboard__modal-box">
+            <h3 class="dashboard__modal-title">Nova Tag de Conteúdo</h3>
+            <div class="dashboard__modal-field">
+                <label for="dashboard__new-tag-name">Nome da Tag</label>
+                <input type="text" id="dashboard__new-tag-name" placeholder="Ex: Recursão, Regex, Math">
+            </div>
+            <div class="dashboard__modal-actions">
+                <button id="dashboard__cancel-tag" class="dashboard__cancel-button">Cancelar</button>
+                <button id="dashboard__save-tag" class="dashboard__primary-modal-button">Salvar Tag</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bloco: modal — nova stack -->
+    <div class="dashboard__modal dashboard__modal--stack" id="dashboard__stack-modal">
+        <div class="dashboard__modal-box">
+            <h3 class="dashboard__modal-title">Nova Stack</h3>
+            <div class="dashboard__modal-field">
+                <label for="dashboard__new-stack-name">Nome da Stack</label>
+                <input type="text" id="dashboard__new-stack-name" placeholder="Ex: Rust, Go, TypeScript">
+            </div>
+            <div class="dashboard__modal-field dashboard__modal-field--color">
+                <label for="dashboard__new-stack-color">Cor Hexadecimal</label>
+                <input type="color" id="dashboard__new-stack-color" value="#d97986">
+            </div>
+            <div class="dashboard__modal-actions">
+                <button id="dashboard__cancel-stack" class="dashboard__cancel-button">Cancelar</button>
+                <button id="dashboard__save-stack" class="dashboard__primary-modal-button">Salvar Stack</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications — Bloco: toasts -->
+    <div id="toast__container"></div>
+
+    <!-- Client Scripts -->
+    <script src="/js/main.js"></script>
+    <script src="/js/adminDashboard.js"></script>
+</body>
+</html>

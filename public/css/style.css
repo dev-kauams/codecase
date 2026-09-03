@@ -43,7 +43,7 @@ body {
         inset: 0;
         width: 200%;
         height: 100%;
-        background-image: url("../images/bg_image.svg");
+        background-image: url("../images/bg-image.svg");
         opacity: 0.4;
         background-size: 10%;
         background-position: center;
@@ -65,7 +65,7 @@ body {
         z-index: 2;
         padding: 0 5%;
 
-        .header-items {
+        .home__header-items {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -106,8 +106,8 @@ body {
     /* =========================================
        MAIN CONTENT
     ========================================= */
-    .main-home {
-        .section-home {
+    .home {
+        .home__hero {
             height: 100dvh;
             width: 100%;
             position: relative;
@@ -117,7 +117,7 @@ body {
             align-items: center;
             padding-bottom: 8vh;
 
-            .title-home {
+            .home__title {
                 position: absolute;
                 display: flex;
                 justify-content: center;
@@ -141,7 +141,7 @@ body {
                     color: var(--color-light);
                     transform-origin: center;
                     animation: paper-cut 3s steps(1, end) infinite;
-                    filter: url(#rabiscado);
+                    filter: url(#home__sketch-filter);
                     -webkit-text-stroke: 1px var(--color-primary);
 
                     &::before {
@@ -165,7 +165,7 @@ body {
                     }
                 }
 
-                .images-title {
+                .home__title-images {
                     position: absolute;
                     display: flex;
                     gap: 1rem;
@@ -203,7 +203,7 @@ body {
                 }
             }
 
-            .home-button {
+            .home__actions {
                 display: flex;
                 gap: 1.5rem;
                 z-index: 1;
@@ -236,7 +236,7 @@ body {
             }
         }
 
-        #filter-panel {
+        #home__filter-panel {
             min-height: 30dvh;
             width: 100%;
             display: flex;
@@ -252,7 +252,7 @@ body {
                 max-width: 1000px;
                 align-items: end;
 
-                .filter-panel-search {
+                .home__filter-search {
                     grid-column: 1 / -1;
                     display: flex;
                     flex-direction: column;
@@ -313,7 +313,7 @@ body {
                     }
                 }
 
-                #btn-clear-filters {
+                #home__clear-filters {
                     height: 48px;
                     width: 100%;
                     background-color: transparent;
@@ -335,7 +335,7 @@ body {
             }
         }
 
-        >div:not(.section-home):not(#filter-panel) {
+        >div:not(.home__hero):not(#home__filter-panel) {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -344,7 +344,7 @@ body {
             margin: 0 auto;
             font-size: 1.2rem;
 
-            #active-filter-badge {
+            #home__active-filter {
                 background-color: var(--color-accent);
                 padding: 0.4rem 1.2rem;
                 border-radius: 1.5rem;
@@ -355,7 +355,7 @@ body {
             }
         }
 
-        #exercises-grid {
+        #home__exercises-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 2rem;
@@ -363,17 +363,7 @@ body {
             max-width: 1200px;
             margin: 0 auto 4rem auto;
 
-            .empty{
-                button{
-                    background-color: var(--color-primary);
-                    padding: 0.5rem 1.5rem;
-                    border: none;
-                    border-radius: 2rem;
-                    color: var(--color-light);
-                }
-            }
-
-            .exercise-card {
+            .card {
                 background-color: var(--color-surface);
                 border: 2px solid var(--color-border);
                 border-radius: 1rem;
@@ -402,14 +392,14 @@ body {
                     flex-grow: 1;
                 }
 
-                .card-footer {
+                .card__footer {
                     display: flex;
                     flex-wrap: wrap;
                     gap: 0.5rem;
                     margin-top: auto;
                 }
 
-                .tag-badge {
+                .badge--tag {
                     background-color: var(--color-bg);
                     border: 1px solid var(--color-border-dim);
                     padding: 0.25rem 0.75rem;
@@ -424,8 +414,8 @@ body {
         }
     }
 
-    .main-login {
-        .section-login {
+    .login {
+        .login__section {
             width: 100%;
             height: 95dvh;
             display: flex;
@@ -433,7 +423,7 @@ body {
             align-items: center;
             justify-content: center;
 
-            .header-section-login {
+            .login__header {
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
@@ -457,7 +447,7 @@ body {
                 flex-direction: column;
                 align-items: center;
 
-                .data-area {
+                .login__data {
                     flex: 1;
                     display: flex;
                     flex-direction: column;
@@ -465,7 +455,7 @@ body {
                     justify-content: center;
                     margin-bottom: 2rem;
 
-                    .login-area {
+                    .login__username-field {
                         display: flex;
                         flex-direction: column;
                         align-items: center;
@@ -488,7 +478,7 @@ body {
 
                     }
 
-                    .password-area {
+                    .login__password-field {
                         display: flex;
                         flex-direction: column;
                         align-items: center;
@@ -511,7 +501,7 @@ body {
                     }
                 }
 
-                .button-form {
+                .login__actions {
                     width: 100%;
                     display: flex;
                     justify-content: center;
@@ -538,7 +528,7 @@ body {
     /* =========================================
        FOOTER
     ========================================= */
-    .footer-home {
+    .home__footer {
         background-color: var(--color-surface);
         border-top: 3px dashed var(--color-border-dim);
         padding: 2.5rem 1rem;
@@ -563,7 +553,7 @@ body {
         }
     }
 
-    .footer-login {
+    .login__footer {
         position: relative;
         height: 5dvh;
     }
@@ -571,7 +561,7 @@ body {
     /* =========================================
        TOAST NOTIFICATIONS
     ========================================= */
-    #toast-container {
+    #toast__container {
         position: fixed;
         bottom: 20px;
         right: 20px;
@@ -580,7 +570,7 @@ body {
         gap: 10px;
         z-index: 9999;
 
-        .toast {
+        .toast__item {
             background-color: var(--color-text);
             color: var(--color-light);
             padding: 1rem 1.5rem;
@@ -636,29 +626,29 @@ body {
 }
 
 @media (max-width: 520px) {
-    .main-home .section-home {
+    .home .home__hero {
         padding-bottom: 12vh;
     }
 
-    .main-home .section-home .title-home {
+    .home .home__hero .home__title {
         top: 43%;
         width: 100%;
         height: 16rem;
     }
 
-    .main-home .section-home .title-home h1 {
+    .home .home__hero .home__title h1 {
         font-size: clamp(3.5rem, 17vw, 7rem);
     }
 
-    .main-home .section-home .title-home images-title img:nth-child(1) {
+    .home .home__hero .home__title .home__title-images img:nth-child(1) {
         left: 0;
     }
 
-    .main-home .section-home .title-home images-title img:nth-child(2) {
+    .home .home__hero .home__title .home__title-images img:nth-child(2) {
         left: 33.3333%;
     }
 
-    .main-home .section-home .title-home images-title img:nth-child(3) {
+    .home .home__hero .home__title .home__title-images img:nth-child(3) {
         left: 66.6666%;
     }
 }
@@ -666,7 +656,7 @@ body {
 @media (prefers-reduced-motion: reduce) {
 
     body::before,
-    body main .section-home h1 {
+    body main .home__hero h1 {
         animation: none;
     }
 }
@@ -702,7 +692,7 @@ body {
 
     .card__footer{
 
-        .tags{
+        .card__badges{
             display: flex;
             justify-content: center;
             flex-wrap: wrap;

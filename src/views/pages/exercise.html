@@ -6,53 +6,53 @@
     <title>CodeCase</title>
     <meta name="description" content="Visualização detalhada do desafio de programação no CodeCase por @dev-kauams.">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/exercise-detail.css">
+    <link rel="stylesheet" href="/css/exercise_detail.css">
 </head>
 <body>
 
-    <header class="header-exercise-detail">
-        <div class="header-exercise-detail-content">
-            <a href="/" class="logo-link-exercise-detail">
-                <span class="logo-exercise-detail">CODECASE</span>
+    <header class="exercise-detail__header">
+        <div class="exercise-detail__header-content">
+            <a href="/" class="exercise-detail__logo-link">
+                <span class="exercise-detail__logo">CODECASE</span>
             </a>
-            <nav class="nav-exercise-detail">
-                <a href="/" class="link-back-exercise-detail">VOLTAR à HOME</a>
+            <nav class="exercise-detail__nav">
+                <a href="/" class="exercise-detail__back-link">VOLTAR à HOME</a>
             </nav>
         </div>
     </header>
 
-    <main class="main-exercise-detail">
-        <div class="exercise-detail-container">
-            <div class="exercise-detail-card">
-                <div class="exercise-detail-header">
-                    <div class="exercise-detail-title-group">
-                        <span id="ex-id-badge" class="ex-id-badge">EXERCÍCIO #---</span>
-                        <h1 id="ex-title" class="ex-title">Carregando exercício...</h1>
+    <main class="exercise-detail-page">
+        <div class="exercise-detail__container">
+            <div class="exercise-detail__card">
+                <div class="exercise-detail__content-header">
+                    <div class="exercise-detail__title-group">
+                        <span id="exercise-detail__id-badge" class="exercise-detail__id-badge">EXERCÍCIO #---</span>
+                        <h1 id="exercise-detail__title" class="exercise-detail__title">Carregando exercício...</h1>
                     </div>
-                    <div id="ex-difficulty-badge" class="ex-difficulty-badge">
+                    <div id="exercise-detail__difficulty-badge" class="exercise-detail__difficulty-badge">
                     </div>
                 </div>
 
-                <div class="exercise-detail-meta">
-                    <div class="ex-date-wrapper">Datado de: <strong id="ex-date">--/--/----</strong></div>
-                    <div id="ex-stacks-container" class="ex-stacks-container"></div>
+                <div class="exercise-detail__meta">
+                    <div class="exercise-detail__date-wrapper">Datado de: <strong id="exercise-detail__date">--/--/----</strong></div>
+                    <div id="exercise-detail__stacks-container" class="exercise-detail__stacks"></div>
                 </div>
 
-                <div id="ex-tags-container" class="ex-tags-container"></div>
+                <div id="exercise-detail__tags-container" class="exercise-detail__tags"></div>
 
-                <div id="ex-image-wrapper" class="ex-image-wrapper">
-                    <img id="ex-image" class="ex-image" src="" alt="Imagem do Exercício">
+                <div id="exercise-detail__image-wrapper" class="exercise-detail__image-wrapper">
+                    <img id="exercise-detail__image" class="exercise-detail__image" src="" alt="Imagem do Exercício">
                 </div>
 
-                <div id="ex-summary" class="ex-summary">Resumo do exercício...</div>
+                <div id="exercise-detail__summary" class="exercise-detail__summary">Resumo do exercício...</div>
 
-                <div id="ex-statement" class="ex-statement">
+                <div id="exercise-detail__statement" class="exercise-detail__statement">
                     <!-- Markdown/HTML content injected here -->
                 </div>
 
-                <div id="attachments-section" class="attachments-section-exercise-detail">
-                    <h3 class="attachments-title-exercise-detail">Anexos &amp; Recursos</h3>
-                    <div id="attachments-list" class="attachments-list-exercise-detail">
+                <div id="exercise-detail__attachments-section" class="exercise-detail__attachments">
+                    <h3 class="exercise-detail__attachments-title">Anexos &amp; Recursos</h3>
+                    <div id="exercise-detail__attachments-list" class="exercise-detail__attachments-list">
                         <!-- List of downloadable attachments -->
                     </div>
                 </div>
@@ -61,13 +61,13 @@
         </div>
     </main>
 
-    <footer class="footer-exercise-detail">
-        <div class="footer-exercise-detail-content">
-            <p class="footer-text-exercise-detail">@dev-kauams</p>
+    <footer class="exercise-detail__footer">
+        <div class="exercise-detail__footer-content">
+            <p class="exercise-detail__footer-text">@dev-kauams</p>
         </div>
     </footer>
 
     <script src="/js/main.js"></script>
-    <script src="/js/exercise-detail.js"></script>
+    <script src="/js/exerciseDetail.js"></script>
 </body>
 </html>

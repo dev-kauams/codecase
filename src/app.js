@@ -12,7 +12,7 @@ const errorHandler = require('./middlewares/errorHandlerMiddleware');
 dotenv.config();
 
 const app = express();
-const PORT = Number(process.env.PORT) || 3000;
+const port = Number(process.env.PORT) || 3000;
 
 (async () => {
     try {
@@ -24,7 +24,7 @@ const PORT = Number(process.env.PORT) || 3000;
     }
 })();
 
-app.set('port', PORT);
+app.set('port', port);
 
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
@@ -56,8 +56,8 @@ app.use((req, res) => {
 app.use(errorHandler);
 
 if (require.main === module) {
-    app.listen(PORT, () => {
-        console.log(`[App] CodeCase rodando em http://localhost:${PORT}`);
+    app.listen(port, () => {
+        console.log(`[App] CodeCase rodando em http://localhost:${port}`);
     });
 }
 

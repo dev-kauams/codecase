@@ -28,12 +28,12 @@ const storage = multer.diskStorage({
     }
 });
 
-const FORBIDDEN_EXTENSIONS = ['.exe', '.bat', '.cmd', '.sh', '.php', '.phtml', '.pl', '.cgi', '.js', '.vbs', '.jar', '.scr', '.msi'];
+const forbiddenExtensions = ['.exe', '.bat', '.cmd', '.sh', '.php', '.phtml', '.pl', '.cgi', '.js', '.vbs', '.jar', '.scr', '.msi'];
 
 const fileFilter = (req, file, cb) => {
     const ext = path.extname(file.originalname).toLowerCase();
 
-    if (FORBIDDEN_EXTENSIONS.includes(ext)) {
+    if (forbiddenExtensions.includes(ext)) {
         return cb(new Error(`Tipo de arquivo não permitido por motivos de segurança (${ext}).`), false);
     }
 
