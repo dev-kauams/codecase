@@ -5,102 +5,102 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CodeCase</title>
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/exercise-form.css">
+    <link rel="stylesheet" href="/css/exercise_form.css">
 
 </head>
 <body>
 
-    <header class="header-exercise-form">
-        <div class="header-exercise-form-content">
-            <a href="/" class="logo-link-exercise-form">
-                <h1 class="logo-exercise-form">CodeCase</h1>
+    <header class="exercise-form-page__site-header">
+        <div class="exercise-form-page__header-content">
+            <a href="/" class="exercise-form-page__logo-link">
+                <h1 class="exercise-form-page__logo">CodeCase</h1>
             </a>
-            <nav class="nav-exercise-form">
-                <a href="/admin/dashboard" class="link-back-exercise-form">Voltar</a>
+            <nav class="exercise-form-page__nav">
+                <a href="/admin/dashboard" class="exercise-form-page__back-link">Voltar</a>
             </nav>
         </div>
     </header>
 
-    <main class="main-exercise-form">
-        <div class="exercise-form-container">
+    <main class="exercise-form-page">
+        <div class="exercise-form-page__container">
 
-            <div class="form-header-exercise-form">
-                <h1 id="form-heading-title" class="form-title-exercise-form">
+            <div class="exercise-form-page__header">
+                <h1 id="exercise-form__heading" class="exercise-form-page__title">
                     Novo Exercício
                 </h1>
-                <p class="form-subtitle-exercise-form">Preencha o enunciado, selecione as tecnologias e anexe arquivos complementares.</p>
+                <p class="exercise-form-page__subtitle">Preencha o enunciado, selecione as tecnologias e anexe arquivos complementares.</p>
             </div>
 
-            <form id="exercise-editor-form" class="exercise-form" enctype="multipart/form-data">
-                <input type="hidden" id="exercise-id" name="exercise_id">
+            <form id="exercise-form__editor" class="exercise-form" enctype="multipart/form-data">
+                <input type="hidden" id="exercise-form__id" name="exercise_id">
 
-                <div class="form-fields-exercise-form">
-                    <div class="form-group-exercise-form">
-                        <label for="form-title" class="form-label-exercise-form">Título do Exercício *</label>
-                        <input type="text" id="form-title" name="title" class="form-input-exercise-form" placeholder="Ex: Algoritmo de Busca Binária" required>
+                <div class="exercise-form__fields">
+                    <div class="exercise-form__group">
+                        <label for="exercise-form__title" class="exercise-form__label">Título do Exercício *</label>
+                        <input type="text" id="exercise-form__title" name="title" class="exercise-form__input" placeholder="Ex: Algoritmo de Busca Binária" required>
                     </div>
 
-                    <div class="form-group-exercise-form">
-                        <label for="form-summary" class="form-label-exercise-form">Resumo Curto *</label>
-                        <input type="text" id="form-summary" name="summary" class="form-input-exercise-form" placeholder="Pequena descrição sintetizada do desafio para os cards da homepage" required>
+                    <div class="exercise-form__group">
+                        <label for="exercise-form__summary" class="exercise-form__label">Resumo Curto *</label>
+                        <input type="text" id="exercise-form__summary" name="summary" class="exercise-form__input" placeholder="Pequena descrição sintetizada do desafio para os cards da homepage" required>
                     </div>
 
-                    <div class="form-group-exercise-form">
-                        <label for="form-difficulty" class="form-label-exercise-form">Nível de Dificuldade *</label>
-                        <select id="form-difficulty" name="difficulty" class="form-select-exercise-form" required>
+                    <div class="exercise-form__group">
+                        <label for="exercise-form__difficulty" class="exercise-form__label">Nível de Dificuldade *</label>
+                        <select id="exercise-form__difficulty" name="difficulty" class="exercise-form__select" required>
                             <option value="Fácil">FÁCIL</option>
                             <option value="Médio" selected>MÉDIO</option>
                             <option value="Difícil">DIFÍCIL</option>
                         </select>
                     </div>
 
-                    <div class="form-group-exercise-form">
-                        <label for="form-image" class="form-label-exercise-form">Imagem de Capa (Opcional)</label>
-                        <input type="file" id="form-image" name="image" class="form-input-file-exercise-form" accept="image/*">
-                        <div id="image-preview-container" class="image-preview-container-exercise-form">
-                            <img id="image-preview" class="image-preview-exercise-form" src="" alt="Preview">
+                    <div class="exercise-form__group">
+                        <label for="exercise-form__image" class="exercise-form__label">Imagem de Capa (Opcional)</label>
+                        <input type="file" id="exercise-form__image" name="image" class="exercise-form__file-input" accept="image/*">
+                        <div id="exercise-form__image-preview-container" class="exercise-form__image-preview-container">
+                            <img id="exercise-form__image-preview" class="exercise-form__image-preview" src="" alt="Preview">
                         </div>
                     </div>
 
-                    <div class="form-group-exercise-form">
-                        <label class="form-label-exercise-form">Stacks / Tecnologias Relacionadas</label>
-                        <div id="stacks-checkbox-list" class="checkbox-list-exercise-form">
+                    <div class="exercise-form__group">
+                        <label class="exercise-form__label">Stacks / Tecnologias Relacionadas</label>
+                        <div id="exercise-form__stacks-checkbox-list" class="exercise-form__checkbox-list">
                             <!-- Populated dynamically via JS -->
                         </div>
                     </div>
 
-                    <div class="form-group-exercise-form">
-                        <label class="form-label-exercise-form">Tags / Tópicos de Conhecimento</label>
-                        <div id="tags-checkbox-list" class="checkbox-list-exercise-form">
+                    <div class="exercise-form__group">
+                        <label class="exercise-form__label">Tags / Tópicos de Conhecimento</label>
+                        <div id="exercise-form__tags-checkbox-list" class="exercise-form__checkbox-list">
                             <!-- Populated dynamically via JS -->
                              <p>Não há nada...</p>
                         </div>
                     </div>
 
-                    <div class="form-group-exercise-form form-group-statement-exercise-form">
-                        <div class="form-statement-header-exercise-form">
-                            <label for="form-statement" class="form-label-exercise-form">Enunciado Completo (Markdown / HTML) *</label>
-                            <button type="button" id="btn-insert-code-template" class="btn-insert-code-exercise-form">+ Inserir bloco de código</button>
+                    <div class="exercise-form__group exercise-form__group--statement">
+                        <div class="exercise-form__statement-header">
+                            <label for="exercise-form__statement" class="exercise-form__label">Enunciado Completo (Markdown / HTML) *</label>
+                            <button type="button" id="exercise-form__insert-code-template" class="exercise-form__insert-code">+ Inserir bloco de código</button>
                         </div>
-                        <textarea id="form-statement" name="statement" class="form-textarea-exercise-form" placeholder="Escreva o enunciado completo do exercício em Markdown ou HTML semântico..." required></textarea>
+                        <textarea id="exercise-form__statement" name="statement" class="exercise-form__textarea" placeholder="Escreva o enunciado completo do exercício em Markdown ou HTML semântico..." required></textarea>
                     </div>
 
-                    <div class="form-group-exercise-form">
-                        <label for="form-attachments" class="form-label-exercise-form">Anexar Arquivos do Exercício (Código, PDF, ZIP)</label>
-                        <input type="file" id="form-attachments" name="attachments" class="form-input-file-exercise-form" multiple accept=".txt,.pdf,.zip,.rar,.json,.sql,.py,.cpp,.c,.java,.js,.html,.css,.md">
-                        <p class="form-hint-exercise-form">Permitidos: ZIP, PDF, TXT, JSON, SQL, código fonte (Máx: 10MB por arquivo).</p>
+                    <div class="exercise-form__group">
+                        <label for="exercise-form__attachments" class="exercise-form__label">Anexar Arquivos do Exercício (Código, PDF, ZIP)</label>
+                        <input type="file" id="exercise-form__attachments" name="attachments" class="exercise-form__file-input" multiple accept=".txt,.pdf,.zip,.rar,.json,.sql,.py,.cpp,.c,.java,.js,.html,.css,.md">
+                        <p class="exercise-form__hint">Permitidos: ZIP, PDF, TXT, JSON, SQL, código fonte (Máx: 10MB por arquivo).</p>
 
-                        <div id="existing-attachments-container" class="existing-attachments-exercise-form">
-                            <label class="form-label-exercise-form">Anexos Existentes:</label>
-                            <div id="existing-attachments-list" class="existing-attachments-list-exercise-form"></div>
+                        <div id="exercise-form__existing-attachments-container" class="exercise-form__existing-attachments">
+                            <label class="exercise-form__label">Anexos Existentes:</label>
+                            <div id="exercise-form__existing-attachments-list" class="exercise-form__existing-attachments-list"></div>
                         </div>
                     </div>
 
                 </div>
 
-                <div class="form-actions-exercise-form">
-                    <a href="/admin/dashboard" class="btn-cancel-exercise-form">Cancelar</a>
-                    <button type="submit" id="btn-save-exercise" class="btn-save-exercise-form">
+                <div class="exercise-form__actions">
+                    <a href="/admin/dashboard" class="exercise-form__cancel-button">Cancelar</a>
+                    <button type="submit" id="exercise-form__save" class="exercise-form__save-button">
                         Salvar Exercício
                     </button>
                 </div>
@@ -109,9 +109,9 @@
         </div>
     </main>
 
-    <div id="toast-container"></div>
+    <div id="toast__container"></div>
 
     <script src="/js/main.js"></script>
-    <script src="/js/admin-form.js"></script>
+    <script src="/js/adminForm.js"></script>
 </body>
 </html>

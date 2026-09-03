@@ -1,9 +1,9 @@
 const bcrypt = require('bcryptjs');
-const AdminModel = require('../models/AdminModel');
+const adminModel = require('../models/adminModel');
 
-const JWT_SECRET = process.env.JWT_SECRET || 'codecase_secret_key_2026';
+const jwtSecret = process.env.JWT_SECRET || 'codecase_secret_key_2026';
 
-class AuthService {
+class authService {
     static async hashPassword(password) {
         const salt = await bcrypt.genSalt(10);
         return bcrypt.hash(password, salt);
@@ -18,7 +18,7 @@ class AuthService {
             throw new Error('Usuário e senha são obrigatórios.');
         }
 
-        const admin = await AdminModel.findByUsername(username);
+        const admin = await adminModel.findByUsername(username);
         if (!admin) {
             throw new Error('Credenciais inválidas.');
         }
@@ -36,4 +36,4 @@ class AuthService {
     }
 }
 
-module.exports = AuthService;
+module.exports = authService;
