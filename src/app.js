@@ -3,7 +3,6 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const dotenv = require('dotenv');
 
-const initDb = require('./database/initDb');
 const viewRoutes = require('./routes/viewRoutes');
 const apiRoutes = require('./routes/apiRoutes');
 const authRoutes = require('./routes/authRoutes');
@@ -13,27 +12,12 @@ dotenv.config();
 
 const app = express();
 const PORT = Number(process.env.PORT) || 3000;
-const databaseReady = initDb()
-    .then(() => console.log('[App] Banco de dados inicializado com sucesso.'))
-    .catch(err => {
-        console.error('[App] Falha ao iniciar o banco de dados:', err);
-        throw err;
-    });
 
 app.set('port', PORT);
 
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use(cookieParser(process.env.COOKIE_SECRET || undefined));
-
-app.use(async (req, res, next) => {
-    try {
-        await databaseReady;
-        next();
-    } catch (err) {
-        next(err);
-    }
-});
 
 app.use(express.static(path.join(__dirname, '../public')));
 
