@@ -66,7 +66,7 @@ class exerciseController {
 
             let imageUrl = '/images/background.svg'; // Imagem padrão
             if (req.files && req.files['image'] && req.files['image'].length > 0) {
-                 // const file = req.files['image'][0];
+                const file = req.files['image'][0];
                 imageUrl = `/uploads/images/${file.filename}`;
             }
 
@@ -133,7 +133,7 @@ class exerciseController {
                 summary,
                 statement,
                 difficulty,
-                 // image_url: imageUrl,
+                image_url: imageUrl,
                 tagIds: parsedTags,
                 stackIds: parsedStacks
             });
