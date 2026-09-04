@@ -74,7 +74,7 @@ O filesystem da Vercel é efêmero. Os uploads do painel ainda usam disco local 
 
 ## Login de dev
 
-No ambiente local do exemplo, o usuário é `admin` e a senha é `admin123`. Troque esses valores antes de configurar qualquer ambiente compartilhado ou de produção.
+Defina `ADMIN_USERNAME` e `ADMIN_PASSWORD` no `.env` local. Use credenciais fortes e nunca reutilize essas credenciais em ambientes compartilhados ou de produção.
 
 ## Endpoints
 

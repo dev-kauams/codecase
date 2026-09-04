@@ -180,17 +180,17 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             tableBody.innerHTML = exercises.map(ex => {
                 const paddedId = String(ex.id).padStart(3, '0');
-                const stacksBadges = (ex.stacks || []).map(s => `<span>${s.name}</span>`).join(' ') || '---';
+                const stacksBadges = (ex.stacks || []).map(s => `<span>${escapeHtml(s.name)}</span>`).join(' ') || '---';
                 const attachmentsCount = (ex.attachments || []).length;
 
                 return `
                     <tr>
                         <td><strong>#${paddedId}</strong></td>
                         <td>
-                            <strong>${ex.title}</strong>
-                            <div>${ex.slug}</div>
+                            <strong>${escapeHtml(ex.title)}</strong>
+                            <div>${escapeHtml(ex.slug)}</div>
                         </td>
-                        <td><span>${ex.difficulty.toUpperCase()}</span></td>
+                        <td><span>${escapeHtml(ex.difficulty.toUpperCase())}</span></td>
                         <td>${stacksBadges}</td>
                         <td>${attachmentsCount} arquivo(s)</td>
                         <td>${formatDate(ex.created_at)}</td>
@@ -199,7 +199,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                                 <a href="/admin/exercise/edit/${ex.id}">
                                     Editar
                                 </a>
-                                <button data-action="delete-exercise" data-id="${ex.id}" data-title="${ex.title}">
+                                <button data-action="delete-exercise" data-id="${ex.id}" data-title="${escapeHtml(ex.title)}">
                                     Excluir
                                 </button>
                             </div>
@@ -223,7 +223,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             tableBody.innerHTML = `
                 <tr>
                     <td colspan="7" class="dashboard__table-cell">
-                        ⚠️ ERRO: ${err.message}
+                        ERRO: ${escapeHtml(err.message)}
                     </td>
                 </tr>
             `;

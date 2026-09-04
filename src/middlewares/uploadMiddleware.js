@@ -12,7 +12,7 @@ const attachmentsDir = path.join(uploadsDir, 'attachments');
     }
 });
 
-const storage = multer.diskStorage({
+const diskStorage = multer.diskStorage({
     destination: (req, file, cb) => {
         if (file.fieldname === 'image') {
             cb(null, imagesDir);
@@ -28,6 +28,10 @@ const storage = multer.diskStorage({
     }
 });
 
+const storage = process.env.BLOB_READ_WRITE_TOKEN
+    ? multer.memoryStorage()
+    : diskStorage;
+
 const forbiddenExtensions = ['.exe', '.bat', '.cmd', '.sh', '.php', '.phtml', '.pl', '.cgi', '.js', '.vbs', '.jar', '.scr', '.msi'];
 
 const fileFilter = (req, file, cb) => {
@@ -38,15 +42,15 @@ const fileFilter = (req, file, cb) => {
     }
 
     if (file.fieldname === 'image') {
-        const allowedImageTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml'];
-        const allowedImageExts = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.svg'];
+        const allowedImageTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+        const allowedImageExts = ['.jpg', '.jpeg', '.png', '.gif', '.webp'];
 
         if (!allowedImageTypes.includes(file.mimetype) || !allowedImageExts.includes(ext)) {
-            return cb(new Error('Formato de imagem inválido. Use JPG, PNG, GIF, WEBP ou SVG.'), false);
+            return cb(new Error('Formato de imagem inválido. Use JPG, PNG, GIF ou WEBP.'), false);
         }
     } else {
         // Document / Code Attachment allowed types
-        const allowedExts = ['.txt', '.pdf', '.zip', '.rar', '.7z', '.json', '.sql', '.py', '.cpp', '.c', '.java', '.cs', '.html', '.css', '.md', '.png', '.jpg'];
+        const allowedExts = ['.txt', '.pdf', '.zip', '.rar', '.7z', '.json', '.sql', '.py', '.cpp', '.c', '.java', '.cs', '.md', '.png', '.jpg', '.jpeg'];
         if (!allowedExts.includes(ext)) {
             return cb(new Error(`Extensão de anexo '${ext}' não é permitida.`), false);
         }
@@ -59,7 +63,10 @@ const upload = multer({
     storage,
     fileFilter,
     limits: {
-        fileSize: 10 * 1024 * 1024 // Max 10MB per file
+        fileSize: 10 * 1024 * 1024,
+        files: 6,
+        fields: 30,
+        parts: 40
     }
 });
 

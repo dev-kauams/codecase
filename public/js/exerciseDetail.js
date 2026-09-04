@@ -35,11 +35,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         stacksContainer.innerHTML = (ex.stacks || []).map(s => {
             const stackColor = normalizeHexColor(s.color) || '#d97986';
             const textColor = getContrastColor(stackColor);
-            return `<span class="badge badge--stack" style="background-color: ${stackColor}; color: ${textColor};">${s.name}</span>`;
+            return `<span class="badge badge--stack" style="background-color: ${stackColor}; color: ${textColor};">${escapeHtml(s.name)}</span>`;
         }).join(' ');
 
         const tagsContainer = document.getElementById('exercise-detail__tags-container');
-        tagsContainer.innerHTML = (ex.tags || []).map(t => `<span class="badge badge--tag">${t.name}</span>`).join(' ');
+        tagsContainer.innerHTML = (ex.tags || []).map(t => `<span class="badge badge--tag">${escapeHtml(t.name)}</span>`).join(' ');
 
         // Summary
         document.getElementById('exercise-detail__summary').innerText = ex.summary;
@@ -48,8 +48,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (ex.image_url) {
             const imgWrapper = document.getElementById('exercise-detail__image-wrapper');
             const imgEl = document.getElementById('exercise-detail__image');
-            imgEl.src = ex.image_url;
-            imgWrapper.style.display = 'block';
+            const imageUrl = getSafeLocalUrl(ex.image_url);
+            if (imageUrl) {
+                imgEl.src = imageUrl;
+                imgWrapper.style.display = 'block';
+            }
         }
 
         // Formatted Statement Content
@@ -64,10 +67,10 @@ document.addEventListener('DOMContentLoaded', async () => {
             attList.innerHTML = ex.attachments.map(att => `
                 <div class="attachments__item">
                     <div>
-                        <span class="attachments__name">${att.original_name}</span>
+                        <span class="attachments__name">${escapeHtml(att.original_name)}</span>
                         <span style="font-size: 0.75rem; color: var(--color-text-muted); margin-left: 12px;">(${formatFileSize(att.file_size)})</span>
                     </div>
-                    <a href="${att.file_path}" download="${att.original_name}" class="btn btn--accent" style="font-size: 0.75rem; padding: 4px 10px;">
+                    <a href="${getSafeLocalUrl(att.file_path)}" download="${escapeHtml(att.original_name)}" class="btn btn--accent" style="font-size: 0.75rem; padding: 4px 10px;">
                         Download
                     </a>
                 </div>
@@ -80,7 +83,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.getElementById('exercise-detail__title').innerText = 'Erro ao carregar exercício.';
         document.getElementById('exercise-detail__statement').innerHTML = `
             <div class="state-empty">
-                <p style="color: var(--color-primary);">${err.message}</p>
+            <p style="color: var(--color-primary);">${escapeHtml(err.message)}</p>
                 <a href="/" class="btn" style="margin-top: 16px; display: inline-block;">Voltar à Home</a>
             </div>
         `;
@@ -99,6 +102,19 @@ document.addEventListener('DOMContentLoaded', async () => {
         const luminance = (red * 299 + green * 587 + blue * 114) / 1000;
         return luminance > 170 ? 'var(--color-text)' : 'var(--color-light)';
     }
+
+    function getSafeLocalUrl(url) {
+        if (typeof url !== 'string') return '#';
+        if (/^\/(?:uploads|images)\/[a-zA-Z0-9._/-]+$/.test(url)) return escapeHtml(url);
+        if (/^https:\/\/[^/]+\.public\.blob\.vercel-storage\.com\/[a-zA-Z0-9._/-]+$/.test(url)) return escapeHtml(url);
+        return '#';
+    }
+});
+
+const imageExercise = document.getElementById('exercise-detail__image');
+
+imageExercise.addEventListener('error', () => {
+    imageExercise.style.display = 'none';
 });
 
 

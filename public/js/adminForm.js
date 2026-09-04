@@ -159,7 +159,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 stacksChecklist.innerHTML = stacksData.data.map(s => `
                     <label class="checkbox-grid__item">
                         <input type="checkbox" name="stacks" value="${s.id}" id="exercise-form__stack-checkbox-${s.id}">
-                        <span>${s.name}</span>
+                        <span>${escapeHtml(s.name)}</span>
                     </label>
                 `).join('');
             }
@@ -168,7 +168,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 tagsChecklist.innerHTML = tagsData.data.map(t => `
                     <label class="checkbox-grid__item">
                         <input type="checkbox" name="tags" value="${t.id}" id="exercise-form__tag-checkbox-${t.id}">
-                        <span>${t.name}</span>
+                        <span>${escapeHtml(t.name)}</span>
                     </label>
                 `).join('');
             }
@@ -230,7 +230,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     function renderExistingAttachments(attachments) {
         existingAttList.innerHTML = attachments.map(att => `
             <div class="attachments__item" id="exercise-form__attachment-row-${att.id}" style="margin-top: 6px;">
-                <span class="attachments__name"> ${att.original_name} (${formatFileSize(att.file_size)})</span>
+                <span class="attachments__name"> ${escapeHtml(att.original_name)} (${escapeHtml(formatFileSize(att.file_size))})</span>
                 <button type="button" class="btn btn--danger attachments__remove-button" data-id="${att.id}" style="font-size: 0.7rem; padding: 2px 6px;">
                     [ REMOVER ]
                 </button>

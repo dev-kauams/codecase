@@ -16,7 +16,7 @@ class tagController {
     static async create(req, res, next) {
         try {
             const { name } = req.body;
-            if (!name || name.trim() === '') {
+            if (typeof name !== 'string' || name.trim() === '' || name.trim().length > 50) {
                 return res.status(400).json({ success: false, error: 'O nome da tag é obrigatório.' });
             }
 

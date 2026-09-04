@@ -1,8 +1,6 @@
 const bcrypt = require('bcryptjs');
 const adminModel = require('../models/adminModel');
 
-const jwtSecret = process.env.JWT_SECRET || 'codecase_secret_key_2026';
-
 class authService {
     static async hashPassword(password) {
         const salt = await bcrypt.genSalt(10);

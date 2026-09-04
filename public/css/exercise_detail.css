@@ -83,8 +83,6 @@ body {
             margin: 0 auto;
         }
 
-        /* "Pergaminho" principal — mesmo padrão de folha
-           tracejada usado no form de exercício e no login */
         .exercise-detail__card {
             width: 100%;
             background-color: var(--color-surface);
@@ -92,6 +90,8 @@ body {
             border-radius: 1.5rem;
             padding: 2.5rem;
         }
+
+        
 
         .exercise-detail__content-header {
             display: flex;

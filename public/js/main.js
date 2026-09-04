@@ -42,10 +42,16 @@ function formatFileSize(bytes) {
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
 }
 
+function escapeHtml(value) {
+    return String(value ?? '').replace(/[&<>'"]/g, character => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
+    })[character]);
+}
+
 // Utility: Simple Markdown Formatter for Code Blocks & Headings
 function parseMarkdown(mdText) {
     if (!mdText) return '';
-    let html = mdText;
+    let html = escapeHtml(mdText);
 
     // Code blocks ```lang ... ```
     html = html.replace(/```([a-zA-Z0-9_+#-]*)\n([\s\S]*?)```/g, (match, lang, code) => {

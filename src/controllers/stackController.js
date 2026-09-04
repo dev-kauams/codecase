@@ -16,8 +16,12 @@ class stackController {
     static async create(req, res, next) {
         try {
             const { name, color } = req.body;
-            if (!name || name.trim() === '') {
+            if (typeof name !== 'string' || name.trim() === '' || name.trim().length > 50) {
                 return res.status(400).json({ success: false, error: 'O nome da stack é obrigatório.' });
+            }
+
+            if (color !== undefined && (typeof color !== 'string' || !/^#[0-9a-f]{6}$/i.test(color))) {
+                return res.status(400).json({ success: false, error: 'A cor da stack é inválida.' });
             }
 
             const existing = await stackModel.getAll();

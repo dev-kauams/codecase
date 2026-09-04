@@ -1,19 +1,25 @@
-const path = require('path');
-const fs = require('fs');
 const exerciseModel = require('../models/exerciseModel');
 const attachmentModel = require('../models/attachmentModel');
+const { saveFile, deleteFile } = require('../services/fileStorageService');
 
 class exerciseController {
     static async getAll(req, res, next) {
         try {
             const { search, difficulty, stack, tag, limit, offset } = req.query;
+            const parsedLimit = limit === undefined ? 100 : Number.parseInt(limit, 10);
+            const parsedOffset = offset === undefined ? 0 : Number.parseInt(offset, 10);
+            if (!Number.isInteger(parsedLimit) || parsedLimit < 1 || parsedLimit > 100 ||
+                !Number.isInteger(parsedOffset) || parsedOffset < 0) {
+                return res.status(400).json({ success: false, error: 'Parâmetros de paginação inválidos.' });
+            }
+
             const exercises = await exerciseModel.findAll({
                 search,
                 difficulty,
                 stack,
                 tag,
-                limit: limit ? parseInt(limit) : 100,
-                offset: offset ? parseInt(offset) : 0
+                limit: parsedLimit,
+                offset: parsedOffset
             });
 
             return res.json({
@@ -57,7 +63,7 @@ class exerciseController {
         try {
             const { title, summary, statement, difficulty, tags, stacks } = req.body;
 
-            if (!title || !summary || !statement || !difficulty) {
+            if (!isValidExerciseInput({ title, summary, statement, difficulty })) {
                 return res.status(400).json({
                     success: false,
                     error: 'Preencha todos os campos obrigatórios (título, resumo, enunciado, dificuldade).'
@@ -67,11 +73,15 @@ class exerciseController {
             let imageUrl = '/images/image-preview.svg'; // Imagem padrão
             if (req.files && req.files['image'] && req.files['image'].length > 0) {
                 const file = req.files['image'][0];
-                imageUrl = `/uploads/images/${file.filename}`;
+                const savedImage = await saveFile(file, 'images');
+                imageUrl = savedImage.url;
             }
 
-            const parsedTags = Array.isArray(tags) ? tags.map(Number) : (tags ? [Number(tags)] : []);
-            const parsedStacks = Array.isArray(stacks) ? stacks.map(Number) : (stacks ? [Number(stacks)] : []);
+            const parsedTags = parseIdList(tags);
+            const parsedStacks = parseIdList(stacks);
+            if (!parsedTags || !parsedStacks) {
+                return res.status(400).json({ success: false, error: 'Tags ou stacks inválidas.' });
+            }
 
             const exercise = await exerciseModel.create({
                 title,
@@ -86,11 +96,12 @@ class exerciseController {
             // Handle file attachments upload
             if (req.files && req.files['attachments']) {
                 for (const attFile of req.files['attachments']) {
+                    const savedAttachment = await saveFile(attFile, 'attachments');
                     await attachmentModel.create({
                         exercise_id: exercise.id,
                         original_name: attFile.originalname,
-                        stored_filename: attFile.filename,
-                        file_path: `/uploads/attachments/${attFile.filename}`,
+                        stored_filename: savedAttachment.filename,
+                        file_path: savedAttachment.url,
                         mime_type: attFile.mimetype,
                         file_size: attFile.size
                     });
@@ -122,11 +133,18 @@ class exerciseController {
             let imageUrl = existing.image_url;
             if (req.files && req.files['image'] && req.files['image'].length > 0) {
                 const file = req.files['image'][0];
-                imageUrl = `/uploads/images/${file.filename}`;
+                const savedImage = await saveFile(file, 'images');
+                imageUrl = savedImage.url;
             }
 
-            const parsedTags = tags !== undefined ? (Array.isArray(tags) ? tags.map(Number) : (tags ? [Number(tags)] : [])) : undefined;
-            const parsedStacks = stacks !== undefined ? (Array.isArray(stacks) ? stacks.map(Number) : (stacks ? [Number(stacks)] : [])) : undefined;
+            const parsedTags = tags !== undefined ? parseIdList(tags) : undefined;
+            const parsedStacks = stacks !== undefined ? parseIdList(stacks) : undefined;
+            if (parsedTags === null || parsedStacks === null ||
+                (title !== undefined && typeof title !== 'string') ||
+                (summary !== undefined && typeof summary !== 'string') ||
+                (statement !== undefined && typeof statement !== 'string')) {
+                return res.status(400).json({ success: false, error: 'Dados do exercício inválidos.' });
+            }
 
             const updated = await exerciseModel.update(parseInt(id), {
                 title,
@@ -141,11 +159,12 @@ class exerciseController {
             // Process any newly added attachment files
             if (req.files && req.files['attachments']) {
                 for (const attFile of req.files['attachments']) {
+                    const savedAttachment = await saveFile(attFile, 'attachments');
                     await attachmentModel.create({
                         exercise_id: id,
                         original_name: attFile.originalname,
-                        stored_filename: attFile.filename,
-                        file_path: `/uploads/attachments/${attFile.filename}`,
+                        stored_filename: savedAttachment.filename,
+                        file_path: savedAttachment.url,
                         mime_type: attFile.mimetype,
                         file_size: attFile.size
                     });
@@ -175,10 +194,7 @@ class exerciseController {
             // Remove attachment files from disk
             if (exercise.attachments && exercise.attachments.length > 0) {
                 for (const att of exercise.attachments) {
-                    const fullPath = path.join(__dirname, '../../', att.file_path);
-                    if (fs.existsSync(fullPath)) {
-                        fs.unlinkSync(fullPath);
-                    }
+                    await deleteFile(att.file_path);
                 }
             }
 
@@ -201,10 +217,7 @@ class exerciseController {
                 return res.status(404).json({ success: false, error: 'Anexo não encontrado.' });
             }
 
-            const fullPath = path.join(__dirname, '../../', attachment.file_path);
-            if (fs.existsSync(fullPath)) {
-                fs.unlinkSync(fullPath);
-            }
+            await deleteFile(attachment.file_path);
 
             await attachmentModel.delete(parseInt(attachmentId));
 
@@ -228,6 +241,19 @@ class exerciseController {
             next(err);
         }
     }
+}
+
+function isValidExerciseInput({ title, summary, statement, difficulty }) {
+    return typeof title === 'string' && title.trim().length > 0 && title.length <= 150 &&
+        typeof summary === 'string' && summary.trim().length > 0 && summary.length <= 500 &&
+        typeof statement === 'string' && statement.trim().length > 0 && statement.length <= 50000 &&
+        ['Fácil', 'Médio', 'Difícil'].includes(difficulty);
+}
+
+function parseIdList(value) {
+    const values = Array.isArray(value) ? value : (value ? [value] : []);
+    const ids = values.map(item => Number(item));
+    return ids.every(id => Number.isInteger(id) && id > 0) ? ids : null;
 }
 
 module.exports = exerciseController;

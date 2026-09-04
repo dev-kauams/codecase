@@ -153,7 +153,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             exercisesGrid.innerHTML = `
                 <div class="state-empty" style="grid-column: 1 / -1;">
                     <h3>ERRO DE COMUNICAÇÃO</h3>
-                    <p>${err.message}</p>
+                    <p>${escapeHtml(err.message)}</p>
                 </div>
             `;
             pagination.innerHTML = '';
@@ -179,27 +179,28 @@ document.addEventListener('DOMContentLoaded', async () => {
         exercisesGrid.innerHTML = exercises.map(ex => {
             const diffClass = ex.difficulty === 'Fácil' ? 'badge--easy'  : (ex.difficulty === 'Médio' ? 'badge--medium' : 'badge--hard');
             const paddedId = String(ex.id).padStart(3, '0');
-            const coverImageHtml = ex.image_url ? `<img src="${ex.image_url}" alt="${ex.title}" class="card__thumbnail">` : '';
+            const imageUrl = getSafeLocalUrl(ex.image_url);
+            const coverImageHtml = imageUrl ? `<img src="${imageUrl}" alt="${escapeHtml(ex.title)}" class="card__thumbnail">` : '';
 
             const stacksHtml = (ex.stacks || []).map(s => {
                 const stackColor = normalizeHexColor(s.color) || '#d97986';
                 const textColor = getContrastColor(stackColor);
-                return `<span class="badge badge--stack" style="background-color: ${stackColor}; color: ${textColor};">${s.name}</span>`;
+                return `<span class="badge badge--stack" style="background-color: ${stackColor}; color: ${textColor};">${escapeHtml(s.name)}</span>`;
             }).join(' ');
-            const tagsHtml = (ex.tags || []).map(t => `<span class="badge badge--tag">#${t.name}</span>`).join(' ');
+            const tagsHtml = (ex.tags || []).map(t => `<span class="badge badge--tag">#${escapeHtml(t.name)}</span>`).join(' ');
 
             return `
                 <article class="card">
                     <div class="card__content">
                         <div class="card__header">
                             <span class="card__id">EXERCÍCIO #${paddedId}</span>
-                            <span>${formatDate(ex.created_at)}</span>
+                            <span>${escapeHtml(formatDate(ex.created_at))}</span>
                         </div>
 
                         ${coverImageHtml}
 
-                        <h3 class="card__title">${ex.title}</h3>
-                        <p class="card__summary">${ex.summary}</p>
+                        <h3 class="card__title">${escapeHtml(ex.title)}</h3>
+                        <p class="card__summary">${escapeHtml(ex.summary)}</p>
                     </div>
 
                     <div class="card__footer">
@@ -230,6 +231,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         const blue = parseInt(hexColor.slice(5, 7), 16);
         const luminance = (red * 299 + green * 587 + blue * 114) / 1000;
         return luminance > 170 ? 'var(--color-text)' : 'var(--color-light)';
+    }
+
+    function getSafeLocalUrl(url) {
+        if (typeof url !== 'string') return '';
+        if (/^\/(?:uploads|images)\/[a-zA-Z0-9._/-]+$/.test(url)) return escapeHtml(url);
+        if (/^https:\/\/[^/]+\.public\.blob\.vercel-storage\.com\/[a-zA-Z0-9._/-]+$/.test(url)) return escapeHtml(url);
+        return '';
     }
 
     function renderPagination(totalPages) {

@@ -8,6 +8,8 @@ class authController {
 
             res.cookie('codecase_admin_user', JSON.stringify(admin), {
                 httpOnly: true,
+                signed: true,
+                secure: process.env.NODE_ENV === 'production',
                 maxAge: 24 * 60 * 60 * 1000, // 24 hours
                 sameSite: 'strict'
             });
@@ -18,15 +20,21 @@ class authController {
                 user: admin
             });
         } catch (err) {
+            console.error('[Auth] Falha no login:', err);
             return res.status(401).json({
                 success: false,
-                error: err.message
+                error: 'Credenciais inválidas.'
             });
         }
     }
 
     static async logout(req, res) {
-        res.clearCookie('codecase_admin_user');
+        res.clearCookie('codecase_admin_user', {
+            httpOnly: true,
+            signed: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'strict'
+        });
         return res.json({
             success: true,
             message: 'Sessão encerrada com sucesso.'
