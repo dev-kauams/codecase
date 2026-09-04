@@ -1,90 +1,250 @@
-> Esse README foi montado com ajuda de IA pra já deixar o repo com uma documentação mínima. Em breve pretendo reescrever com calma, com mais contexto e do meu jeito.
->
-> Projeto também ainda tá em andamento: parte do design e algumas funções estão incompletas. A ideia é finalizar isso em algumas semanas.
+<div align="center">
 
 # CodeCase
 
-CodeCase é uma plataforma pra centralizar exercícios de programação: um lugar único onde dá pra navegar, filtrar e resolver desafios técnicos organizados por dificuldade, stack e tags. Tem também um painel de admin pra cadastrar e gerenciar tudo isso — exercícios, tags, stacks, anexos (código-fonte, PDF, ZIP), capa, etc.
+### Exercícios de programação. Um lugar para praticar.
 
-Autor: [@dev-kauams](https://github.com/dev-kauams) · Licença: MIT · Arquitetura: MVC
+[![Live](https://img.shields.io/badge/Live-codecase--dev.vercel.app-f05f6d?style=flat-square)](https://codecase-dev.vercel.app)
+[![Node.js](https://img.shields.io/badge/Node.js-18%2B-f05f6d?style=flat-square\&logo=node.js\&logoColor=white)](https://nodejs.org/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=flat-square\&logo=postgresql\&logoColor=white)](https://www.postgresql.org/)
+[![License](https://img.shields.io/badge/license-MIT-f05f6d?style=flat-square)](LICENSE)
 
-Sumário: [Stack](#stack) · [Estrutura](#estrutura) · [Banco de dados](#banco-de-dados) · [Rodando localmente](#rodando-localmente) · [Deploy](#deploy) · [Login de dev](#login-de-dev) · [Endpoints](#endpoints)
+<br>
 
-## Stack
+</div>
 
-No backend é Node + Express, seguindo MVC mesmo (controllers, models, routes separados). O banco é PostgreSQL no Neon, com prepared statements e FKs. Senha de admin passa por bcrypt, e a sessão é via cookie HTTP-only. Upload de arquivo é tratado com Multer.
+---
 
-No frontend não tem framework — HTML semântico, CSS puro (grid/flexbox, variáveis CSS) e JS vanilla pra filtros, AJAX e manipulação de DOM. A estética é retro/terminal de propósito: bordas duplas, fundo em grid sutil e fonte monoespaçada (JetBrains Mono / Fira Code).
+## `> o que é?`
 
-## Estrutura
+O **CodeCase** é um hub de exercícios de programação.
 
+A proposta é simples: reunir desafios em um só lugar e tornar mais fácil encontrar algo interessante para resolver, seja por **dificuldade**, **stack** ou **tema**.
+
+Cada exercício possui seu próprio conteúdo, podendo incluir descrição, tecnologias relacionadas, tags, imagens e arquivos complementares.
+
+---
+
+## `> dentro do CodeCase`
+
+<table>
+<tr>
+<td width="50%">
+
+### Explorar
+
+Navegue pelos exercícios disponíveis e encontre desafios de acordo com aquilo que você quer praticar.
+
+**Filtros por:**
+
+`dificuldade` · `stack` · `tags`
+
+</td>
+<td width="50%">
+
+### Exercícios
+
+Cada desafio possui uma página própria com as informações necessárias para começar a resolver.
+
+`fácil` · `médio` · `difícil`
+
+</td>
+</tr>
+
+<tr>
+<td width="50%">
+
+### Materiais
+
+Exercícios podem incluir arquivos complementares, como códigos-fonte, PDFs e outros recursos.
+
+</td>
+<td width="50%">
+
+### Administração
+
+Um painel administrativo permite criar, editar e organizar os conteúdos publicados na plataforma.
+
+</td>
+</tr>
+</table>
+
+---
+
+## `> stack`
+
+O CodeCase foi construído sem uma camada de framework no frontend. A ideia é manter a aplicação simples, entendível e próxima das tecnologias fundamentais da web.
+
+```text
+FRONTEND
+HTML · CSS · JavaScript
+
+BACKEND
+Node.js · Express
+
+DATABASE
+PostgreSQL
+
+TOOLS
+Multer · bcryptjs · Slugify
+
+DEPLOY
+Vercel
 ```
+
+A aplicação segue uma organização inspirada em **MVC**, separando responsabilidades entre `controllers`, `models`, `routes`, `services` e `middlewares`.
+
+---
+
+## `> estrutura`
+
+```text
 codecase/
-├── config/database.js        # conexão com o banco
-├── database.sql               # schema + seed
+│
 ├── public/
-│   ├── css/                   # arquivos snake_case (style.css, admin_dashboard.css, etc.)
-│   ├── js/                    # arquivos e código camelCase (adminDashboard.js, exerciseDetail.js, etc.)
-│   ├── images/                # assets em kebab-case
-│   └── uploads/                # onde vão as imagens/anexos enviados
+│   ├── css/
+│   ├── images/
+│   ├── js/
+│   └── uploads/
+│
 ├── src/
-│   ├── app.js
-│   ├── controllers/           # auth, exercise, tag, stack, view (camelCase)
-│   ├── database/initDb.js     # inicializa o banco
-│   ├── middlewares/           # auth, upload, tratamento de erro
-│   ├── models/                # adminModel, exerciseModel, tagModel, stackModel, attachmentModel
-│   ├── routes/                # api, auth, view
-│   └── views/pages/           # home, exercise, login, admin_*
-├── .env.example
-└── package.json
+│   ├── controllers/
+│   ├── database/
+│   ├── middlewares/
+│   ├── models/
+│   ├── routes/
+│   ├── services/
+│   ├── views/
+│   └── app.js
+│
+├── config/
+├── database/
+│
+├── database.sql
+├── package.json
+└── vercel.json
 ```
 
-## Banco de dados
+---
 
-Tabelas principais: `administrators` (senha em hash), `exercises` (título, slug, resumo, enunciado, dificuldade, capa), `tags`/`exercise_tags` e `stacks`/`exercise_stacks` (relações N:N) e `attachments` (arquivos ligados a cada exercício). Schema completo em `database.sql`.
+## `> banco de dados`
 
-## Rodando localmente
+O banco organiza a plataforma em entidades independentes para manter os exercícios e seus relacionamentos.
 
-Precisa de Node 18+.
+```text
+administrators
+
+exercises
+   ├── exercise_tags ─── tags
+   ├── exercise_stacks ─ stacks
+   └── attachments
+```
+
+Os exercícios podem se relacionar com múltiplas **tags** e **stacks**, enquanto os anexos ficam vinculados diretamente a cada exercício.
+
+---
+
+## `> api`
+
+A plataforma possui uma API para seus principais recursos.
+
+### Exercises
+
+```http
+GET    /api/exercises
+GET    /api/exercises/:id
+
+POST   /api/exercises
+PUT    /api/exercises/:id
+DELETE /api/exercises/:id
+```
+
+A listagem pública aceita filtros de **dificuldade**, **stack**, **tag** e **busca**.
+
+### Tags & Stacks
+
+```http
+GET  /api/tags
+GET  /api/stacks
+
+POST /api/tags
+POST /api/stacks
+```
+
+### Authentication
+
+```http
+POST /api/auth/login
+POST /api/auth/logout
+GET  /api/auth/me
+```
+
+As operações administrativas são protegidas por autenticação.
+
+---
+
+## `> rodando localmente`
+
+### requisitos
+
+```text
+Node.js 18+
+npm
+PostgreSQL
+```
+
+### setup
 
 ```bash
 git clone https://github.com/dev-kauams/codecase.git
 cd codecase
+
 npm install
-cp .env.example .env
 ```
 
-Preencha o `.env` (porta, `JWT_SECRET`, `COOKIE_SECRET`, usuário/senha de admin — troque os secrets se for além de local). Depois:
+Crie seu `.env` usando `.env.example` como referência e configure as variáveis necessárias para o seu ambiente.
+
+Depois:
 
 ```bash
-npm run init-db   # cria as tabelas e roda o seed
-npm run dev        # ou npm start, em produção
+npm run init-db
+npm run dev
 ```
 
-Abre em `http://localhost:6700`.
+A aplicação estará disponível localmente na porta configurada pela aplicação.
 
-## Deploy
+### scripts
 
-1. Crie um projeto no [Neon](https://neon.tech/) e copie a variável `DATABASE_URL` da conexão PostgreSQL.
-2. No Vercel, importe o repositório e adicione `DATABASE_URL`, `JWT_SECRET`, `COOKIE_SECRET` e `NODE_ENV=production` em **Settings > Environment Variables**.
-3. Configure também `ADMIN_USERNAME`, `ADMIN_PASSWORD` e, opcionalmente, `ADMIN_EMAIL`. Execute `npm run init-db` uma vez com `DATABASE_URL` apontando para o banco Neon. O comando cria as tabelas e o administrador inicial sem apagar dados existentes.
-4. Faça o deploy. O `vercel.json` já aponta a função para `src/app.js`.
+```bash
+npm run dev
+npm start
+npm run init-db
+```
 
-O filesystem da Vercel é efêmero. Os uploads do painel ainda usam disco local e não devem ser usados em produção sem migrar as imagens e anexos para um storage persistente, como Vercel Blob ou S3.
+---
 
-## Login de dev
+## `> contribuindo`
 
-No ambiente local do exemplo, o usuário é `admin` e a senha é `admin123`. Troque esses valores antes de configurar qualquer ambiente compartilhado ou de produção.
+Encontrou um problema?
 
-## Endpoints
+Tem uma ideia para melhorar o projeto?
 
-Público:
-- `GET /api/exercises` — lista exercícios (aceita `difficulty`, `stack`, `tag`, `search`)
-- `GET /api/exercises/:id` — detalhe por id ou slug
-- `GET /api/tags` / `GET /api/stacks`
+Abra uma **Issue** ou envie um **Pull Request**.
 
-Admin (autenticado):
-- `POST /api/auth/login`, `POST /api/auth/logout`, `GET /api/auth/me`
-- `GET /api/admin/stats`
-- `POST /api/exercises`, `PUT /api/exercises/:id`, `DELETE /api/exercises/:id`
-- `POST /api/tags`, `POST /api/stacks`
+Contribuições, sugestões e feedbacks são bem-vindos.
+
+---
+
+<div align="center">
+
+# `CODECASE`
+
+<br>
+
+[Website](https://codecase-dev.vercel.app) · [Github](https://github.com/dev-kauams/codecase)
+
+<br>
+
+## Desenvolvido por <a href="https://github.com/dev-kauams">@dev-kauams</a>
+
+</div>
