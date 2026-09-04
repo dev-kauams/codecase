@@ -1,78 +1,37 @@
-const path = require('path');
-const fs = require('fs');
-const initSqlJs = require('sql.js');
-
-const dbDirectory = path.join(__dirname, '../database');
-const dbFilePath = path.join(dbDirectory, 'codecase.db');
-
-if (!fs.existsSync(dbDirectory)) {
-    fs.mkdirSync(dbDirectory, { recursive: true });
-}
-
 let dbInstance = null;
 
 async function getDatabase() {
     if (dbInstance) return dbInstance;
 
-    const SQL = await initSqlJs();
-    let db;
-
-    if (fs.existsSync(dbFilePath)) {
-        const fileBuffer = fs.readFileSync(dbFilePath);
-        db = new SQL.Database(fileBuffer);
-    } else {
-        db = new SQL.Database();
+    if (!process.env.DATABASE_URL) {
+        throw new Error('DATABASE_URL não configurada. Crie uma conexão Neon para executar a aplicação.');
     }
 
-    db.run("PRAGMA foreign_keys = ON;");
-
-    function saveToDisk() {
-        try {
-            const data = db.export();
-            const buffer = Buffer.from(data);
-            fs.writeFileSync(dbFilePath, buffer);
-        } catch (err) {
-            console.error('Error persisting database to disk:', err);
-        }
-    }
+    const { neon } = require('@neondatabase/serverless');
+    const sql = neon(process.env.DATABASE_URL);
 
     dbInstance = {
-        rawDb: db,
-        saveToDisk,
-        
-        query(sql, params = []) {
-            const stmt = db.prepare(sql);
-            stmt.bind(params);
-            const results = [];
-            while (stmt.step()) {
-                results.push(stmt.getAsObject());
-            }
-            stmt.free();
-            return results;
+        async query(queryText, params = []) {
+            return sql.query(toPostgresPlaceholders(queryText), params);
         },
 
-        queryOne(sql, params = []) {
-            const results = this.query(sql, params);
+        async queryOne(queryText, params = []) {
+            const results = await this.query(queryText, params);
             return results.length > 0 ? results[0] : null;
         },
 
-        execute(sql, params = []) {
-            db.run(sql, params);
-            
-            const lastIdRes = db.exec("SELECT last_insert_rowid() AS id");
-            const changesRes = db.exec("SELECT changes() AS total");
-            
-            const lastInsertRowid = (lastIdRes.length && lastIdRes[0].values.length) ? lastIdRes[0].values[0][0] : 0;
-            const changes = (changesRes.length && changesRes[0].values.length) ? changesRes[0].values[0][0] : 0;
-
-            saveToDisk();
-
-            return { lastInsertRowid, changes };
+        async execute(queryText, params = []) {
+            const result = await sql.query(toPostgresPlaceholders(queryText), params);
+            return {
+                lastInsertRowid: result[0]?.id || 0,
+                changes: result.length
+            };
         },
 
-        execScript(sqlScript) {
-            db.run(sqlScript);
-            saveToDisk();
+        async execScript(sqlScript) {
+            for (const statement of sqlScript.split(';').map(item => item.trim()).filter(Boolean)) {
+                await sql.query(statement);
+            }
         }
     };
 
@@ -80,6 +39,10 @@ async function getDatabase() {
 }
 
 module.exports = {
-    getDatabase,
-    dbFilePath
+    getDatabase
 };
+
+function toPostgresPlaceholders(queryText) {
+    let index = 0;
+    return queryText.replace(/\?/g, () => `$${++index}`).replace(/INSERT OR IGNORE INTO/gi, 'INSERT INTO');
+}

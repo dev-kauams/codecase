@@ -67,7 +67,7 @@ class ExerciseModel {
             LIMIT ? OFFSET ?
         `;
 
-        const exercises = db.query(sql, [...params, limit, offset]);
+        const exercises = await db.query(sql, [...params, limit, offset]);
 
         // Enrich exercises with tags, stacks, attachments
         for (let ex of exercises) {
@@ -81,7 +81,7 @@ class ExerciseModel {
 
     static async findById(id) {
         const db = await getDatabase();
-        const exercise = db.queryOne('SELECT * FROM exercises WHERE id = ?', [id]);
+        const exercise = await db.queryOne('SELECT * FROM exercises WHERE id = ?', [id]);
         if (!exercise) return null;
 
         exercise.tags = await TagModel.getTagsForExercise(exercise.id);
@@ -92,7 +92,7 @@ class ExerciseModel {
 
     static async findBySlug(slug) {
         const db = await getDatabase();
-        const exercise = db.queryOne('SELECT * FROM exercises WHERE slug = ?', [slug]);
+        const exercise = await db.queryOne('SELECT * FROM exercises WHERE slug = ?', [slug]);
         if (!exercise) return null;
 
         exercise.tags = await TagModel.getTagsForExercise(exercise.id);
@@ -107,13 +107,13 @@ class ExerciseModel {
         let slug = baseSlug;
         let counter = 1;
 
-        while (db.queryOne('SELECT id FROM exercises WHERE slug = ?', [slug])) {
+        while (await db.queryOne('SELECT id FROM exercises WHERE slug = ?', [slug])) {
             slug = `${baseSlug}-${counter++}`;
         }
 
-        const res = db.execute(`
+        const res = await db.execute(`
             INSERT INTO exercises (title, slug, summary, statement, difficulty, image_url, created_at, updated_at)
-            VALUES (?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+            VALUES (?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP) RETURNING id
         `, [title, slug, summary, statement, difficulty, image_url || null]);
 
         const exerciseId = res.lastInsertRowid;
@@ -140,7 +140,7 @@ class ExerciseModel {
             slug = baseSlug;
             let counter = 1;
             while (true) {
-                const existing = db.queryOne('SELECT id FROM exercises WHERE slug = ? AND id != ?', [slug, id]);
+                const existing = await db.queryOne('SELECT id FROM exercises WHERE slug = ? AND id != ?', [slug, id]);
                 if (!existing) break;
                 slug = `${baseSlug}-${counter++}`;
             }
@@ -152,7 +152,7 @@ class ExerciseModel {
         const finalDifficulty = difficulty !== undefined ? difficulty : current.difficulty;
         const finalImageUrl = image_url !== undefined ? image_url : current.image_url;
 
-        db.execute(`
+        await db.execute(`
             UPDATE exercises 
             SET title = ?, slug = ?, summary = ?, statement = ?, difficulty = ?, image_url = ?, updated_at = CURRENT_TIMESTAMP
             WHERE id = ?
@@ -171,30 +171,30 @@ class ExerciseModel {
 
     static async delete(id) {
         const db = await getDatabase();
-        return db.execute('DELETE FROM exercises WHERE id = ?', [id]);
+        return await db.execute('DELETE FROM exercises WHERE id = ?', [id]);
     }
 
     static async setTags(exerciseId, tagIds) {
         const db = await getDatabase();
-        db.execute('DELETE FROM exercise_tags WHERE exercise_id = ?', [exerciseId]);
+        await db.execute('DELETE FROM exercise_tags WHERE exercise_id = ?', [exerciseId]);
         for (let tagId of tagIds) {
-            db.execute('INSERT OR IGNORE INTO exercise_tags (exercise_id, tag_id) VALUES (?, ?)', [exerciseId, tagId]);
+            await db.execute('INSERT INTO exercise_tags (exercise_id, tag_id) VALUES (?, ?) ON CONFLICT DO NOTHING', [exerciseId, tagId]);
         }
     }
 
     static async setStacks(exerciseId, stackIds) {
         const db = await getDatabase();
-        db.execute('DELETE FROM exercise_stacks WHERE exercise_id = ?', [exerciseId]);
+        await db.execute('DELETE FROM exercise_stacks WHERE exercise_id = ?', [exerciseId]);
         for (let stackId of stackIds) {
-            db.execute('INSERT OR IGNORE INTO exercise_stacks (exercise_id, stack_id) VALUES (?, ?)', [exerciseId, stackId]);
+            await db.execute('INSERT INTO exercise_stacks (exercise_id, stack_id) VALUES (?, ?) ON CONFLICT DO NOTHING', [exerciseId, stackId]);
         }
     }
 
     static async getStats() {
         const db = await getDatabase();
-        const totalExercises = db.queryOne('SELECT COUNT(*) AS count FROM exercises').count;
-        const totalTags = db.queryOne('SELECT COUNT(*) AS count FROM tags').count;
-        const totalStacks = db.queryOne('SELECT COUNT(*) AS count FROM stacks').count;
+        const totalExercises = Number((await db.queryOne('SELECT COUNT(*) AS count FROM exercises')).count);
+        const totalTags = Number((await db.queryOne('SELECT COUNT(*) AS count FROM tags')).count);
+        const totalStacks = Number((await db.queryOne('SELECT COUNT(*) AS count FROM stacks')).count);
 
         return {
             totalExercises,

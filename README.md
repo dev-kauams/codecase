@@ -8,11 +8,11 @@ CodeCase é uma plataforma pra centralizar exercícios de programação: um luga
 
 Autor: [@dev-kauams](https://github.com/dev-kauams) · Licença: MIT · Arquitetura: MVC
 
-Sumário: [Stack](#stack) · [Estrutura](#estrutura) · [Banco de dados](#banco-de-dados) · [Rodando localmente](#rodando-localmente) · [Login de dev](#login-de-dev) · [Endpoints](#endpoints)
+Sumário: [Stack](#stack) · [Estrutura](#estrutura) · [Banco de dados](#banco-de-dados) · [Rodando localmente](#rodando-localmente) · [Deploy](#deploy) · [Login de dev](#login-de-dev) · [Endpoints](#endpoints)
 
 ## Stack
 
-No backend é Node + Express, seguindo MVC mesmo (controllers, models, routes separados). O banco é SQL (sql.js/SQLite), com prepared statements e FKs. Senha de admin passa por bcrypt, e a sessão é via cookie HTTP-only. Upload de arquivo é tratado com Multer.
+No backend é Node + Express, seguindo MVC mesmo (controllers, models, routes separados). O banco é PostgreSQL no Neon, com prepared statements e FKs. Senha de admin passa por bcrypt, e a sessão é via cookie HTTP-only. Upload de arquivo é tratado com Multer.
 
 No frontend não tem framework — HTML semântico, CSS puro (grid/flexbox, variáveis CSS) e JS vanilla pra filtros, AJAX e manipulação de DOM. A estética é retro/terminal de propósito: bordas duplas, fundo em grid sutil e fonte monoespaçada (JetBrains Mono / Fira Code).
 
@@ -63,9 +63,18 @@ npm run dev        # ou npm start, em produção
 
 Abre em `http://localhost:3000`.
 
+## Deploy
+
+1. Crie um projeto no [Neon](https://neon.tech/) e copie a variável `DATABASE_URL` da conexão PostgreSQL.
+2. No Vercel, importe o repositório e adicione `DATABASE_URL`, `JWT_SECRET`, `COOKIE_SECRET` e `NODE_ENV=production` em **Settings > Environment Variables**.
+3. Configure também `ADMIN_USERNAME`, `ADMIN_PASSWORD` e, opcionalmente, `ADMIN_EMAIL`. Execute `npm run init-db` uma vez com `DATABASE_URL` apontando para o banco Neon. O comando cria as tabelas e o administrador inicial sem apagar dados existentes.
+4. Faça o deploy. O `vercel.json` já aponta a função para `src/app.js`.
+
+O filesystem da Vercel é efêmero. Os uploads do painel ainda usam disco local e não devem ser usados em produção sem migrar as imagens e anexos para um storage persistente, como Vercel Blob ou S3.
+
 ## Login de dev
 
-Usuário `admin`, senha `admin123` (só o seed local, óbvio — não usar isso fora do ambiente de dev).
+No ambiente local do exemplo, o usuário é `admin` e a senha é `admin123`. Troque esses valores antes de configurar qualquer ambiente compartilhado ou de produção.
 
 ## Endpoints
 

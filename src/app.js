@@ -13,22 +13,27 @@ dotenv.config();
 
 const app = express();
 const PORT = Number(process.env.PORT) || 3000;
-
-(async () => {
-    try {
-        await initDb();
-        console.log('[App] Banco de dados inicializado com sucesso.');
-    } catch (err) {
+const databaseReady = initDb()
+    .then(() => console.log('[App] Banco de dados inicializado com sucesso.'))
+    .catch(err => {
         console.error('[App] Falha ao iniciar o banco de dados:', err);
-        process.exit(1);
-    }
-})();
+        throw err;
+    });
 
 app.set('port', PORT);
 
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use(cookieParser(process.env.COOKIE_SECRET || undefined));
+
+app.use(async (req, res, next) => {
+    try {
+        await databaseReady;
+        next();
+    } catch (err) {
+        next(err);
+    }
+});
 
 app.use(express.static(path.join(__dirname, '../public')));
 

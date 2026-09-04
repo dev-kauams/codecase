@@ -4,7 +4,7 @@ const slugify = require('slugify');
 class TagModel {
     static async getAll() {
         const db = await getDatabase();
-        return db.query(`
+        return await db.query(`
             SELECT t.*, COUNT(et.exercise_id) AS exercise_count 
             FROM tags t 
             LEFT JOIN exercise_tags et ON t.id = et.tag_id 
@@ -15,24 +15,24 @@ class TagModel {
 
     static async findBySlug(slug) {
         const db = await getDatabase();
-        return db.queryOne('SELECT * FROM tags WHERE slug = ?', [slug]);
+        return await db.queryOne('SELECT * FROM tags WHERE slug = ?', [slug]);
     }
 
     static async findById(id) {
         const db = await getDatabase();
-        return db.queryOne('SELECT * FROM tags WHERE id = ?', [id]);
+        return await db.queryOne('SELECT * FROM tags WHERE id = ?', [id]);
     }
 
     static async create({ name }) {
         const db = await getDatabase();
         const slug = slugify(name, { lower: true, strict: true });
-        const res = db.execute('INSERT INTO tags (name, slug) VALUES (?, ?)', [name, slug]);
+        const res = await db.execute('INSERT INTO tags (name, slug) VALUES (?, ?) RETURNING id', [name, slug]);
         return { id: res.lastInsertRowid, name, slug };
     }
 
     static async getTagsForExercise(exerciseId) {
         const db = await getDatabase();
-        return db.query(`
+        return await db.query(`
             SELECT t.* 
             FROM tags t
             JOIN exercise_tags et ON t.id = et.tag_id
