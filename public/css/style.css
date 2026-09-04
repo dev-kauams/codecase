@@ -28,19 +28,14 @@
   --color-light: #fff;
 }
 
-/* Base de imagens: nunca ultrapassa o container pai, independente do
-   componente específico ter ou não uma regra própria mais adiante. */
+
 img {
   max-width: 100%;
   height: auto;
   display: block;
 }
 
-/* Foco visível consistente em qualquer elemento interativo (acessibilidade) */
-a:focus-visible,
-button:focus-visible,
-input:focus-visible,
-select:focus-visible {
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible {
   outline: 3px solid var(--color-text);
   outline-offset: 3px;
 }
@@ -504,6 +499,28 @@ body {
           color: var(--color-text-muted);
           font-weight: 700;
           text-transform: uppercase;
+        }
+
+        .badge--easy {
+          background-color: #c9e8c2;
+          border: 1px solid #8fbd87;
+          color: #234d2d;
+        }
+
+        .badge--medium {
+          background-color: #f8e6a7;
+          border: 1px solid #d7bd61;
+          color: #66520b;
+        }
+
+        .badge--hard {
+          background-color: #f5c1c1;
+          border: 1px solid #d98d8d;
+          color: #6b2525;
+        }
+
+        .badge--stack {
+          border: 1px solid rgba(72, 35, 45, 0.25);
         }
       }
     }

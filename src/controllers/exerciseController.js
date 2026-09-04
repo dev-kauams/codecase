@@ -64,7 +64,7 @@ class exerciseController {
                 });
             }
 
-            let imageUrl = '/images/background.svg'; // Imagem padrão
+            let imageUrl = '/images/image-preview.svg'; // Imagem padrão
             if (req.files && req.files['image'] && req.files['image'].length > 0) {
                 const file = req.files['image'][0];
                 imageUrl = `/uploads/images/${file.filename}`;

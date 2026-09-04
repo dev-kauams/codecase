@@ -32,7 +32,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         // Stacks & Tags — BEM classes
         const stacksContainer = document.getElementById('exercise-detail__stacks-container');
-        stacksContainer.innerHTML = (ex.stacks || []).map(s => `<span class="badge badge--stack">${s.name}</span>`).join(' ');
+        stacksContainer.innerHTML = (ex.stacks || []).map(s => {
+            const stackColor = normalizeHexColor(s.color) || '#d97986';
+            const textColor = getContrastColor(stackColor);
+            return `<span class="badge badge--stack" style="background-color: ${stackColor}; color: ${textColor};">${s.name}</span>`;
+        }).join(' ');
 
         const tagsContainer = document.getElementById('exercise-detail__tags-container');
         tagsContainer.innerHTML = (ex.tags || []).map(t => `<span class="badge badge--tag">${t.name}</span>`).join(' ');
@@ -80,6 +84,20 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <a href="/" class="btn" style="margin-top: 16px; display: inline-block;">Voltar à Home</a>
             </div>
         `;
+    }
+
+    function normalizeHexColor(color) {
+        if (typeof color !== 'string') return null;
+        const normalized = color.trim();
+        return /^#[0-9a-f]{6}$/i.test(normalized) ? normalized : null;
+    }
+
+    function getContrastColor(hexColor) {
+        const red = parseInt(hexColor.slice(1, 3), 16);
+        const green = parseInt(hexColor.slice(3, 5), 16);
+        const blue = parseInt(hexColor.slice(5, 7), 16);
+        const luminance = (red * 299 + green * 587 + blue * 114) / 1000;
+        return luminance > 170 ? 'var(--color-text)' : 'var(--color-light)';
     }
 });
 

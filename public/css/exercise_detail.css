@@ -132,11 +132,37 @@ body {
                 font-size: 0.8rem;
                 text-transform: uppercase;
                 letter-spacing: 0.5px;
-                padding: 0.5rem 1.2rem;
+                padding: 0.6rem 1.2rem;
                 border-radius: 2rem;
-                background-color: var(--color-primary);
-                color: var(--color-light);
+                background-color: transparent;
+                color: var(--color-text);
                 white-space: nowrap;
+
+                .badge--easy,
+                .badge--medium,
+                .badge--hard {
+                    display: inline-block;
+                    border: 1px solid transparent;
+                    border-radius: 2rem;
+                }
+
+                .badge--easy {
+                    background-color: #c9e8c2;
+                    border-color: #8fbd87;
+                    color: #234d2d;
+                }
+
+                .badge--medium {
+                    background-color: #f8e6a7;
+                    border-color: #d7bd61;
+                    color: #66520b;
+                }
+
+                .badge--hard {
+                    background-color: #f5c1c1;
+                    border-color: #d98d8d;
+                    color: #6b2525;
+                }
             }
         }
 
