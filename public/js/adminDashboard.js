@@ -16,28 +16,28 @@ document.addEventListener('DOMContentLoaded', async () => {
         return;
     }
 
-    const tableBody = document.getElementById('admin-exercise-table-body');
-    const btnLogout = document.getElementById('btn-logout');
+    const tableBody = document.getElementById('dashboard__exercise-table-body');
+    const btnLogout = document.getElementById('dashboard__logout');
 
     // Modals
-    const deleteModal = document.getElementById('delete-modal');
-    const deleteModalText = document.getElementById('delete-modal-text');
-    const btnConfirmDelete = document.getElementById('btn-confirm-delete');
-    const btnCancelDelete = document.getElementById('btn-cancel-delete');
+    const deleteModal = document.getElementById('dashboard__delete-modal');
+    const deleteModalText = document.getElementById('dashboard__delete-modal-text');
+    const btnConfirmDelete = document.getElementById('dashboard__confirm-delete');
+    const btnCancelDelete = document.getElementById('dashboard__cancel-delete');
     let pendingDeleteId = null;
 
-    const tagModal = document.getElementById('tag-modal');
-    const btnNewTagModal = document.getElementById('btn-new-tag-modal');
-    const btnCancelTag = document.getElementById('btn-cancel-tag');
-    const btnSaveTag = document.getElementById('btn-save-tag');
-    const newTagNameInput = document.getElementById('new-tag-name');
+    const tagModal = document.getElementById('dashboard__tag-modal');
+    const btnNewTagModal = document.getElementById('dashboard__new-tag-modal');
+    const btnCancelTag = document.getElementById('dashboard__cancel-tag');
+    const btnSaveTag = document.getElementById('dashboard__save-tag');
+    const newTagNameInput = document.getElementById('dashboard__new-tag-name');
 
-    const stackModal = document.getElementById('stack-modal');
-    const btnNewStackModal = document.getElementById('btn-new-stack-modal');
-    const btnCancelStack = document.getElementById('btn-cancel-stack');
-    const btnSaveStack = document.getElementById('btn-save-stack');
-    const newStackNameInput = document.getElementById('new-stack-name');
-    const newStackColorInput = document.getElementById('new-stack-color');
+    const stackModal = document.getElementById('dashboard__stack-modal');
+    const btnNewStackModal = document.getElementById('dashboard__new-stack-modal');
+    const btnCancelStack = document.getElementById('dashboard__cancel-stack');
+    const btnSaveStack = document.getElementById('dashboard__save-stack');
+    const newStackNameInput = document.getElementById('dashboard__new-stack-name');
+    const newStackColorInput = document.getElementById('dashboard__new-stack-color');
 
     // Load Metrics Stats
     loadStats();
@@ -150,9 +150,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             const data = await res.json();
 
             if (data.success) {
-                document.getElementById('stat-exercises').innerText = data.data.totalExercises;
-                document.getElementById('stat-stacks').innerText = data.data.totalStacks;
-                document.getElementById('stat-tags').innerText = data.data.totalTags;
+                document.getElementById('dashboard__stat-exercises').innerText = data.data.totalExercises;
+                document.getElementById('dashboard__stat-stacks').innerText = data.data.totalStacks;
+                document.getElementById('dashboard__stat-tags').innerText = data.data.totalTags;
             }
         } catch (e) {}
     }
@@ -170,7 +170,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (exercises.length === 0) {
                 tableBody.innerHTML = `
                     <tr>
-                        <td colspan="7">
+                        <td colspan="7" class="dashboard__table-cell">
                             Nenhum exercício cadastrado. Clique em <strong>+ CRIAR EXERCÍCIO</strong> para adicionar o primeiro.
                         </td>
                     </tr>
@@ -222,7 +222,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         } catch (err) {
             tableBody.innerHTML = `
                 <tr>
-                    <td colspan="7">
+                    <td colspan="7" class="dashboard__table-cell">
                         ⚠️ ERRO: ${err.message}
                     </td>
                 </tr>

@@ -23,18 +23,18 @@ codecase/
 ├── config/database.js        # conexão com o banco
 ├── database.sql               # schema + seed
 ├── public/
-│   ├── css/                   # main, components, admin, grid de fundo
-│   ├── js/                    # filtros, dashboard, form de admin, etc.
-│   ├── images/
+│   ├── css/                   # arquivos snake_case (style.css, admin_dashboard.css, etc.)
+│   ├── js/                    # arquivos e código camelCase (adminDashboard.js, exerciseDetail.js, etc.)
+│   ├── images/                # assets em kebab-case
 │   └── uploads/                # onde vão as imagens/anexos enviados
 ├── src/
 │   ├── app.js
-│   ├── controllers/           # auth, exercise, tag, stack, view
+│   ├── controllers/           # auth, exercise, tag, stack, view (camelCase)
 │   ├── database/initDb.js     # inicializa o banco
 │   ├── middlewares/           # auth, upload, tratamento de erro
-│   ├── models/                # Admin, Exercise, Tag, Stack, Attachment
+│   ├── models/                # adminModel, exerciseModel, tagModel, stackModel, attachmentModel
 │   ├── routes/                # api, auth, view
-│   └── views/pages/           # home, exercise, login, admin-*
+│   └── views/pages/           # home, exercise, login, admin_*
 ├── .env.example
 └── package.json
 ```
@@ -61,7 +61,7 @@ npm run init-db   # cria as tabelas e roda o seed
 npm run dev        # ou npm start, em produção
 ```
 
-Abre em `http://localhost:3000`.
+Abre em `http://localhost:6700`.
 
 ## Deploy
 

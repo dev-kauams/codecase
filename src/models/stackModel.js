@@ -1,7 +1,7 @@
 const { getDatabase } = require('../../config/database');
 const slugify = require('slugify');
 
-class StackModel {
+class stackModel {
     static async getAll() {
         const db = await getDatabase();
         return await db.query(`
@@ -43,4 +43,4 @@ class StackModel {
     }
 }
 
-module.exports = StackModel;
+module.exports = stackModel;

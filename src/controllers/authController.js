@@ -1,10 +1,10 @@
-const AuthService = require('../services/authService');
+const authService = require('../services/authService');
 
-class AuthController {
+class authController {
     static async login(req, res, next) {
         try {
             const { username, password } = req.body;
-            const admin = await AuthService.authenticateAdmin(username, password);
+            const admin = await authService.authenticateAdmin(username, password);
 
             res.cookie('codecase_admin_user', JSON.stringify(admin), {
                 httpOnly: true,
@@ -41,4 +41,4 @@ class AuthController {
     }
 }
 
-module.exports = AuthController;
+module.exports = authController;

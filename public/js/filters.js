@@ -4,14 +4,18 @@
    =================================================== */
 
 document.addEventListener('DOMContentLoaded', async () => {
-    const searchInput = document.getElementById('search-input');
-    const difficultySelect = document.getElementById('difficulty-select');
-    const stackSelect = document.getElementById('stack-select');
-    const tagSelect = document.getElementById('tag-select');
-    const btnClearFilters = document.getElementById('btn-clear-filters');
-    const exercisesGrid = document.getElementById('exercises-grid');
-    const resultsCountText = document.getElementById('results-count-text');
-    const activeFilterBadge = document.getElementById('active-filter-badge');
+    const searchInput = document.getElementById('home__search-input');
+    const difficultySelect = document.getElementById('home__difficulty-select');
+    const stackSelect = document.getElementById('home__stack-select');
+    const tagSelect = document.getElementById('home__tag-select');
+    const btnClearFilters = document.getElementById('home__clear-filters');
+    const exercisesGrid = document.getElementById('home__exercises-grid');
+    const pagination = document.getElementById('home__pagination');
+    const resultsCountText = document.getElementById('home__results-count');
+    const activeFilterBadge = document.getElementById('home__active-filter');
+    const pageSize = 6;
+    let currentPage = 1;
+    let filteredExercises = [];
 
     if (!exercisesGrid) return;
 
@@ -25,6 +29,19 @@ document.addEventListener('DOMContentLoaded', async () => {
     await fetchExercises();
 
     // 4. Attach event listeners
+    pagination.addEventListener('click', event => {
+        const button = event.target.closest('button[data-page]');
+        if (!button || button.disabled) return;
+
+        currentPage = Number(button.dataset.page);
+        const params = new URLSearchParams(window.location.search);
+        params.set('page', currentPage);
+        history.pushState(null, '', `${window.location.pathname}?${params.toString()}`);
+        renderExercises();
+        renderPagination(Math.ceil(filteredExercises.length / pageSize));
+        exercisesGrid.scrollIntoView({ behavior: 'smooth' });
+    });
+
     let searchDebounceTimer;
     searchInput.addEventListener('input', () => {
         clearTimeout(searchDebounceTimer);
@@ -43,6 +60,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         stackSelect.value = '';
         tagSelect.value = '';
         updateUrlAndFetch();
+    });
+
+    window.addEventListener('popstate', () => {
+        readUrlParams();
+        fetchExercises();
     });
 
     // Populate dropdowns from backend
@@ -85,6 +107,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (params.has('difficulty')) difficultySelect.value = params.get('difficulty');
         if (params.has('stack')) stackSelect.value = params.get('stack');
         if (params.has('tag')) tagSelect.value = params.get('tag');
+        const page = Number.parseInt(params.get('page'), 10);
+        currentPage = Number.isInteger(page) && page > 0 ? page : 1;
     }
 
     // Update URL and fetch matching exercises
@@ -98,6 +122,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const newRelativePathQuery = window.location.pathname + (params.toString() ? '?' + params.toString() : '');
         history.pushState(null, '', newRelativePathQuery);
 
+        currentPage = 1;
         fetchExercises();
     }
 
@@ -105,7 +130,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     async function fetchExercises() {
         exercisesGrid.innerHTML = `
             <div style="grid-column: 1 / -1; text-align: center; padding: 48px; color: var(--color-text-muted);">
-                <span style="color: var(--color-gold); font-family: var(--font-mono);">[ CONSULTANDO OS ARQUIVOS DO SCRIPTORIUM... ]</span>
+                <span style="color: var(--color-gold); font-family: var(--font-mono);">Consultando...</span>
             </div>
         `;
 
@@ -118,29 +143,34 @@ document.addEventListener('DOMContentLoaded', async () => {
                 throw new Error(data.error || 'Erro ao carregar exercícios.');
             }
 
-            renderExercises(data.data);
-            updateSummaryBadge(data.data.length);
+            filteredExercises = data.data;
+            const totalPages = Math.ceil(filteredExercises.length / pageSize);
+            currentPage = Math.min(currentPage, Math.max(totalPages, 1));
+            renderExercises();
+            renderPagination(totalPages);
+            updateSummaryBadge(filteredExercises.length);
         } catch (err) {
             exercisesGrid.innerHTML = `
-                <div class="empty" style="grid-column: 1 / -1;">
+                <div class="state-empty" style="grid-column: 1 / -1;">
                     <h3>ERRO DE COMUNICAÇÃO</h3>
                     <p>${err.message}</p>
                 </div>
             `;
+            pagination.innerHTML = '';
             resultsCountText.textContent = 'Erro ao carregar dados.';
         }
     }
 
     // Render list of exercise cards
-    function renderExercises(exercises) {
+    function renderExercises() {
+        const startIndex = (currentPage - 1) * pageSize;
+        const exercises = filteredExercises.slice(startIndex, startIndex + pageSize);
+
         if (!exercises || exercises.length === 0) {
             exercisesGrid.innerHTML = `
-                <div class="empty" style="grid-column: 1 / -1;">
-                    <h3>[ NENHUM PERGAMINHO ENCONTRADO ]</h3>
-                    <p style="margin-top: 8px;">Nenhum desafio atende aos critérios de pesquisa selecionados.</p>
-                    <button class="btn btn--gold" style="margin-top: 16px;" onclick="document.getElementById('btn-clear-filters').click();">
-                        [ REFINAR OU LIMPAR FILTROS ]
-                    </button>
+                <div class="state-empty" style="grid-column: 1 / -1;">
+                    <h3>Nenhum exercício encontrado</h3>
+                    <p style="margin-top: 8px;">Nenhum exercício atende aos critérios de pesquisa selecionados.</p>
                 </div>
             `;
             return;
@@ -169,7 +199,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     </div>
 
                     <div class="card__footer">
-                        <div class="tags" style="margin-top: 12px;">
+                        <div class="card__badges" style="margin-top: 12px;">
                             <span class="badge ${diffClass}">${ex.difficulty.toUpperCase()}</span>
                             ${stacksHtml}
                             ${tagsHtml}
@@ -182,6 +212,45 @@ document.addEventListener('DOMContentLoaded', async () => {
                 </article>
             `;
         }).join('');
+    }
+
+    function renderPagination(totalPages) {
+        if (!pagination || totalPages <= 1) {
+            if (pagination) pagination.innerHTML = '';
+            return;
+        }
+
+        const visiblePages = new Set([1, totalPages, currentPage]);
+        if (currentPage > 1) visiblePages.add(currentPage - 1);
+        if (currentPage < totalPages) visiblePages.add(currentPage + 1);
+
+        const pageButtons = Array.from(visiblePages).sort((first, second) => first - second).map((page, index, pages) => {
+            const current = page === currentPage;
+            const previousPage = pages[index - 1];
+            const separator = previousPage && page - previousPage > 1
+                ? '<span class="pagination__ellipsis" aria-hidden="true">...</span>'
+                : '';
+            return `
+                ${separator}
+                <button type="button" class="pagination__button pagination__page${current ? ' is-active' : ''}"
+                    data-page="${page}" aria-label="Ir para a página ${page}"${current ? ' aria-current="page"' : ''}>
+                    ${page}
+                </button>
+            `;
+        }).join('');
+
+        pagination.innerHTML = `
+            <button type="button" class="pagination__button pagination__button--arrow"
+                data-page="${currentPage - 1}" aria-label="Página anterior"${currentPage === 1 ? ' disabled' : ''}>
+                <img src="images/arrow-left.svg" alt="">
+            </button>
+            <span class="pagination__status" aria-live="polite">Página ${currentPage} de ${totalPages}</span>
+            ${pageButtons}
+            <button type="button" class="pagination__button pagination__button--arrow"
+                data-page="${currentPage + 1}" aria-label="Próxima página"${currentPage === totalPages ? ' disabled' : ''}>
+                <img src="images/arrow-right.svg" alt="">
+            </button>
+        `;
     }
 
     // Update filter status text

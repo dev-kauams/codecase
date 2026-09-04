@@ -3,7 +3,7 @@ const fs = require('fs');
 
 const viewsDir = path.join(__dirname, '../views/pages');
 
-class ViewController {
+class viewController {
     static renderHome(req, res) {
         res.sendFile(path.join(viewsDir, 'home.html'));
     }
@@ -20,12 +20,12 @@ class ViewController {
     }
 
     static renderAdminDashboard(req, res) {
-        res.sendFile(path.join(viewsDir, 'admin-dashboard.html'));
+        res.sendFile(path.join(viewsDir, 'admin_dashboard.html'));
     }
 
     static renderAdminExerciseForm(req, res) {
-        res.sendFile(path.join(viewsDir, 'admin-exercise-form.html'));
+        res.sendFile(path.join(viewsDir, 'admin_exercise_form.html'));
     }
 }
 
-module.exports = ViewController;
+module.exports = viewController;

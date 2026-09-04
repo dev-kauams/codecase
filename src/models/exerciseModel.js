@@ -1,10 +1,10 @@
 const { getDatabase } = require('../../config/database');
 const slugify = require('slugify');
-const TagModel = require('./TagModel');
-const StackModel = require('./StackModel');
-const AttachmentModel = require('./AttachmentModel');
+const tagModel = require('./tagModel');
+const stackModel = require('./stackModel');
+const attachmentModel = require('./attachmentModel');
 
-class ExerciseModel {
+class exerciseModel {
     static async findAll({ search, difficulty, stack, tag, limit = 50, offset = 0 } = {}) {
         const db = await getDatabase();
         let whereClauses = [];
@@ -71,9 +71,9 @@ class ExerciseModel {
 
         // Enrich exercises with tags, stacks, attachments
         for (let ex of exercises) {
-            ex.tags = await TagModel.getTagsForExercise(ex.id);
-            ex.stacks = await StackModel.getStacksForExercise(ex.id);
-            ex.attachments = await AttachmentModel.getByExerciseId(ex.id);
+            ex.tags = await tagModel.getTagsForExercise(ex.id);
+            ex.stacks = await stackModel.getStacksForExercise(ex.id);
+            ex.attachments = await attachmentModel.getByExerciseId(ex.id);
         }
 
         return exercises;
@@ -84,9 +84,9 @@ class ExerciseModel {
         const exercise = await db.queryOne('SELECT * FROM exercises WHERE id = ?', [id]);
         if (!exercise) return null;
 
-        exercise.tags = await TagModel.getTagsForExercise(exercise.id);
-        exercise.stacks = await StackModel.getStacksForExercise(exercise.id);
-        exercise.attachments = await AttachmentModel.getByExerciseId(exercise.id);
+        exercise.tags = await tagModel.getTagsForExercise(exercise.id);
+        exercise.stacks = await stackModel.getStacksForExercise(exercise.id);
+        exercise.attachments = await attachmentModel.getByExerciseId(exercise.id);
         return exercise;
     }
 
@@ -95,9 +95,9 @@ class ExerciseModel {
         const exercise = await db.queryOne('SELECT * FROM exercises WHERE slug = ?', [slug]);
         if (!exercise) return null;
 
-        exercise.tags = await TagModel.getTagsForExercise(exercise.id);
-        exercise.stacks = await StackModel.getStacksForExercise(exercise.id);
-        exercise.attachments = await AttachmentModel.getByExerciseId(exercise.id);
+        exercise.tags = await tagModel.getTagsForExercise(exercise.id);
+        exercise.stacks = await stackModel.getStacksForExercise(exercise.id);
+        exercise.attachments = await attachmentModel.getByExerciseId(exercise.id);
         return exercise;
     }
 
@@ -204,4 +204,4 @@ class ExerciseModel {
     }
 }
 
-module.exports = ExerciseModel;
+module.exports = exerciseModel;

@@ -1,7 +1,7 @@
 const { getDatabase } = require('../../config/database');
 const slugify = require('slugify');
 
-class TagModel {
+class tagModel {
     static async getAll() {
         const db = await getDatabase();
         return await db.query(`
@@ -42,4 +42,4 @@ class TagModel {
     }
 }
 
-module.exports = TagModel;
+module.exports = tagModel;

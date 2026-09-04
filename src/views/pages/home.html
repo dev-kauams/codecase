@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -6,101 +6,108 @@
     <title>CodeCase</title>
     <meta name="description" content="Plataforma medieval de exercícios de programação. Explore, filtre por stack ou nível de dificuldade por @dev-kauams.">
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="shortcut icon" href="images/logo.ico" type="image/x-icon">
 </head>
 <body>
 
     <header>
-        <div class="header-items">
+        <div class="home__header-items">
             <nav>
-                <a href="/admin/login" id="nav-admin-link">
-                    <img src="/images/admin_icon.svg" alt="Administração">
+                <a href="/admin/login" id="home__admin-link">
+                    <img src="/images/admin-icon.svg" alt="Administração">
                 </a>
             </nav>
             <div></div> <!-- div vazia para o space-between -->
         </div>
     </header>
 
-    <main class="main-home">
-        <section class="section-home">
-            <div class="title-home">
+    <main class="home">
+        <section class="home__hero">
+            <div class="home__empty"></div>
+            <div class="home__title">
                 <h1 data-text="CODECASE">CODECASE</h1>
                 <svg width="0" height="0" style="position:absolute">
-                    <filter id="rabiscado">
+                    <filter id="home__sketch-filter">
                         <feTurbulence type="fractalNoise" baseFrequency="0.015 0.04" numOctaves="2" seed="7" result="noise"/>
                         <feDisplacementMap in="SourceGraphic" in2="noise" scale="5"/>
                     </filter>
                 </svg>
-                <div class="images-title">
-                    <img src="/images/set-square_title.svg" alt="">
-                    <img src="/images/brain_title.svg" alt="">
+                <div class="home__title-images">
+                    <img src="/images/set-square-title.svg" alt="">
+                    <img src="/images/brain-title.svg" alt="">
                 </div>
             </div>
 
-                <div class="home-button">
-                    <button>Ver exercícios</button>
-                    <button onclick="window.open('https://github.com/dev-kauams/codecase', '_blank');">Abrir repositório</button>
+                <div class="home__actions">
+                    <a href="home__exercises-grid">
+                        <button class="button--exercises">Ver exercícios</button>
+                    </a>
+                    <a href="https://github.com/dev-kauams/codecase" target="_blank">
+                        <button class="button--repository">Abrir repositório</button>
+                    </a>
                 </div>
         </section>
 
-        <section id="filter-panel">
-            <form id="filter-form" onsubmit="event.preventDefault();">
-                    <div class="filter-panel-search">
-                        <label for="search-input">Pesquisa Textual</label>
-                        <input type="text" id="search-input" placeholder="Pesquisar por título, palavra-chave ou tag...">
+        <section id="home__filter-panel">
+            <form id="home__filter-form" onsubmit="event.preventDefault();">
+                    <div class="home__filter-search">
+                        <label for="home__search-input">Pesquisa Textual</label>
+                        <input type="text" id="home__search-input" placeholder="Pesquisar por título, palavra-chave ou tag...">
                     </div>
 
                     <div>
-                        <label for="difficulty-select">Dificuldade</label>
-                        <select id="difficulty-select">
-                            <option value="">-- TODAS --</option>
-                            <option value="Fácil">FÁCIL</option>
-                            <option value="Médio">MÉDIO</option>
-                            <option value="Difícil">DIFÍCIL</option>
+                        <label for="home__difficulty-select">Dificuldade</label>
+                        <select id="home__difficulty-select">
+                            <option value="">Todas</option>
+                            <option value="Fácil">Fácil</option>
+                            <option value="Médio">Médio</option>
+                            <option value="Difícil">Difícil</option>
                         </select>
                     </div>
 
                     <div>
-                        <label for="stack-select">Stack / Tech</label>
-                        <select id="stack-select">
-                            <option value="">-- TODAS --</option>
+                        <label for="home__stack-select">Stack / Tech</label>
+                        <select id="home__stack-select">
+                            <option value="">Todas</option>
                             <!-- Populated dynamically via JS -->
                         </select>
                     </div>
 
                     <div>
-                        <label for="tag-select">Tag / Tópico</label>
-                        <select id="tag-select">
-                            <option value="">-- TODAS --</option>
+                        <label for="home__tag-select">Tag / Tópico</label>
+                        <select id="home__tag-select">
+                            <option value="">Todas</option>
                             <!-- Populated dynamically via JS -->
                         </select>
                     </div>
 
                     <div>
-                        <button type="button" id="btn-clear-filters">Limpar Filtros</button>
+                        <button type="button" id="home__clear-filters">Limpar Filtros</button>
                     </div>
     
             </form>
         </section>
 
         <div>
-            <span id="results-count-text">Carregando exercícios...</span>
-            <span id="active-filter-badge">Filtro: Todos</span>
+            <span id="home__results-count">Carregando exercícios...</span>
+            <span id="home__active-filter">Filtro: Todos</span>
         </div>
 
-        <section id="exercises-grid">
+        <section id="home__exercises-grid">
 
         </section>
+        <nav id="home__pagination" class="pagination" aria-label="Paginação dos exercícios"></nav>
 
     </main>
 
-    <footer class="footer-home">
+    <footer class="home__footer">
         <div>
-            <p>CODECASE</p>
-            <p>Desenvolvido por <strong>@dev-kauams</strong></p>
+            <img src="images/codecase.svg" alt="CodeCase Logo">
+            <p>Desenvolvido por <strong><a href="https://github.com/dev-kauams" target="_blank">@dev-kauams</a></strong></p>
         </div>
     </footer>
 
-    <div id="toast-container"></div>
+    <div id="toast__container"></div>
 
     <script src="/js/main.js"></script>
     <script src="/js/filters.js"></script>

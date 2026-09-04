@@ -1,6 +1,6 @@
 const { getDatabase } = require('../../config/database');
 
-class AdminModel {
+class adminModel {
     static async findByUsername(username) {
         const db = await getDatabase();
         return await db.queryOne('SELECT * FROM administrators WHERE username = ?', [username]);
@@ -21,4 +21,4 @@ class AdminModel {
     }
 }
 
-module.exports = AdminModel;
+module.exports = adminModel;

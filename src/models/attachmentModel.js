@@ -1,6 +1,6 @@
 const { getDatabase } = require('../../config/database');
 
-class AttachmentModel {
+class attachmentModel {
     static async create({ exercise_id, original_name, stored_filename, file_path, mime_type, file_size }) {
         const db = await getDatabase();
         const res = await db.execute(`
@@ -44,4 +44,4 @@ class AttachmentModel {
     }
 }
 
-module.exports = AttachmentModel;
+module.exports = attachmentModel;

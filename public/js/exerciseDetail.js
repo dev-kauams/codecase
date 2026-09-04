@@ -22,40 +22,40 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         // Header and metadata
         const paddedId = String(ex.id).padStart(3, '0');
-        document.getElementById('ex-id-badge').innerText = `EXERCÍCIO #${paddedId}`;
-        document.getElementById('ex-title').innerText = ex.title;
-        document.getElementById('ex-date').innerText = formatDate(ex.created_at);
+        document.getElementById('exercise-detail__id-badge').innerText = `EXERCÍCIO #${paddedId}`;
+        document.getElementById('exercise-detail__title').innerText = ex.title;
+        document.getElementById('exercise-detail__date').innerText = formatDate(ex.created_at);
 
         // Difficulty badge — BEM classes
         const diffClass = ex.difficulty === 'Fácil' ? 'badge--easy' : (ex.difficulty === 'Médio' ? 'badge--medium' : 'badge--hard');
-        document.getElementById('ex-difficulty-badge').innerHTML = `<span class="badge ${diffClass}" style="font-size: 0.9rem; padding: 4px 12px;">${ex.difficulty.toUpperCase()}</span>`;
+        document.getElementById('exercise-detail__difficulty-badge').innerHTML = `<span class="badge ${diffClass}" style="font-size: 0.9rem; padding: 4px 12px;">${ex.difficulty.toUpperCase()}</span>`;
 
         // Stacks & Tags — BEM classes
-        const stacksContainer = document.getElementById('ex-stacks-container');
+        const stacksContainer = document.getElementById('exercise-detail__stacks-container');
         stacksContainer.innerHTML = (ex.stacks || []).map(s => `<span class="badge badge--stack">${s.name}</span>`).join(' ');
 
-        const tagsContainer = document.getElementById('ex-tags-container');
+        const tagsContainer = document.getElementById('exercise-detail__tags-container');
         tagsContainer.innerHTML = (ex.tags || []).map(t => `<span class="badge badge--tag">${t.name}</span>`).join(' ');
 
         // Summary
-        document.getElementById('ex-summary').innerText = ex.summary;
+        document.getElementById('exercise-detail__summary').innerText = ex.summary;
 
         // Image
         if (ex.image_url) {
-            const imgWrapper = document.getElementById('ex-image-wrapper');
-            const imgEl = document.getElementById('ex-image');
+            const imgWrapper = document.getElementById('exercise-detail__image-wrapper');
+            const imgEl = document.getElementById('exercise-detail__image');
             imgEl.src = ex.image_url;
             imgWrapper.style.display = 'block';
         }
 
         // Formatted Statement Content
-        const statementContainer = document.getElementById('ex-statement');
+        const statementContainer = document.getElementById('exercise-detail__statement');
         statementContainer.innerHTML = parseMarkdown(ex.statement);
 
         // Attachments — BEM classes
         if (ex.attachments && ex.attachments.length > 0) {
-            const attSection = document.getElementById('attachments-section');
-            const attList = document.getElementById('attachments-list');
+            const attSection = document.getElementById('exercise-detail__attachments-section');
+            const attList = document.getElementById('exercise-detail__attachments-list');
 
             attList.innerHTML = ex.attachments.map(att => `
                 <div class="attachments__item">
@@ -73,9 +73,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
 
     } catch (err) {
-        document.getElementById('ex-title').innerText = 'Erro ao carregar exercício.';
-        document.getElementById('ex-statement').innerHTML = `
-            <div class="empty">
+        document.getElementById('exercise-detail__title').innerText = 'Erro ao carregar exercício.';
+        document.getElementById('exercise-detail__statement').innerHTML = `
+            <div class="state-empty">
                 <p style="color: var(--color-primary);">${err.message}</p>
                 <a href="/" class="btn" style="margin-top: 16px; display: inline-block;">Voltar à Home</a>
             </div>
