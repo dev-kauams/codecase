@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CodeCase</title>
     <meta name="description" content="Plataforma medieval de exercícios de programação. Explore, filtre por stack ou nível de dificuldade por @dev-kauams.">
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/main_style.css">
     <link rel="shortcut icon" href="images/logo.ico" type="image/x-icon">
 </head>
 <body>
@@ -39,7 +39,7 @@
             </div>
 
                 <div class="home__actions">
-                    <a href="#home__exercises-grid">
+                    <a href="/send">
                         <button class="button--exercises">Ver exercícios</button>
                     </a>
                     <a href="https://github.com/dev-kauams/codecase" target="_blank">
@@ -75,7 +75,7 @@
 
                     <div>
                         <label for="home__tag-select">Tag / Tópico</label>
-                        <select id="home__tag-select">
+                        <select id="home__tag-select" multiple size="3">
                             <option value="">Todas</option>
                             <!-- Populated dynamically via JS -->
                         </select>
@@ -109,7 +109,7 @@
 
     <div id="toast__container"></div>
 
-    <script src="/js/main.js"></script>
-    <script src="/js/filters.js"></script>
+    <script src="/js/mainScript.js"></script>
+    <script src="/js/filtersSection.js"></script>
 </body>
 </html>

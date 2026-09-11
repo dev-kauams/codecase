@@ -3,9 +3,10 @@ const router = express.Router();
 const viewController = require('../controllers/viewController');
 const authMiddleware = require('../middlewares/authMiddleware');
 
-router.get('/', viewController.renderHome);
+router.get('/', viewController.renderHome)
 router.get('/exercise/:id', viewController.renderExercise);
-router.get('/admin/login', viewController.renderLogin);
+router.get('/send', viewController.renderSendExercise)
+router.get('/admin/login', viewController.renderLogin)
 
 router.get('/admin/dashboard', authMiddleware, viewController.renderAdminDashboard);
 router.get('/admin/exercise/new', authMiddleware, viewController.renderAdminExerciseForm);

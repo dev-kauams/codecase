@@ -44,18 +44,21 @@ class exerciseModel {
             params.push(tag.toLowerCase(), tag, parseInt(tag) || 0);
         }
 
-        // Search filter (title, summary, statement, tags, stacks)
+        // Search filter (case-insensitive across exercise content and taxonomy)
         if (search && search.trim() !== '') {
             const term = `%${search.trim()}%`;
             whereClauses.push(`(
-                e.title LIKE ? OR 
-                e.summary LIKE ? OR 
-                e.statement LIKE ? OR
+                e.title ILIKE ? OR 
+                e.summary ILIKE ? OR 
+                e.statement ILIKE ? OR
                 e.id IN (
-                    SELECT et.exercise_id FROM exercise_tags et JOIN tags t ON et.tag_id = t.id WHERE t.name LIKE ?
+                    SELECT et.exercise_id FROM exercise_tags et JOIN tags t ON et.tag_id = t.id WHERE t.name ILIKE ?
+                ) OR
+                e.id IN (
+                    SELECT es.exercise_id FROM exercise_stacks es JOIN stacks s ON es.stack_id = s.id WHERE s.name ILIKE ?
                 )
             )`);
-            params.push(term, term, term, term);
+            params.push(term, term, term, term, term);
         }
 
         const whereSql = whereClauses.length > 0 ? `WHERE ${whereClauses.join(' AND ')}` : '';
