@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.getElementById('exercise-detail__id-badge').innerText = `EXERCÍCIO #${paddedId}`;
         document.getElementById('exercise-detail__title').innerText = ex.title;
         document.getElementById('exercise-detail__date').innerText = formatDate(ex.created_at);
+        document.getElementById('exercise-detail__author').innerText = ex.author_email || 'Administração';
 
         // Difficulty badge — BEM classes
         const diffClass = ex.difficulty === 'Fácil' ? 'badge--easy' : (ex.difficulty === 'Médio' ? 'badge--medium' : 'badge--hard');

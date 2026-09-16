@@ -6,6 +6,7 @@
     <title>CodeCase</title>
     <link rel="stylesheet" href="/css/main_style.css" />
     <link rel="stylesheet" href="/css/admin_exercise_form.css" />
+    <link rel="shortcut icon" href="images/logo.ico" type="image/x-icon">
   </head>
   <body>
     <header class="exercise-form-page__site-header">
@@ -67,6 +68,21 @@
                 class="exercise-form__input"
                 placeholder="Pequena descrição sintetizada do desafio para os cards da homepage"
                 required
+              />
+            </div>
+
+            <div class="exercise-form__group">
+              <label for="exercise-form__author-email" class="exercise-form__label"
+                >Email do autor *</label
+              >
+              <input
+                type="email"
+                id="exercise-form__author-email"
+                name="author_email"
+                class="exercise-form__input"
+                placeholder="voce@exemplo.com"
+                required
+                maxlength="254"
               />
             </div>
 

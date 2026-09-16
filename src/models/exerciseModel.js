@@ -108,7 +108,7 @@ class exerciseModel {
         return exercise;
     }
 
-    static async create({ title, summary, statement, difficulty, image_url, tagIds = [], stackIds = [] }) {
+    static async create({ title, summary, statement, difficulty, image_url, author_email = 'Administração', tagIds = [], stackIds = [] }) {
         const db = await getDatabase();
         const baseSlug = slugify(title, { lower: true, strict: true }) || 'exercicio';
         let slug = baseSlug;
@@ -119,9 +119,9 @@ class exerciseModel {
         }
 
         const res = await db.execute(`
-            INSERT INTO exercises (title, slug, summary, statement, difficulty, image_url, created_at, updated_at)
-            VALUES (?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP) RETURNING id
-        `, [title, slug, summary, statement, difficulty, image_url || null]);
+            INSERT INTO exercises (title, slug, author_email, summary, statement, difficulty, image_url, created_at, updated_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP) RETURNING id
+        `, [title, slug, author_email, summary, statement, difficulty, image_url || null]);
 
         const exerciseId = res.lastInsertRowid;
 

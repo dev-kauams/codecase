@@ -6,6 +6,7 @@
     <title>CodeCase</title>
     <link rel="stylesheet" href="/css/main_style.css" />
     <link rel="stylesheet" href="/css/admin_dashboard.css" />
+    <link rel="shortcut icon" href="images/logo.ico" type="image/x-icon">
   </head>
   <body>
     <header class="dashboard__header">
@@ -86,6 +87,7 @@
             <tr>
               <th>ID</th>
               <th>Título do Exercício</th>
+              <th>Autor</th>
               <th>Dificuldade</th>
               <th>Stacks</th>
               <th>Anexos</th>
@@ -98,7 +100,7 @@
             class="dashboard__table-body"
           >
             <tr>
-              <td colspan="7" class="dashboard__table-loading">
+                <td colspan="8" class="dashboard__table-loading">
                 Carregando lista de exercícios...
               </td>
             </tr>
@@ -122,6 +124,7 @@
               <tr>
                 <th>ID</th>
                 <th>Título</th>
+                <th>Autor</th>
                 <th>Dificuldade</th>
                 <th>Enviado em</th>
                 <th>Ações</th>
@@ -129,7 +132,7 @@
             </thead>
             <tbody id="dashboard__submission-table-body">
               <tr>
-                <td colspan="5" class="dashboard__table-loading">
+                <td colspan="6" class="dashboard__table-loading">
                   Carregando envios...
                 </td>
               </tr>

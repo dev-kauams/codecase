@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS exercises (
     id SERIAL PRIMARY KEY,
     title VARCHAR(150) NOT NULL,
     slug VARCHAR(180) NOT NULL UNIQUE,
+    author_email VARCHAR(255) NOT NULL DEFAULT 'Administração',
     summary TEXT NOT NULL,
     statement TEXT NOT NULL,
     difficulty VARCHAR(20) NOT NULL CHECK (difficulty IN ('Fácil', 'Médio', 'Difícil')),
@@ -89,6 +90,7 @@ CREATE INDEX IF NOT EXISTS idx_attachments_exercise ON attachments(exercise_id);
 CREATE TABLE IF NOT EXISTS exercise_submissions (
     id SERIAL PRIMARY KEY,
     title VARCHAR(150) NOT NULL,
+    author_email VARCHAR(255),
     summary TEXT NOT NULL,
     statement TEXT NOT NULL,
     difficulty VARCHAR(20) NOT NULL CHECK (difficulty IN ('Fácil', 'Médio', 'Difícil')),

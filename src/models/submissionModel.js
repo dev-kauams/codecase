@@ -1,11 +1,11 @@
 const { getDatabase } = require('../../config/database');
 
 class submissionModel {
-    static async create({ title, summary, statement, difficulty, image_url, tagIds = [], stackIds = [] }) {
+    static async create({ title, summary, statement, difficulty, image_url, author_email, tagIds = [], stackIds = [] }) {
         const db = await getDatabase();
         const result = await db.execute(`INSERT INTO exercise_submissions
-            (title, summary, statement, difficulty, image_url) VALUES (?, ?, ?, ?, ?) RETURNING id`,
-            [title, summary, statement, difficulty, image_url || null]);
+            (title, author_email, summary, statement, difficulty, image_url) VALUES (?, ?, ?, ?, ?, ?) RETURNING id`,
+            [title, author_email, summary, statement, difficulty, image_url || null]);
         const id = result.lastInsertRowid;
         await this.setRelations(id, 'submission_tags', 'tag_id', tagIds);
         await this.setRelations(id, 'submission_stacks', 'stack_id', stackIds);

@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const formSummary = document.getElementById('exercise-form__summary');
     const formDifficulty = document.getElementById('exercise-form__difficulty');
     const formStatement = document.getElementById('exercise-form__statement');
+    const formAuthorEmail = document.getElementById('exercise-form__author-email');
     const formImageInput = document.getElementById('exercise-form__image');
     const imagePreviewContainer = document.getElementById('exercise-form__image-preview-container');
     const imagePreview = document.getElementById('exercise-form__image-preview');
@@ -68,8 +69,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         const summary = formSummary.value.trim();
         const statement = formStatement.value.trim();
         const difficulty = formDifficulty.value;
+        const authorEmail = formAuthorEmail.value.trim();
 
-        if (!title || !summary || !statement || !difficulty) {
+        if (!title || !summary || !statement || !difficulty || !authorEmail) {
             return showToast('Preencha todos os campos obrigatórios.', true);
         }
 
@@ -82,6 +84,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             formData.append('summary', summary);
             formData.append('statement', statement);
             formData.append('difficulty', difficulty);
+            formData.append('author_email', authorEmail);
 
             // Selected Stacks
             const selectedStacks = Array.from(stacksChecklist.querySelectorAll('input[type="checkbox"]:checked')).map(cb => cb.value);

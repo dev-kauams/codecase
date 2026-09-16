@@ -16,6 +16,8 @@ async function initDb() {
 
         const sqlScript = fs.readFileSync(sqlPath, 'utf-8');
         await db.execScript(sqlScript);
+        await db.execute("ALTER TABLE exercises ADD COLUMN IF NOT EXISTS author_email VARCHAR(255) NOT NULL DEFAULT 'Administração'");
+        await db.execute('ALTER TABLE exercise_submissions ADD COLUMN IF NOT EXISTS author_email VARCHAR(255)');
 
         const username = process.env.ADMIN_USERNAME;
         const password = process.env.ADMIN_PASSWORD;

@@ -86,6 +86,7 @@ class exerciseController {
 
             const exercise = await exerciseModel.create({
                 title,
+                author_email: 'Administração',
                 summary,
                 statement,
                 difficulty,
@@ -246,7 +247,11 @@ class exerciseController {
 
     static async submit(req, res, next) {
         try {
-            const { title, summary, statement, difficulty, tags, stacks } = req.body;
+            const { title, summary, statement, difficulty, tags, stacks, author_email } = req.body;
+            const normalizedAuthorEmail = typeof author_email === 'string' ? author_email.trim().toLowerCase() : '';
+            if (!isValidEmail(normalizedAuthorEmail)) {
+                return res.status(400).json({ success: false, error: 'Informe um email válido para identificar a autoria.' });
+            }
             if (!isValidExerciseInput({ title, summary, statement, difficulty })) {
                 return res.status(400).json({ success: false, error: 'Preencha todos os campos obrigatórios.' });
             }
@@ -255,7 +260,7 @@ class exerciseController {
             const parsedTags = parseIdList(tags);
             const parsedStacks = parseIdList(stacks);
             if (!parsedTags || !parsedStacks) return res.status(400).json({ success: false, error: 'Tags ou stacks inválidas.' });
-            const submission = await submissionModel.create({ title: title.trim(), summary: summary.trim(), statement: statement.trim(), difficulty, image_url: imageUrl, tagIds: parsedTags, stackIds: parsedStacks });
+            const submission = await submissionModel.create({ title: title.trim(), author_email: normalizedAuthorEmail, summary: summary.trim(), statement: statement.trim(), difficulty, image_url: imageUrl, tagIds: parsedTags, stackIds: parsedStacks });
             for (const file of req.files?.attachments || []) {
                 const saved = await saveFile(file, 'attachments');
                 await submissionModel.addAttachment(submission.id, {
@@ -278,7 +283,7 @@ class exerciseController {
         try {
             const submission = await submissionModel.findById(Number(req.params.id));
             if (!submission || submission.status !== 'pending') return res.status(404).json({ success: false, error: 'Submissão pendente não encontrada.' });
-            const exercise = await exerciseModel.create({ title: submission.title, summary: submission.summary, statement: submission.statement, difficulty: submission.difficulty, image_url: submission.image_url, tagIds: submission.tags.map(tag => tag.id), stackIds: submission.stacks.map(stack => stack.id) });
+            const exercise = await exerciseModel.create({ title: submission.title, author_email: submission.author_email, summary: submission.summary, statement: submission.statement, difficulty: submission.difficulty, image_url: submission.image_url, tagIds: submission.tags.map(tag => tag.id), stackIds: submission.stacks.map(stack => stack.id) });
             for (const attachment of await submissionModel.getAttachments(submission.id)) {
                 const db = await require('../../config/database').getDatabase();
                 await db.execute(`INSERT INTO attachments (exercise_id, original_name, stored_filename, file_path, mime_type, file_size) VALUES (?, ?, ?, ?, ?, ?)`, [exercise.id, attachment.original_name, attachment.stored_filename, attachment.file_path, attachment.mime_type, attachment.file_size]);
@@ -309,6 +314,10 @@ function parseIdList(value) {
     const values = Array.isArray(value) ? value : (value ? [value] : []);
     const ids = values.map(item => Number(item));
     return ids.every(id => Number.isInteger(id) && id > 0) ? ids : null;
+}
+
+function isValidEmail(email) {
+    return email.length <= 254 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
 module.exports = exerciseController;

@@ -174,7 +174,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (exercises.length === 0) {
                 tableBody.innerHTML = `
                     <tr>
-                        <td colspan="7" class="dashboard__table-cell">
+                        <td colspan="8" class="dashboard__table-cell">
                             Nenhum exercício cadastrado. Clique em <strong>+ CRIAR EXERCÍCIO</strong> para adicionar o primeiro.
                         </td>
                     </tr>
@@ -194,6 +194,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                             <strong>${escapeHtml(ex.title)}</strong>
                             <div>${escapeHtml(ex.slug)}</div>
                         </td>
+                        <td>${escapeHtml(ex.author_email || 'Administração')}</td>
                         <td><span>${escapeHtml(ex.difficulty.toUpperCase())}</span></td>
                         <td>${stacksBadges}</td>
                         <td>${attachmentsCount} arquivo(s)</td>
@@ -226,7 +227,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         } catch (err) {
             tableBody.innerHTML = `
                 <tr>
-                    <td colspan="7" class="dashboard__table-cell">
+                    <td colspan="8" class="dashboard__table-cell">
                         ERRO: ${escapeHtml(err.message)}
                     </td>
                 </tr>
@@ -244,7 +245,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             submissionCount.textContent = `${submissions.length} pendente${submissions.length === 1 ? '' : 's'}`;
             submissionTableBody.innerHTML = submissions.length ? submissions.map(item => `
                 <tr><td>#${String(item.id).padStart(3, '0')}</td><td><strong>${escapeHtml(item.title)}</strong><div>${escapeHtml(item.summary)}</div></td>
-                <td>${escapeHtml(item.difficulty)}</td><td>${formatDate(item.created_at)}</td><td><div class="dashboard__action-row">
+                <td>${escapeHtml(item.author_email || 'Não informado')}</td><td>${escapeHtml(item.difficulty)}</td><td>${formatDate(item.created_at)}</td><td><div class="dashboard__action-row">
                     <button class="dashboard__approve-button" data-submission-action="approve" data-id="${item.id}">Aprovar</button>
                     <button class="dashboard__delete-button" data-submission-action="reject" data-id="${item.id}">Recusar</button>
                 </div></td></tr>`).join('') : '<tr><td colspan="5" class="dashboard__table-cell">Nenhum exercício pendente.</td></tr>';
@@ -259,7 +260,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 loadStats();
             }));
         } catch (error) {
-            submissionTableBody.innerHTML = `<tr><td colspan="5" class="dashboard__table-cell">${escapeHtml(error.message)}</td></tr>`;
+            submissionTableBody.innerHTML = `<tr><td colspan="6" class="dashboard__table-cell">${escapeHtml(error.message)}</td></tr>`;
         }
     }
 
