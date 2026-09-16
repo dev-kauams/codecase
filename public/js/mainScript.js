@@ -1,7 +1,46 @@
-/* ===================================================
-   CodeCase - Global Main Client Script
-   Author: @dev-kauams
-   =================================================== */
+
+
+function setupThemeSwitcher() {
+    const storedTheme = localStorage.getItem('codecase-theme');
+    if (storedTheme === 'light' || storedTheme === 'dark') {
+        document.documentElement.dataset.theme = storedTheme;
+    }
+
+    if (!document.querySelector('.home')) return;
+
+    const switcher = document.createElement('div');
+    switcher.className = 'theme-switcher';
+    switcher.setAttribute('aria-label', 'Escolher tema');
+    switcher.innerHTML = `
+        <button type="button" data-theme-choice="light" aria-label="Usar tema claro">Claro</button>
+        <button type="button" data-theme-choice="dark" aria-label="Usar tema escuro">Escuro</button>
+    `;
+    document.body.appendChild(switcher);
+
+    const buttons = switcher.querySelectorAll('[data-theme-choice]');
+    const updateActiveTheme = () => {
+        const activeTheme = document.documentElement.dataset.theme
+            || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+
+        buttons.forEach(button => {
+            button.setAttribute('aria-pressed', String(button.dataset.themeChoice === activeTheme));
+        });
+    };
+
+    buttons.forEach(button => {
+        button.addEventListener('click', () => {
+            const selectedTheme = button.dataset.themeChoice;
+            document.documentElement.dataset.theme = selectedTheme;
+            localStorage.setItem('codecase-theme', selectedTheme);
+            updateActiveTheme();
+        });
+    });
+
+    matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateActiveTheme);
+    updateActiveTheme();
+}
+
+setupThemeSwitcher();
 
 
 // Global Toast Notification Helper — Bloco: toasts
