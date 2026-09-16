@@ -17,6 +17,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     const tableBody = document.getElementById('dashboard__exercise-table-body');
+    const submissionTableBody = document.getElementById('dashboard__submission-table-body');
+    const submissionCount = document.getElementById('dashboard__submission-count');
     const btnLogout = document.getElementById('dashboard__logout');
 
     // Modals
@@ -44,6 +46,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Load Exercises Table
     loadExercisesTable();
+    loadSubmissions();
+    loadTaxonomies();
 
     // Logout
     if (btnLogout) {
@@ -195,11 +199,11 @@ document.addEventListener('DOMContentLoaded', async () => {
                         <td>${attachmentsCount} arquivo(s)</td>
                         <td>${formatDate(ex.created_at)}</td>
                         <td>
-                            <div>
-                                <a href="/admin/exercise/edit/${ex.id}">
+                            <div class="dashboard__action-row">
+                                <a class="dashboard__edit-button" href="/admin/exercise/edit/${ex.id}">
                                     Editar
                                 </a>
-                                <button data-action="delete-exercise" data-id="${ex.id}" data-title="${escapeHtml(ex.title)}">
+                                <button class="dashboard__delete-button" data-action="delete-exercise" data-id="${ex.id}" data-title="${escapeHtml(ex.title)}">
                                     Excluir
                                 </button>
                             </div>
@@ -227,6 +231,58 @@ document.addEventListener('DOMContentLoaded', async () => {
                     </td>
                 </tr>
             `;
+        }
+    }
+
+    async function loadSubmissions() {
+        if (!submissionTableBody) return;
+        try {
+            const res = await fetch('/api/admin/submissions');
+            const data = await res.json();
+            if (!res.ok || !data.success) throw new Error(data.error || 'Erro ao carregar envios.');
+            const submissions = data.data || [];
+            submissionCount.textContent = `${submissions.length} pendente${submissions.length === 1 ? '' : 's'}`;
+            submissionTableBody.innerHTML = submissions.length ? submissions.map(item => `
+                <tr><td>#${String(item.id).padStart(3, '0')}</td><td><strong>${escapeHtml(item.title)}</strong><div>${escapeHtml(item.summary)}</div></td>
+                <td>${escapeHtml(item.difficulty)}</td><td>${formatDate(item.created_at)}</td><td><div class="dashboard__action-row">
+                    <button class="dashboard__approve-button" data-submission-action="approve" data-id="${item.id}">Aprovar</button>
+                    <button class="dashboard__delete-button" data-submission-action="reject" data-id="${item.id}">Recusar</button>
+                </div></td></tr>`).join('') : '<tr><td colspan="5" class="dashboard__table-cell">Nenhum exercício pendente.</td></tr>';
+            submissionTableBody.querySelectorAll('[data-submission-action]').forEach(button => button.addEventListener('click', async () => {
+                const action = button.dataset.submissionAction;
+                const response = await fetch(`/api/admin/submissions/${button.dataset.id}/${action}`, { method: 'POST' });
+                const result = await response.json();
+                if (!response.ok || !result.success) return showToast(result.error || 'Não foi possível revisar o envio.', true);
+                showToast(action === 'approve' ? 'Exercício aprovado.' : 'Exercício recusado.');
+                loadSubmissions();
+                loadExercisesTable();
+                loadStats();
+            }));
+        } catch (error) {
+            submissionTableBody.innerHTML = `<tr><td colspan="5" class="dashboard__table-cell">${escapeHtml(error.message)}</td></tr>`;
+        }
+    }
+
+    async function loadTaxonomies() {
+        const lists = [
+            { endpoint: 'tags', element: 'dashboard__tags-list', label: 'tag' },
+            { endpoint: 'stacks', element: 'dashboard__stacks-list', label: 'stack' }
+        ];
+        for (const item of lists) {
+            const target = document.getElementById(item.element);
+            const response = await fetch(`/api/${item.endpoint}`);
+            const result = await response.json();
+            if (!target || !result.success) continue;
+            target.innerHTML = result.data.map(entry => `<span class="dashboard__taxonomy-item">${escapeHtml(entry.name)} <button data-taxonomy="${item.label}" data-id="${entry.id}" title="Excluir">x</button></span>`).join('') || 'Nenhum cadastrado.';
+            target.querySelectorAll('[data-taxonomy]').forEach(button => button.addEventListener('click', async () => {
+                if (!confirm(`Excluir ${item.label} "${button.parentElement.firstChild.textContent.trim()}"?`)) return;
+                const deleteResponse = await fetch(`/api/${item.endpoint}/${button.dataset.id}`, { method: 'DELETE' });
+                const deleteResult = await deleteResponse.json();
+                if (!deleteResponse.ok || !deleteResult.success) return showToast(deleteResult.error || 'Não foi possível excluir.', true);
+                showToast(`${item.label === 'tag' ? 'Tag' : 'Stack'} excluída.`);
+                loadTaxonomies();
+                loadStats();
+            }));
         }
     }
 });

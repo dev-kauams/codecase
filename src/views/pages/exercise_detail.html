@@ -1,74 +1,124 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CodeCase</title>
-    <meta name="description" content="Visualização detalhada do desafio de programação no CodeCase por @dev-kauams.">
-    <link rel="stylesheet" href="/css/main_style.css">
-    <link rel="stylesheet" href="/css/exercise_detail.css">
-</head>
-<body>
-
+    <meta
+      name="description"
+      content="Visualização detalhada do desafio de programação no CodeCase por @dev-kauams."
+    />
+    <link rel="stylesheet" href="/css/main_style.css" />
+    <link rel="stylesheet" href="/css/exercise_detail.css" />
+  </head>
+  <body>
     <header class="exercise-detail__header">
-        <div class="exercise-detail__header-content">
-            <a href="/" class="exercise-detail__logo-link">
-                <img src="/images/codecase.svg" alt="CodeCase Logo" class="exercise-detail__logo">
-            </a>
-            <nav class="exercise-detail__nav">
-                <a href="/" class="exercise-detail__back-link">VOLTAR à HOME</a>
-            </nav>
-        </div>
+      <div class="exercise-detail__header-content">
+        <a href="/" class="exercise-detail__logo-link">
+          <img
+            src="/images/codecase.svg"
+            alt="CodeCase Logo"
+            class="exercise-detail__logo"
+          />
+        </a>
+        <nav class="exercise-detail__nav">
+          <a href="/" class="exercise-detail__back-link">VOLTAR à HOME</a>
+        </nav>
+      </div>
     </header>
 
     <main class="exercise-detail-page">
-        <div class="exercise-detail__container">
-            <div class="exercise-detail__card">
-                <div class="exercise-detail__content-header">
-                    <div class="exercise-detail__title-group">
-                        <span id="exercise-detail__id-badge" class="exercise-detail__id-badge">EXERCÍCIO #---</span>
-                        <h1 id="exercise-detail__title" class="exercise-detail__title">Carregando exercício...</h1>
-                    </div>
-                    <div id="exercise-detail__difficulty-badge" class="exercise-detail__difficulty-badge">
-                    </div>
-                </div>
-
-                <div class="exercise-detail__meta">
-                    <div class="exercise-detail__date-wrapper">Datado de: <strong id="exercise-detail__date">--/--/----</strong></div>
-                    <div id="exercise-detail__stacks-container" class="exercise-detail__stacks"></div>
-                </div>
-
-                <div id="exercise-detail__tags-container" class="exercise-detail__tags"></div>
-
-                <div id="exercise-detail__image-wrapper" class="exercise-detail__image-wrapper">
-                    <img id="exercise-detail__image" class="exercise-detail__image" src="" alt="Imagem do Exercício" onerror="this.style.display='none'">
-                </div>
-
-                <div id="exercise-detail__summary" class="exercise-detail__summary">Resumo do exercício...</div>
-
-                <div id="exercise-detail__statement" class="exercise-detail__statement">
-                    <!-- Markdown/HTML content injected here -->
-                </div>
-
-                <div id="exercise-detail__attachments-section" class="exercise-detail__attachments">
-                    <h3 class="exercise-detail__attachments-title">Anexos &amp; Recursos</h3>
-                    <div id="exercise-detail__attachments-list" class="exercise-detail__attachments-list">
-                        <!-- List of downloadable attachments -->
-                    </div>
-                </div>
-
+      <div class="exercise-detail__container">
+        <div class="exercise-detail__card">
+          <div class="exercise-detail__content-header">
+            <div class="exercise-detail__title-group">
+              <span
+                id="exercise-detail__id-badge"
+                class="exercise-detail__id-badge"
+                >EXERCÍCIO #---</span
+              >
+              <h1 id="exercise-detail__title" class="exercise-detail__title">
+                Carregando exercício...
+              </h1>
             </div>
+            <div
+              id="exercise-detail__difficulty-badge"
+              class="exercise-detail__difficulty-badge"
+            ></div>
+          </div>
+
+          <div class="exercise-detail__meta">
+            <div class="exercise-detail__date-wrapper">
+              Datado de: <strong id="exercise-detail__date">--/--/----</strong>
+            </div>
+            <div
+              id="exercise-detail__stacks-container"
+              class="exercise-detail__stacks"
+            ></div>
+          </div>
+
+          <div
+            id="exercise-detail__tags-container"
+            class="exercise-detail__tags"
+          ></div>
+
+          <div
+            id="exercise-detail__image-wrapper"
+            class="exercise-detail__image-wrapper"
+          >
+            <img
+              id="exercise-detail__image"
+              class="exercise-detail__image"
+              src=""
+              alt="Imagem do Exercício"
+              onerror="this.style.display = 'none'"
+            />
+          </div>
+
+          <div id="exercise-detail__summary" class="exercise-detail__summary">
+            Resumo do exercício...
+          </div>
+
+          <div
+            id="exercise-detail__statement"
+            class="exercise-detail__statement"
+          >
+            <!-- Markdown/HTML content injected here -->
+          </div>
+
+          <div
+            id="exercise-detail__attachments-section"
+            class="exercise-detail__attachments"
+          >
+            <h3 class="exercise-detail__attachments-title">
+              Anexos &amp; Recursos
+            </h3>
+            <div
+              id="exercise-detail__attachments-list"
+              class="exercise-detail__attachments-list"
+            >
+              <!-- List of downloadable attachments -->
+            </div>
+          </div>
         </div>
+      </div>
     </main>
 
     <footer class="exercise-detail__footer">
-        <div>
-            <img src="/images/codecase.svg" alt="CodeCase Logo">
-            <p>Desenvolvido por <strong><a href="https://github.com/dev-kauams" target="_blank">@dev-kauams</a></strong></p>
-        </div>
+      <div>
+        <img src="/images/codecase.svg" alt="CodeCase Logo" />
+        <p>
+          Desenvolvido por
+          <strong
+            ><a href="https://github.com/dev-kauams" target="_blank"
+              >@dev-kauams</a
+            ></strong
+          >
+        </p>
+      </div>
     </footer>
 
     <script src="/js/mainScript.js"></script>
     <script src="/js/exerciseDetail.js"></script>
-</body>
+  </body>
 </html>

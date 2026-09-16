@@ -9,6 +9,10 @@ class viewController {
     }
 
     static renderExercise(req, res) {
+        res.sendFile(path.join(viewsDir, 'exercise_detail.html'));
+    }
+
+    static renderExercises(req, res) {
         res.sendFile(path.join(viewsDir, 'exercise_page.html'));
     }
 

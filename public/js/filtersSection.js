@@ -6,21 +6,22 @@
 document.addEventListener('DOMContentLoaded', async () => {
     const searchInput = document.getElementById('home__search-input');
     const difficultySelect = document.getElementById('home__difficulty-select');
-    const stackSelect = document.getElementById('home__stack-select');
-    const tagSelect = document.getElementById('home__tag-select');
+    const stackList = document.getElementById('home__stack-list');
+    const tagList = document.getElementById('home__tag-list');
     const btnClearFilters = document.getElementById('home__clear-filters');
     const exercisesGrid = document.getElementById('home__exercises-grid');
     const pagination = document.getElementById('home__pagination');
     const resultsCountText = document.getElementById('home__results-count');
     const activeFilterBadge = document.getElementById('home__active-filter');
-    const pageSize = 6;
+    const pageSize = window.location.pathname === '/exercises' ? 18 : 6;
     let currentPage = 1;
     let filteredExercises = [];
 
     if (!exercisesGrid) return;
 
     // 1. Fetch Taxonomies (Stacks & Tags)
-    await loadFilterOptions();
+    if (stackList && tagList) await loadFilterOptions();
+    bindChecklistPanels();
 
     // 2. Read initial filter values from URL query string
     readUrlParams();
@@ -50,15 +51,15 @@ document.addEventListener('DOMContentLoaded', async () => {
         }, 300);
     });
 
-    difficultySelect.addEventListener('change', updateUrlAndFetch);
-    stackSelect.addEventListener('change', updateUrlAndFetch);
-    tagSelect.addEventListener('change', updateUrlAndFetch);
+    if (difficultySelect) difficultySelect.addEventListener('change', updateUrlAndFetch);
+    if (stackList) stackList.addEventListener('change', updateUrlAndFetch);
+    if (tagList) tagList.addEventListener('change', updateUrlAndFetch);
 
-    btnClearFilters.addEventListener('click', () => {
+    if (btnClearFilters) btnClearFilters.addEventListener('click', () => {
         searchInput.value = '';
-        difficultySelect.value = '';
-        stackSelect.value = '';
-        tagSelect.value = '';
+        if (difficultySelect) difficultySelect.value = '';
+        if (stackList) stackList.querySelectorAll('input').forEach(input => { input.checked = false; });
+        if (tagList) tagList.querySelectorAll('input').forEach(input => { input.checked = false; });
         updateUrlAndFetch();
     });
 
@@ -79,34 +80,51 @@ document.addEventListener('DOMContentLoaded', async () => {
             const tagsData = await tagsRes.json();
 
             if (stacksData.success) {
-                stacksData.data.forEach(s => {
-                    const opt = document.createElement('option');
-                    opt.value = s.slug;
-                    opt.textContent = `${s.name} (${s.exercise_count})`;
-                    stackSelect.appendChild(opt);
-                });
+                stackList.innerHTML = stacksData.data.map(s => `<label><input type="checkbox" value="${escapeHtml(s.slug)}"><span>${escapeHtml(s.name)} (${s.exercise_count})</span></label>`).join('');
+                bindChecklistSearch(stackList);
             }
 
             if (tagsData.success) {
-                tagsData.data.forEach(t => {
-                    const opt = document.createElement('option');
-                    opt.value = t.slug;
-                    opt.textContent = `${t.name} (${t.exercise_count})`;
-                    tagSelect.appendChild(opt);
-                });
+                tagList.innerHTML = tagsData.data.map(t => `<label><input type="checkbox" value="${escapeHtml(t.slug)}"><span>${escapeHtml(t.name)} (${t.exercise_count})</span></label>`).join('');
+                bindChecklistSearch(tagList);
             }
         } catch (err) {
             console.error('Error loading filter options:', err);
         }
     }
 
+    function bindChecklistSearch(list) {
+        const searchInput = list.closest('.home__checklist').querySelector('.home__checklist-search');
+        if (!searchInput) return;
+        searchInput.addEventListener('input', () => {
+            const term = normalizeSearch(searchInput.value);
+            list.querySelectorAll('label').forEach(label => {
+                label.hidden = Boolean(term && !normalizeSearch(label.textContent).includes(term));
+            });
+        });
+    }
+
+    function bindChecklistPanels() {
+        document.querySelectorAll('.home__checklist-toggle').forEach(toggle => {
+            toggle.addEventListener('click', () => {
+                const panel = toggle.closest('.home__checklist');
+                const isOpen = panel.classList.toggle('is-open');
+                toggle.setAttribute('aria-expanded', String(isOpen));
+            });
+        });
+    }
+
+    function normalizeSearch(value) {
+        return String(value || '').toLocaleLowerCase('pt-BR').normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    }
+
     // Read URL query params on page load
     function readUrlParams() {
         const params = new URLSearchParams(window.location.search);
         if (params.has('search')) searchInput.value = params.get('search');
-        if (params.has('difficulty')) difficultySelect.value = params.get('difficulty');
-        if (params.has('stack')) stackSelect.value = params.get('stack');
-        if (params.has('tag')) tagSelect.value = params.get('tag');
+        if (difficultySelect && params.has('difficulty')) difficultySelect.value = params.get('difficulty');
+        if (stackList) params.getAll('stack').forEach(value => { const input = stackList.querySelector(`input[value="${CSS.escape(value)}"]`); if (input) input.checked = true; });
+        if (tagList) params.getAll('tag').forEach(value => { const input = tagList.querySelector(`input[value="${CSS.escape(value)}"]`); if (input) input.checked = true; });
         const page = Number.parseInt(params.get('page'), 10);
         currentPage = Number.isInteger(page) && page > 0 ? page : 1;
     }
@@ -115,9 +133,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     function updateUrlAndFetch() {
         const params = new URLSearchParams();
         if (searchInput.value.trim()) params.set('search', searchInput.value.trim());
-        if (difficultySelect.value) params.set('difficulty', difficultySelect.value);
-        if (stackSelect.value) params.set('stack', stackSelect.value);
-        if (tagSelect.value) params.set('tag', tagSelect.value);
+        if (difficultySelect && difficultySelect.value) params.set('difficulty', difficultySelect.value);
+        if (stackList) stackList.querySelectorAll('input:checked').forEach(input => params.append('stack', input.value));
+        if (tagList) tagList.querySelectorAll('input:checked').forEach(input => params.append('tag', input.value));
 
         const newRelativePathQuery = window.location.pathname + (params.toString() ? '?' + params.toString() : '');
         history.pushState(null, '', newRelativePathQuery);
@@ -285,9 +303,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         const activeFilters = [];
         if (searchInput.value.trim()) activeFilters.push(`Busca: "${searchInput.value.trim()}"`);
-        if (difficultySelect.value) activeFilters.push(`Dificuldade: ${difficultySelect.value}`);
-        if (stackSelect.value) activeFilters.push(`Stack: ${stackSelect.options[stackSelect.selectedIndex].text.split(' ')[0]}`);
-        if (tagSelect.value) activeFilters.push(`Tag: ${tagSelect.options[tagSelect.selectedIndex].text.split(' ')[0]}`);
+        if (difficultySelect && difficultySelect.value) activeFilters.push(`Dificuldade: ${difficultySelect.value}`);
+        const stacks = stackList ? Array.from(stackList.querySelectorAll('input:checked')).map(input => input.nextElementSibling.textContent.split(' (')[0]) : [];
+        const tags = tagList ? Array.from(tagList.querySelectorAll('input:checked')).map(input => input.nextElementSibling.textContent.split(' (')[0]) : [];
+        if (stacks.length) activeFilters.push(`Stack: ${stacks.join(', ')}`);
+        if (tags.length) activeFilters.push(`Tag: ${tags.join(', ')}`);
 
         if (activeFilters.length > 0) {
             activeFilterBadge.textContent = `Filtros Ativos: ${activeFilters.join(' | ')}`;

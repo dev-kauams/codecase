@@ -12,7 +12,15 @@ router.get('/exercises/:id', exerciseController.getById);
 router.get('/tags', tagController.getAll);
 router.get('/stacks', stackController.getAll);
 
+router.post('/submissions', upload.fields([
+    { name: 'image', maxCount: 1 },
+    { name: 'attachments', maxCount: 5 }
+]), exerciseController.submit);
+
 router.get('/admin/stats', authMiddleware, exerciseController.getStats);
+router.get('/admin/submissions', authMiddleware, exerciseController.getPendingSubmissions);
+router.post('/admin/submissions/:id/approve', authMiddleware, exerciseController.approveSubmission);
+router.post('/admin/submissions/:id/reject', authMiddleware, exerciseController.rejectSubmission);
 
 router.post('/exercises', authMiddleware, upload.fields([
     { name: 'image', maxCount: 1 },
@@ -29,5 +37,7 @@ router.delete('/exercises/attachments/:attachmentId', authMiddleware, exerciseCo
 
 router.post('/tags', authMiddleware, tagController.create);
 router.post('/stacks', authMiddleware, stackController.create);
+router.delete('/tags/:id', authMiddleware, tagController.delete);
+router.delete('/stacks/:id', authMiddleware, stackController.delete);
 
 module.exports = router;

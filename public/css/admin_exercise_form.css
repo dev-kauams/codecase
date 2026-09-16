@@ -250,6 +250,8 @@ body {
             background-color: var(--color-bg);
             border: 2px dashed var(--color-border-dim);
             border-radius: 1rem;
+            max-height: 15rem;
+            overflow-y: auto;
 
             label {
                 display: inline-flex;
@@ -282,6 +284,21 @@ body {
             input[type="checkbox"]:checked+span,
             input[type="checkbox"]:checked~span {
                 color: var(--color-primary-dark);
+            }
+        }
+
+        .exercise-form__taxonomy-search {
+            width: 100%;
+            padding: 0.7rem 1rem;
+            border: 2px solid var(--color-border);
+            border-radius: 1rem;
+            background: var(--color-light);
+            color: var(--color-text);
+            font-family: 'Outfit', sans-serif;
+            outline: none;
+
+            &:focus {
+                border-color: var(--color-primary-dark);
             }
         }
 

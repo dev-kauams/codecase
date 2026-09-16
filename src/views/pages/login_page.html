@@ -1,87 +1,100 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CodeCase</title>
-    <link rel="stylesheet" href="/css/main_style.css">
-</head>
+    <link rel="stylesheet" href="/css/main_style.css" />
+  </head>
 
-<body>
+  <body>
     <main class="login">
-    <section class="login__section">
+      <section class="login__section">
+        <header class="login__header">
+          <h2>Administração</h2>
+          <p>Entre com suas credenciais autorizadas</p>
+        </header>
 
-            <header class="login__header">
-                <h2>Administração</h2>
-                <p>Entre com suas credenciais autorizadas</p>
-            </header>
+        <div id="login__error-alert"></div>
 
-            <div id="login__error-alert"></div>
+        <form id="login__form">
+          <div class="login__data">
+            <div class="login__username-field">
+              <label for="login__username">Usuário Administrador</label>
+              <input
+                type="text"
+                id="login__username"
+                name="username"
+                placeholder="Ex: admin"
+                required
+                autofocus
+              />
+            </div>
 
-            <form id="login__form">
-                <div class="login__data">
-                    <div class="login__username-field">
-                        <label for="login__username">Usuário Administrador</label>
-                        <input type="text" id="login__username" name="username" placeholder="Ex: admin" required autofocus>
-                    </div>
+            <div class="login__password-field">
+              <label for="login__password">Senha de Acesso</label>
+              <input
+                type="password"
+                id="login__password"
+                name="password"
+                placeholder="••••••••"
+                required
+              />
+            </div>
+          </div>
 
-                    <div class="login__password-field">
-                        <label for="login__password">Senha de Acesso</label>
-                        <input type="password" id="login__password" name="password" placeholder="••••••••" required>
-                    </div>
-                </div>
-
-                <div class="login__actions">
-                    <button type="submit" id="login__submit">Entrar</button>
-                </div>
-            </form>
-        </section>
+          <div class="login__actions">
+            <button type="submit" id="login__submit">Entrar</button>
+          </div>
+        </form>
+      </section>
     </main>
 
     <footer class="login__footer">
-        <a class="login__back-button" href="/">Voltar à página inicial</a>
+      <a class="login__back-button" href="/">Voltar à página inicial</a>
     </footer>
 
     <script src="/js/mainScript.js"></script>
     <script>
-        document.getElementById('login__form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const username = document.getElementById('login__username').value.trim();
-            const password = document.getElementById('login__password').value;
-            const errorAlert = document.getElementById('login__error-alert');
-            const submitBtn = document.getElementById('login__submit');
+      document
+        .getElementById("login__form")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const username = document
+            .getElementById("login__username")
+            .value.trim();
+          const password = document.getElementById("login__password").value;
+          const errorAlert = document.getElementById("login__error-alert");
+          const submitBtn = document.getElementById("login__submit");
 
-            errorAlert.style.display = 'none';
-            submitBtn.disabled = true;
-            submitBtn.innerText = 'Verificando dados...';
+          errorAlert.style.display = "none";
+          submitBtn.disabled = true;
+          submitBtn.innerText = "Verificando dados...";
 
-            try {
-                const res = await fetch('/api/auth/login', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ username, password })
-                });
+          try {
+            const res = await fetch("/api/auth/login", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ username, password }),
+            });
 
-                const data = await res.json();
+            const data = await res.json();
 
-                if (!res.ok || !data.success) {
-                    throw new Error(data.error || 'Falha ao autenticar.');
-                }
-
-                showToast('Autenticação bem-sucedida! Redirecionando...');
-                setTimeout(() => {
-                    window.location.href = '/admin/dashboard';
-                }, 600);
-
-            } catch (err) {
-                errorAlert.innerText = 'Alerta: ' + err.message;
-                errorAlert.style.display = 'block';
-                submitBtn.disabled = false;
-                submitBtn.innerText = 'Logar';
+            if (!res.ok || !data.success) {
+              throw new Error(data.error || "Falha ao autenticar.");
             }
+
+            showToast("Autenticação bem-sucedida! Redirecionando...");
+            setTimeout(() => {
+              window.location.href = "/admin/dashboard";
+            }, 600);
+          } catch (err) {
+            errorAlert.innerText = "Alerta: " + err.message;
+            errorAlert.style.display = "block";
+            submitBtn.disabled = false;
+            submitBtn.innerText = "Logar";
+          }
         });
     </script>
-</body>
-
+  </body>
 </html>

@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exercícios | CodeCase</title>
+    <link rel="stylesheet" href="/css/main_style.css" />
+  </head>
+
+  <body>
+    <header class="exercise-library__header">
+      <a href="/" class="exercise-library__logo"
+        ><img src="/images/codecase.svg" alt="CodeCase"
+      /></a>
+      <nav>
+        <a href="/">Voltar à home</a>
+      </nav>
+    </header>
+    <main class="exercise-library">
+      <section class="exercise-library__intro">
+        <span>Biblioteca</span>
+        <h1>Todos os exercícios</h1>
+        <p>
+          Explore desafios por tecnologia, assunto, dificuldade ou
+          palavra-chave.
+        </p>
+      </section>
+      <section id="home__filter-panel">
+        <form id="home__filter-form" onsubmit="event.preventDefault()">
+          <div class="home__filter-search">
+            <label for="home__search-input">Pesquisar</label
+            ><input
+              id="home__search-input"
+              type="search"
+              placeholder="Título, conceito ou tecnologia..."
+            />
+          </div>
+          <div class="home__filter-components">
+            <p class="home__difficulty-text">Dificuldade</p
+            ><select id="home__difficulty-select">
+              <option value="">Todas</option>
+              <option>Fácil</option>
+              <option>Médio</option>
+              <option>Difícil</option>
+            </select>
+          </div>
+          <div class="home__filter-components">
+              <p class="home__stack-text">Stack / Tech</p>
+              <div class="home__checklist">
+                <button
+                  type="button"
+                  class="home__checklist-toggle"
+                  aria-expanded="false"
+                ></button>
+                <div class="home__checklist-content">
+                  <div class="home__checklist-inner">
+                    <input
+                      class="home__checklist-search"
+                      data-filter-search="stack"
+                      type="search"
+                      placeholder="Pesquisar stack..."
+                      aria-label="Pesquisar stack"
+                    />
+                    <div id="home__stack-list" class="home__checklist-items"></div>
+                  </div>
+                </div>
+            </div>
+          </div>
+          <div class="home__filter-components">
+            <p class="home__tag-text">Tag / Tópico</p>
+            <div class="home__checklist">
+            <button
+              type="button"
+              class="home__checklist-toggle"
+              aria-expanded="false"
+            ></button>
+            <div class="home__checklist-content">
+              <div class="home__checklist-inner">
+                <input
+                  class="home__checklist-search"
+                  data-filter-search="tag"
+                  type="search"
+                  placeholder="Pesquisar tag..."
+                  aria-label="Pesquisar tag"
+                />
+                <div id="home__tag-list" class="home__checklist-items"></div>
+              </div>
+            </div>
+          </div>
+          </div>
+          
+          <div class="home__filter-components">
+            <button type="button" id="home__clear-filters">
+              Limpar filtros
+            </button>
+          </div>
+        </form>
+      </section>
+      <div>
+        <span id="home__results-count">Carregando exercícios...</span
+        ><span id="home__active-filter">Filtros: Todos</span>
+      </div>
+      <section id="home__exercises-grid"></section>
+      <nav
+        id="home__pagination"
+        class="pagination"
+        aria-label="Paginação"
+      ></nav>
+    </main>
+    <script src="/js/mainScript.js"></script>
+    <script src="/js/filtersSection.js"></script>
+  </body>
+</html>

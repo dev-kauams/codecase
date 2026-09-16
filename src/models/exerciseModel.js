@@ -24,29 +24,33 @@ class exerciseModel {
 
         // Stack filter (by slug or name or ID)
         if (stack) {
+            const stackValues = (Array.isArray(stack) ? stack : [stack]).flatMap(value => String(value).split(',')).filter(Boolean);
             whereClauses.push(`e.id IN (
                 SELECT es.exercise_id 
                 FROM exercise_stacks es
                 JOIN stacks s ON es.stack_id = s.id
-                WHERE s.slug = ? OR s.name = ? OR s.id = ?
+                WHERE ${stackValues.map(() => '(s.slug = ? OR s.name ILIKE ? OR s.id = ?)').join(' OR ')}
             )`);
-            params.push(stack.toLowerCase(), stack, parseInt(stack) || 0);
+            stackValues.forEach(value => params.push(value.toLowerCase(), value, parseInt(value) || 0));
         }
 
         // Tag filter (by slug or name or ID)
         if (tag) {
+            const tagValues = (Array.isArray(tag) ? tag : [tag]).flatMap(value => String(value).split(',')).filter(Boolean);
             whereClauses.push(`e.id IN (
                 SELECT et.exercise_id 
                 FROM exercise_tags et
                 JOIN tags t ON et.tag_id = t.id
-                WHERE t.slug = ? OR t.name = ? OR t.id = ?
+                WHERE ${tagValues.map(() => '(t.slug = ? OR t.name ILIKE ? OR t.id = ?)').join(' OR ')}
             )`);
-            params.push(tag.toLowerCase(), tag, parseInt(tag) || 0);
+            tagValues.forEach(value => params.push(value.toLowerCase(), value, parseInt(value) || 0));
         }
 
         // Search filter (case-insensitive across exercise content and taxonomy)
         if (search && search.trim() !== '') {
-            const term = `%${search.trim()}%`;
+            const searchValue = search.trim();
+            const aliases = { js: 'javascript', ts: 'typescript', py: 'python', rb: 'ruby', cpp: 'c++' };
+            const term = `%${aliases[searchValue.toLowerCase()] || searchValue}%`;
             whereClauses.push(`(
                 e.title ILIKE ? OR 
                 e.summary ILIKE ? OR 

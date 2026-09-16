@@ -36,6 +36,15 @@ class tagController {
             next(err);
         }
     }
+
+    static async delete(req, res, next) {
+        try {
+            const tag = await tagModel.findById(Number(req.params.id));
+            if (!tag) return res.status(404).json({ success: false, error: 'Tag não encontrada.' });
+            await tagModel.delete(tag.id);
+            return res.json({ success: true, message: 'Tag excluída.' });
+        } catch (err) { next(err); }
+    }
 }
 
 module.exports = tagController;

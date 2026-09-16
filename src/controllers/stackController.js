@@ -40,6 +40,15 @@ class stackController {
             next(err);
         }
     }
+
+    static async delete(req, res, next) {
+        try {
+            const stack = await stackModel.findById(Number(req.params.id));
+            if (!stack) return res.status(404).json({ success: false, error: 'Stack não encontrada.' });
+            await stackModel.delete(stack.id);
+            return res.json({ success: true, message: 'Stack excluída.' });
+        } catch (err) { next(err); }
+    }
 }
 
 module.exports = stackController;

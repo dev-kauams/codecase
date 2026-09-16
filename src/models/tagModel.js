@@ -30,6 +30,11 @@ class tagModel {
         return { id: res.lastInsertRowid, name, slug };
     }
 
+    static async delete(id) {
+        const db = await getDatabase();
+        return db.execute('DELETE FROM tags WHERE id = ?', [id]);
+    }
+
     static async getTagsForExercise(exerciseId) {
         const db = await getDatabase();
         return await db.query(`

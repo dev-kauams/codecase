@@ -31,6 +31,11 @@ class stackModel {
         return { id: res.lastInsertRowid, name, slug, color: stackColor };
     }
 
+    static async delete(id) {
+        const db = await getDatabase();
+        return db.execute('DELETE FROM stacks WHERE id = ?', [id]);
+    }
+
     static async getStacksForExercise(exerciseId) {
         const db = await getDatabase();
         return await db.query(`

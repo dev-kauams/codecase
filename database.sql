@@ -85,6 +85,46 @@ CREATE TABLE IF NOT EXISTS attachments (
 
 CREATE INDEX IF NOT EXISTS idx_attachments_exercise ON attachments(exercise_id);
 
+-- 8. Public exercise submissions
+CREATE TABLE IF NOT EXISTS exercise_submissions (
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(150) NOT NULL,
+    summary TEXT NOT NULL,
+    statement TEXT NOT NULL,
+    difficulty VARCHAR(20) NOT NULL CHECK (difficulty IN ('Fácil', 'Médio', 'Difícil')),
+    image_url VARCHAR(255) DEFAULT NULL,
+    status VARCHAR(20) NOT NULL DEFAULT 'pending' CHECK (status IN ('pending', 'approved', 'rejected')),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    reviewed_at TIMESTAMP DEFAULT NULL
+);
+
+CREATE TABLE IF NOT EXISTS submission_tags (
+    submission_id INTEGER NOT NULL,
+    tag_id INTEGER NOT NULL,
+    PRIMARY KEY (submission_id, tag_id),
+    FOREIGN KEY (submission_id) REFERENCES exercise_submissions(id) ON DELETE CASCADE,
+    FOREIGN KEY (tag_id) REFERENCES tags(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS submission_stacks (
+    submission_id INTEGER NOT NULL,
+    stack_id INTEGER NOT NULL,
+    PRIMARY KEY (submission_id, stack_id),
+    FOREIGN KEY (submission_id) REFERENCES exercise_submissions(id) ON DELETE CASCADE,
+    FOREIGN KEY (stack_id) REFERENCES stacks(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS submission_attachments (
+    id SERIAL PRIMARY KEY,
+    submission_id INTEGER NOT NULL,
+    original_name VARCHAR(255) NOT NULL,
+    stored_filename VARCHAR(255) NOT NULL,
+    file_path VARCHAR(255) NOT NULL,
+    mime_type VARCHAR(100) NOT NULL,
+    file_size INTEGER NOT NULL,
+    FOREIGN KEY (submission_id) REFERENCES exercise_submissions(id) ON DELETE CASCADE
+);
+
 
 -- -- Stacks Seed
 -- INSERT INTO stacks (name, slug, color) VALUES

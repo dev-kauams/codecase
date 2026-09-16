@@ -1,6 +1,7 @@
 const exerciseModel = require('../models/exerciseModel');
 const attachmentModel = require('../models/attachmentModel');
 const { saveFile, deleteFile } = require('../services/fileStorageService');
+const submissionModel = require('../models/submissionModel');
 
 class exerciseController {
     static async getAll(req, res, next) {
@@ -233,6 +234,7 @@ class exerciseController {
     static async getStats(req, res, next) {
         try {
             const stats = await exerciseModel.getStats();
+            stats.pendingSubmissions = (await submissionModel.findPending()).length;
             return res.json({
                 success: true,
                 data: stats
@@ -240,6 +242,59 @@ class exerciseController {
         } catch (err) {
             next(err);
         }
+    }
+
+    static async submit(req, res, next) {
+        try {
+            const { title, summary, statement, difficulty, tags, stacks } = req.body;
+            if (!isValidExerciseInput({ title, summary, statement, difficulty })) {
+                return res.status(400).json({ success: false, error: 'Preencha todos os campos obrigatórios.' });
+            }
+            let imageUrl = '/images/image-preview.svg';
+            if (req.files?.image?.length) imageUrl = (await saveFile(req.files.image[0], 'images')).url;
+            const parsedTags = parseIdList(tags);
+            const parsedStacks = parseIdList(stacks);
+            if (!parsedTags || !parsedStacks) return res.status(400).json({ success: false, error: 'Tags ou stacks inválidas.' });
+            const submission = await submissionModel.create({ title: title.trim(), summary: summary.trim(), statement: statement.trim(), difficulty, image_url: imageUrl, tagIds: parsedTags, stackIds: parsedStacks });
+            for (const file of req.files?.attachments || []) {
+                const saved = await saveFile(file, 'attachments');
+                await submissionModel.addAttachment(submission.id, {
+                    original_name: file.originalname,
+                    stored_filename: saved.filename,
+                    file_path: saved.url,
+                    mime_type: file.mimetype,
+                    file_size: file.size
+                });
+            }
+            return res.status(201).json({ success: true, message: 'Exercício enviado para revisão.' });
+        } catch (err) { next(err); }
+    }
+
+    static async getPendingSubmissions(req, res, next) {
+        try { return res.json({ success: true, data: await submissionModel.findPending() }); } catch (err) { next(err); }
+    }
+
+    static async approveSubmission(req, res, next) {
+        try {
+            const submission = await submissionModel.findById(Number(req.params.id));
+            if (!submission || submission.status !== 'pending') return res.status(404).json({ success: false, error: 'Submissão pendente não encontrada.' });
+            const exercise = await exerciseModel.create({ title: submission.title, summary: submission.summary, statement: submission.statement, difficulty: submission.difficulty, image_url: submission.image_url, tagIds: submission.tags.map(tag => tag.id), stackIds: submission.stacks.map(stack => stack.id) });
+            for (const attachment of await submissionModel.getAttachments(submission.id)) {
+                const db = await require('../../config/database').getDatabase();
+                await db.execute(`INSERT INTO attachments (exercise_id, original_name, stored_filename, file_path, mime_type, file_size) VALUES (?, ?, ?, ?, ?, ?)`, [exercise.id, attachment.original_name, attachment.stored_filename, attachment.file_path, attachment.mime_type, attachment.file_size]);
+            }
+            await submissionModel.markReviewed(submission.id, 'approved');
+            return res.json({ success: true, data: exercise });
+        } catch (err) { next(err); }
+    }
+
+    static async rejectSubmission(req, res, next) {
+        try {
+            const submission = await submissionModel.findById(Number(req.params.id));
+            if (!submission || submission.status !== 'pending') return res.status(404).json({ success: false, error: 'Submissão pendente não encontrada.' });
+            await submissionModel.markReviewed(submission.id, 'rejected');
+            return res.json({ success: true, message: 'Exercício recusado.' });
+        } catch (err) { next(err); }
     }
 }
 

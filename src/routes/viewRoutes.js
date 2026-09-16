@@ -5,6 +5,7 @@ const authMiddleware = require('../middlewares/authMiddleware');
 
 router.get('/', viewController.renderHome)
 router.get('/exercise/:id', viewController.renderExercise);
+router.get('/exercises', viewController.renderExercises);
 router.get('/send', viewController.renderSendExercise)
 router.get('/admin/login', viewController.renderLogin)
 

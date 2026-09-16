@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // 1. Load Taxonomy Checkboxes
     await loadTaxonomies();
+    bindTaxonomySearch();
 
     // 2. If edit mode, load existing exercise data
     if (isEditMode && exerciseId) {
@@ -103,7 +104,18 @@ document.addEventListener('DOMContentLoaded', async () => {
                 }
             }
 
-            const url = isEditMode ? `/api/exercises/${exerciseId}` : '/api/exercises';
+            if (!isEditMode) {
+                const res = await fetch('/api/submissions', { method: 'POST', body: formData });
+                const data = await res.json();
+                if (!res.ok || !data.success) throw new Error(data.error || 'Erro ao enviar exercício.');
+                showToast('Exercício enviado para análise. Obrigado pela contribuição!');
+                form.reset();
+                btnSave.disabled = false;
+                btnSave.innerText = 'Enviar exercício';
+                return;
+            }
+
+            const url = `/api/exercises/${exerciseId}`;
             const method = isEditMode ? 'PUT' : 'POST';
 
             const res = await fetch(url, {
@@ -155,6 +167,18 @@ document.addEventListener('DOMContentLoaded', async () => {
         } catch (err) {
             console.error('Error loading taxonomies:', err);
         }
+    }
+
+    function bindTaxonomySearch() {
+        document.querySelectorAll('[data-taxonomy-search]').forEach(searchInput => {
+            const list = searchInput.parentElement.querySelector('.exercise-form__checkbox-list');
+            searchInput.addEventListener('input', () => {
+                const term = searchInput.value.trim().toLocaleLowerCase();
+                list.querySelectorAll('label').forEach(label => {
+                    label.hidden = term && !label.textContent.toLocaleLowerCase().includes(term);
+                });
+            });
+        });
     }
 
     // Load Exercise Data for edit mode
